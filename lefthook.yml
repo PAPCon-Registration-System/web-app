@@ -5,7 +5,6 @@ pre-commit:
         jobs:
           - name: "Lint"
             glob: "*.{ts,tsx}"
-            root: "."
             run: pnpm biome lint --write --unsafe --no-errors-on-unmatched {staged_files}
             stage_fixed: true
     - group:
@@ -13,7 +12,6 @@ pre-commit:
         jobs:
           - name: "Format"
             glob: "*.{js,jsx,ts,tsx,html,css,md}"
-            root: "."
             run: pnpm biome format --write --no-errors-on-unmatched {staged_files}
             stage_fixed: true
     
