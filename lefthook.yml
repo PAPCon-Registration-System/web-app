@@ -1,0 +1,19 @@
+pre-commit:
+  jobs:
+    - group:
+        parallel: true
+        jobs:
+          - name: "Lint"
+            glob: "*.{ts,tsx}"
+            root: "./src"
+            run: pnpm biome lint --write --unsafe --no-errors-on-unmatched {staged_files}
+            stage_fixed: true
+    - group:
+        parallel: true
+        jobs:
+          - name: "Format"
+            glob: "*.{js,jsx,ts,tsx,html,css,md}"
+            root: "./src"
+            run: pnpm biome format --write --no-errors-on-unmatched {staged_files}
+            stage_fixed: true
+    
