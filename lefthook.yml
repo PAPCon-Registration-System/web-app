@@ -14,4 +14,14 @@ pre-commit:
             glob: "*.{js,jsx,ts,tsx,html,css,md}"
             run: pnpm biome format --write --no-errors-on-unmatched {staged_files}
             stage_fixed: true
-    
+
+prepare-commit-msg:
+  jobs:
+    - run: pnpm cz --hook
+      interactive: true             # allows interactive prompts (like cz)
+      env:
+        LEFTHOOK: "0"               # required to avoid Lefthook recursive behavior
+
+commit-msg:
+  jobs:
+    - run: pnpm commitlint --edit {1}  # validate the commit message file
