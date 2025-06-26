@@ -7,6 +7,8 @@ The registration system for the PAP Conference.
 ### Environment variables
 The following environment variables are needed:
 1. `DB_URL` - specifies the URL of the database to connect to (see `docker-compose.db.yml` for local database credentials)
+2. `BETTER_AUTH_SECRET` - used to encrypt and generate hashes
+3. `BETTER_AUTH_URL` - base URL of the app
 
 ### Getting the app to run
 
@@ -39,7 +41,13 @@ To start with the local database, run the following script
 pnpm run db:up
 ```
 
-To stop the local database, run
+To push schema changes, run
+
+```bash
+pnpm run db:push
+```
+
+To stop the database, run
 
 ```bash
 pnpm run db:down

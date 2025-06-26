@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "biome lint --write --unsafe --no-errors-on-unmatched",
     "format": "biome format --write --no-errors-on-unmatched",
+    "auth:generate": "pnpm dlx @better-auth/cli generate --config=\"./src/infrastructure/auth/index.ts\" --output=\"./src/infrastructure/db/schema/auth.schema.ts\"",
     "db:up": "docker compose -f docker-compose.db.yml up -d",
     "db:down": "docker compose -f docker-compose.db.yml down",
     "db:push": "drizzle-kit push --config=\"./src/infrastructure/db/drizzle.config.ts\"",
@@ -17,6 +18,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
+    "better-auth": "^1.2.10",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^16.5.0",
