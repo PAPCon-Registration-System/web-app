@@ -47,6 +47,12 @@ To push schema changes, run
 pnpm run db:push
 ```
 
+To view the database, run
+
+```bash
+pnpm run db:studio
+```
+
 To stop the database, run
 
 ```bash
