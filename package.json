@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome lint --write --unsafe --no-errors-on-unmatched",
-    "format": "biome format --write --no-errors-on-unmatched"
+    "format": "biome format --write --no-errors-on-unmatched",
+    "db:up": "docker compose -f docker-compose.db.yml up -d",
+    "db:down": "docker compose -f docker-compose.db.yml down"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
