@@ -59,6 +59,10 @@ function formatTime(date: Date): string {
  * // Logging an error
  * const taskLogger = new Logger({ group: "queue" });
  * taskLogger.error("Job failed", { jobId: "xyz789", reason: "timeout" });
+ *
+ * @example
+ * // Static logging (no context)
+ * Logger.warn("Something unexpected happened", { code: 123 });
  */
 export class Logger {
 	// biome-ignore lint: context can be any type
@@ -128,15 +132,30 @@ export class Logger {
 		this.logger.debug(this.formatWithContext(data), msg);
 	}
 
+	static debug(msg: string, data?: object) {
+		Logger.baseLogger.debug(Logger.formatPayload(data), msg);
+	}
+
 	info(msg: string, data?: object) {
 		this.logger.info(this.formatWithContext(data), msg);
+	}
+	static info(msg: string, data?: object) {
+		Logger.baseLogger.info(Logger.formatPayload(data), msg);
 	}
 
 	warn(msg: string, data?: object) {
 		this.logger.warn(this.formatWithContext(data), msg);
 	}
 
+	static warn(msg: string, data?: object) {
+		Logger.baseLogger.warn(Logger.formatPayload(data), msg);
+	}
+
 	error(msg: string, data?: object) {
 		this.logger.error(this.formatWithContext(data), msg);
+	}
+
+	static error(msg: string, data?: object) {
+		Logger.baseLogger.error(Logger.formatPayload(data), msg);
 	}
 }
