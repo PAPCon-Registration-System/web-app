@@ -14,7 +14,7 @@ import {
 export function Header() {
 	return (
 		<header className="border-border border-b bg-card">
-			<div className="container mx-auto px-4 py-4">
+			<div className="w-full px-4 py-4">
 				<div className="flex items-center justify-between">
 					<div className="flex items-center space-x-8">
 						<div className="mr-2">
