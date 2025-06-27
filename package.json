@@ -17,6 +17,7 @@
     "db:studio": "drizzle-kit studio --config=\"./src/infrastructure/db/drizzle.config.ts\""
   },
   "dependencies": {
+    "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-slot": "^1.2.3",
     "better-auth": "^1.2.10",
     "class-variance-authority": "^0.7.1",
