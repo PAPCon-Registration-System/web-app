@@ -1,12 +1,20 @@
 import { rpc } from "@/infrastructure/server/rpc";
 
 export default async function Home() {
-	const res = await rpc.api.hello.$get();
-	const data = await res.json();
+	const [helloRes, worldRes] = await Promise.all([
+		rpc.api.hello.$get(),
+		rpc.api.world.$get(),
+	]);
+	const [helloData, worldData] = await Promise.all([
+		helloRes.json(),
+		worldRes.json(),
+	]);
 
 	return (
 		<div>
-			<h1>RPC payload from API: {data.message}</h1>
+			<h1>
+				RPC payload from API: {helloData.message} {worldData.message}
+			</h1>
 		</div>
 	);
 }

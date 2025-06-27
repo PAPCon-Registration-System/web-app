@@ -1,10 +1,11 @@
 import { Hono } from "hono";
 
-export const app = new Hono().basePath("/api").get("/hello", (c) => {
-	return c.json({
-		message: "Hello Next.js!",
-	});
-});
+import hello from "./routers/hello.router";
+import world from "./routers/world.router";
+
+export const app = new Hono().basePath("/api");
+
+const routes = app.route("/hello", hello).route("/world", world);
 
 /**
  * @example
@@ -14,4 +15,4 @@ export const app = new Hono().basePath("/api").get("/hello", (c) => {
  *
  * const client = hc<App>(process.env.NEXT_PUBLIC_BASE_URL); // we have to pass a full URL like 'http://localhost:3000'
  */
-export type AppType = typeof app;
+export type AppType = typeof routes;
