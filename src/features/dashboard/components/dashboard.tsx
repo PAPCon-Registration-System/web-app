@@ -135,39 +135,6 @@ export function Dashboard() {
 
 				{/* Auth Logs */}
 				<AuthLogs className="md:col-span-2 lg:col-span-4 xl:col-span-6" />
-
-				{/* Quick Actions */}
-				<Card className="md:col-span-2 lg:col-span-2">
-					<CardHeader>
-						<CardTitle>Quick Actions</CardTitle>
-					</CardHeader>
-					<CardContent className="space-y-3">
-						<button
-							type="button"
-							className="w-full rounded-md p-2 text-left transition-colors hover:bg-muted"
-						>
-							Export Attendee List
-						</button>
-						<button
-							type="button"
-							className="w-full rounded-md p-2 text-left transition-colors hover:bg-muted"
-						>
-							Send Event Updates
-						</button>
-						<button
-							type="button"
-							className="w-full rounded-md p-2 text-left transition-colors hover:bg-muted"
-						>
-							Generate Report
-						</button>
-						<button
-							type="button"
-							className="w-full rounded-md p-2 text-left transition-colors hover:bg-muted"
-						>
-							View Detailed Analytics
-						</button>
-					</CardContent>
-				</Card>
 			</div>
 		</div>
 	);

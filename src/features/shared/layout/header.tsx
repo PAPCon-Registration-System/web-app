@@ -5,11 +5,12 @@ import {
 	AvatarFallback,
 	AvatarImage,
 } from "@/features/shared/components/base/avatar";
+import { ModeToggle } from "../components/base/theme-toggle";
 
 export function Header() {
 	return (
 		<header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-			<div className="container flex h-16 items-center justify-between px-4">
+			<div className="container mx-auto flex h-16 items-center justify-between px-4">
 				<div className="flex items-center space-x-4">
 					<div className="font-bold text-xl">EventMonitor</div>
 					<nav className="hidden items-center space-x-6 font-medium text-sm md:flex">
@@ -35,6 +36,7 @@ export function Header() {
 					<Button variant="ghost" size="icon">
 						<Settings className="h-4 w-4" />
 					</Button>
+					<ModeToggle />
 					<Avatar className="h-8 w-8">
 						<AvatarImage src="/avatar.jpg" alt="User" />
 						<AvatarFallback>
