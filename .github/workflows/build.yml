@@ -30,3 +30,8 @@ jobs:
 
       - name: Build application
         run: pnpm run build
+        env:
+          DB_URL: postgresql://user:pass@localhost:5432/testdb
+          BETTER_AUTH_SECRET: dummy
+          BETTER_AUTH_URL: http://localhost:3000
+          NEXT_PUBLIC_BASE_URL: http://localhost:3000

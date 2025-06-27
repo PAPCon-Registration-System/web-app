@@ -5,110 +5,150 @@ import {
 	CardTitle,
 } from "@/features/shared/components/base/card";
 import { Badge } from "@/features/shared/components/base/badge";
+
 import { Clock, MapPin, User } from "lucide-react";
 
-interface AuthLog {
-	id: string;
-	name: string;
-	email: string;
-	checkInTime: string;
-	location: string;
-	status: "checked-in" | "late" | "early";
-}
-
-interface AuthLogsProps {
-	className?: string;
-}
-
-export function AuthLogs({ className }: AuthLogsProps) {
-	const logs: AuthLog[] = [
+export function AuthLogs() {
+	const logs = [
 		{
-			id: "1",
-			name: "John Doe",
-			email: "john@example.com",
-			checkInTime: "09:15 AM",
+			id: 1,
+			name: "Sarah Johnson",
+			email: "sarah.j@email.com",
 			location: "Main Entrance",
+			time: "2 minutes ago",
 			status: "checked-in",
+			urgency: "standard",
 		},
 		{
-			id: "2",
-			name: "Jane Smith",
-			email: "jane@example.com",
-			checkInTime: "09:45 AM",
-			location: "Side Entrance",
-			status: "late",
-		},
-		{
-			id: "3",
-			name: "Bob Wilson",
-			email: "bob@example.com",
-			checkInTime: "08:30 AM",
+			id: 2,
+			name: "Michael Chen",
+			email: "michael.c@email.com",
 			location: "VIP Entrance",
-			status: "early",
-		},
-		{
-			id: "4",
-			name: "Alice Brown",
-			email: "alice@example.com",
-			checkInTime: "09:20 AM",
-			location: "Main Entrance",
+			time: "5 minutes ago",
 			status: "checked-in",
+			urgency: "priority",
 		},
 		{
-			id: "5",
-			name: "Charlie Davis",
-			email: "charlie@example.com",
-			checkInTime: "10:10 AM",
+			id: 3,
+			name: "Emily Davis",
+			email: "emily.d@email.com",
 			location: "Side Entrance",
-			status: "late",
+			time: "8 minutes ago",
+			status: "registered",
+			urgency: "standard",
+		},
+		{
+			id: 4,
+			name: "David Wilson",
+			email: "david.w@email.com",
+			location: "Main Entrance",
+			time: "12 minutes ago",
+			status: "checked-in",
+			urgency: "standard",
+		},
+		{
+			id: 5,
+			name: "Lisa Anderson",
+			email: "lisa.a@email.com",
+			location: "VIP Entrance",
+			time: "15 minutes ago",
+			status: "no-show",
+			urgency: "critical",
 		},
 	];
 
 	const getStatusColor = (status: string) => {
 		switch (status) {
 			case "checked-in":
-				return "bg-green-100 text-green-800";
-			case "late":
-				return "bg-red-100 text-red-800";
-			case "early":
-				return "bg-blue-100 text-blue-800";
+				return "bg-green-500/10 text-green-500 border-green-500/20";
+			case "registered":
+				return "bg-blue-500/10 text-blue-500 border-blue-500/20";
+			case "no-show":
+				return "bg-red-500/10 text-red-500 border-red-500/20";
 			default:
-				return "bg-gray-100 text-gray-800";
+				return "bg-gray-500/10 text-gray-500 border-gray-500/20";
+		}
+	};
+
+	const getUrgencyColor = (urgency: string) => {
+		switch (urgency) {
+			case "critical":
+				return "border-l-red-500";
+			case "priority":
+				return "border-l-yellow-500";
+			default:
+				return "border-l-green-500";
 		}
 	};
 
 	return (
-		<Card className={className}>
+		<Card className="border-border bg-card">
 			<CardHeader>
-				<CardTitle className="flex items-center space-x-2">
-					<User className="h-4 w-4" />
-					<span>Recent Check-ins</span>
+				<CardTitle className="flex items-center gap-2">
+					<User className="h-5 w-5" />
+					Registration Logs
 				</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<div className="max-h-80 space-y-4 overflow-y-auto">
-					{logs.map((log) => (
-						<div
-							key={log.id}
-							className="flex items-center justify-between rounded-lg border p-3"
-						>
-							<div className="flex-1">
-								<div className="font-medium">{log.name}</div>
-								<div className="text-muted-foreground text-sm">{log.email}</div>
-								<div className="mt-1 flex items-center space-x-4 text-muted-foreground text-xs">
-									<div className="flex items-center space-x-1">
-										<Clock className="h-3 w-3" />
-										<span>{log.checkInTime}</span>
-									</div>
-									<div className="flex items-center space-x-1">
-										<MapPin className="h-3 w-3" />
-										<span>{log.location}</span>
+				<div className="space-y-1">
+					{/* Header */}
+					<div className="grid grid-cols-12 gap-4 border-border border-b px-4 py-2 font-medium text-muted-foreground text-sm">
+						<div className="col-span-1">Priority</div>
+						<div className="col-span-3">Attendee</div>
+						<div className="col-span-2">Location</div>
+						<div className="col-span-2">Time</div>
+						<div className="col-span-2">Status</div>
+						<div className="col-span-2">Updated</div>
+					</div>
+
+					{/* Logs */}
+					<div className="space-y-1">
+						{logs.map((log) => (
+							<div
+								key={log.id}
+								className={`grid grid-cols-12 gap-4 border-l-2 px-4 py-3 text-sm transition-colors hover:bg-muted/50 ${getUrgencyColor(
+									log.urgency,
+								)}`}
+							>
+								<div className="col-span-1">
+									<Badge
+										variant="outline"
+										className={`text-xs ${
+											log.urgency === "critical"
+												? "border-red-500 text-red-500"
+												: log.urgency === "priority"
+													? "border-yellow-500 text-yellow-500"
+													: "border-green-500 text-green-500"
+										}`}
+									>
+										{log.urgency}
+									</Badge>
+								</div>
+								<div className="col-span-3">
+									<div className="font-medium">{log.name}</div>
+									<div className="text-muted-foreground text-xs">
+										{log.email}
 									</div>
 								</div>
+								<div className="col-span-2 flex items-center gap-1">
+									<MapPin className="h-3 w-3 text-muted-foreground" />
+									{log.location}
+								</div>
+								<div className="col-span-2 flex items-center gap-1">
+									<Clock className="h-3 w-3 text-muted-foreground" />
+									{log.time}
+								</div>
+								<div className="col-span-2">
+									<Badge className={getStatusColor(log.status)}>
+										{log.status}
+									</Badge>
+								</div>
+								<div className="col-span-2 text-muted-foreground">
+									{log.time}
+								</div>
 							</div>
-							<Badge className={getStatusColor(log.status)}>{log.status}</Badge>
-						</div>
-					))}
+						))}
+					</div>
 				</div>
 			</CardContent>
 		</Card>
