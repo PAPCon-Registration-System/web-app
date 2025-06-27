@@ -90,11 +90,15 @@ export class Logger {
 				// TODO: Asynchronously push log to a persistence layer
 
 				const levelUpper = level.toUpperCase();
-				const color = LEVEL_COLORS[levelUpper as keyof typeof LEVEL_COLORS] || COLOR.WHITE;
+				const color =
+					LEVEL_COLORS[levelUpper as keyof typeof LEVEL_COLORS] || COLOR.WHITE;
 				const timeFormatted = formatTime(new Date(time));
 				const groupDisplay = group ? ` ${COLOR.CYAN}[${group}]` : "";
 
-				console.log(`[${timeFormatted}] ${color}${levelUpper}${groupDisplay} ${msg} ${COLOR.WHITE}`, logObj);
+				console.log(
+					`[${timeFormatted}] ${color}${levelUpper}${groupDisplay} ${msg} ${COLOR.WHITE}`,
+					logObj,
+				);
 			},
 			formatters: {
 				level: (label) => ({ level: label }),

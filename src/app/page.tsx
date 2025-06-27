@@ -4,8 +4,14 @@ import { rpc } from "@/infrastructure/server/rpc";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-	const [helloRes, worldRes] = await Promise.all([rpc.api.hello.$get(), rpc.api.world.$get()]);
-	const [helloData, worldData] = await Promise.all([helloRes.json(), worldRes.json()]);
+	const [helloRes, worldRes] = await Promise.all([
+		rpc.api.hello.$get(),
+		rpc.api.world.$get(),
+	]);
+	const [helloData, worldData] = await Promise.all([
+		helloRes.json(),
+		worldRes.json(),
+	]);
 
 	const logger = new Logger({ group: "server" });
 
