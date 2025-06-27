@@ -1,7 +1,6 @@
-import { AttendanceMetrics } from "./attendance-metrics";
+import { ActivityMetrics } from "./activity-metrics";
 import { AuthLogs } from "./auth-logs";
 import { EventAnalytics } from "./event-analytics";
-import { RecentActivity } from "./recent-activity";
 import { RegistrationChart } from "./registration-chart";
 import { StatsCards } from "./stats-cards";
 import { TurnoutChart } from "./turnout-chart";
@@ -15,27 +14,23 @@ export function Dashboard() {
 			</div>
 
 			{/* Main Content Grid */}
-			<div className="col-span-1 md:col-span-1 lg:col-span-2">
-				<AttendanceMetrics />
+			<div className="col-span-1 md:col-span-2 lg:col-span-3">
+				<TurnoutChart attendees={3000} registered={2500} />
 			</div>
 
-			<div className="col-span-1 md:col-span-1 lg:col-span-2">
+			<div className="col-span-1 md:col-span-1 lg:col-span-3">
 				<RegistrationChart />
 			</div>
 
-			<div className="col-span-1 md:col-span-2 lg:col-span-2">
-				<TurnoutChart attendees={3000} registered={2500} />
+			<div className="col-span-1 md:col-span-1 lg:col-span-4">
+				<ActivityMetrics newCheckins={1500} newRegistrations={1200} />
 			</div>
 
 			<div className="col-span-1 md:col-span-1 lg:col-span-2">
 				<EventAnalytics />
 			</div>
 
-			<div className="col-span-1 md:col-span-1 lg:col-span-2">
-				<RecentActivity />
-			</div>
-
-			<div className="col-span-full lg:col-span-4">
+			<div className="col-span-full">
 				<AuthLogs />
 			</div>
 		</div>

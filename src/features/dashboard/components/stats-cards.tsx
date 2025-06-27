@@ -30,17 +30,17 @@ export function StatsCards() {
 		<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
 			{stats.map((stat) => (
 				<Card key={stat.title} className="border-border bg-card">
-					<CardContent className="p-6">
+					<CardContent className="px-6 py-2">
 						<div className="flex items-center justify-between">
 							<div>
-								<p className="font-medium text-muted-foreground text-sm">
+								<p className="font-medium text-lg text-muted-foreground">
 									{stat.title}
 								</p>
-								<p className="font-bold text-3xl text-foreground">
+								<p className="font-bold text-5xl text-foreground">
 									{stat.value}
 								</p>
 								<p
-									className={`text-sm ${
+									className={`mt-2 text-base ${
 										stat.changeType === "positive"
 											? "text-green-500"
 											: "text-red-500"
@@ -50,7 +50,7 @@ export function StatsCards() {
 								</p>
 							</div>
 							<div className="rounded-full bg-primary/10 p-3">
-								<stat.icon className="h-6 w-6 text-primary" />
+								<stat.icon className="h-8 w-8 text-primary" />
 							</div>
 						</div>
 					</CardContent>

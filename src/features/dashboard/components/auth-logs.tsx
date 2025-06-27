@@ -6,7 +6,7 @@ import {
 } from "@/features/shared/components/base/card";
 import { Badge } from "@/features/shared/components/base/badge";
 
-import { Clock, MapPin, User } from "lucide-react";
+import { Clock, User } from "lucide-react";
 
 export function AuthLogs() {
 	const logs = [
@@ -14,7 +14,6 @@ export function AuthLogs() {
 			id: 1,
 			name: "Sarah Johnson",
 			email: "sarah.j@email.com",
-			location: "Main Entrance",
 			time: "2 minutes ago",
 			status: "checked-in",
 			urgency: "standard",
@@ -23,16 +22,14 @@ export function AuthLogs() {
 			id: 2,
 			name: "Michael Chen",
 			email: "michael.c@email.com",
-			location: "VIP Entrance",
 			time: "5 minutes ago",
 			status: "checked-in",
-			urgency: "priority",
+			urgency: "standard",
 		},
 		{
 			id: 3,
 			name: "Emily Davis",
 			email: "emily.d@email.com",
-			location: "Side Entrance",
 			time: "8 minutes ago",
 			status: "registered",
 			urgency: "standard",
@@ -41,7 +38,6 @@ export function AuthLogs() {
 			id: 4,
 			name: "David Wilson",
 			email: "david.w@email.com",
-			location: "Main Entrance",
 			time: "12 minutes ago",
 			status: "checked-in",
 			urgency: "standard",
@@ -50,7 +46,22 @@ export function AuthLogs() {
 			id: 5,
 			name: "Lisa Anderson",
 			email: "lisa.a@email.com",
-			location: "VIP Entrance",
+			time: "15 minutes ago",
+			status: "no-show",
+			urgency: "critical",
+		},
+		{
+			id: 6,
+			name: "David Wilson",
+			email: "david.w@email.com",
+			time: "12 minutes ago",
+			status: "checked-in",
+			urgency: "standard",
+		},
+		{
+			id: 7,
+			name: "Lisa Anderson",
+			email: "lisa.a@email.com",
 			time: "15 minutes ago",
 			status: "no-show",
 			urgency: "critical",
@@ -93,10 +104,9 @@ export function AuthLogs() {
 				<div className="space-y-1">
 					{/* Header */}
 					<div className="grid grid-cols-12 gap-4 border-border border-b px-4 py-2 font-medium text-muted-foreground text-sm">
-						<div className="col-span-1">Priority</div>
+						<div className="col-span-2">Priority</div>
 						<div className="col-span-3">Attendee</div>
-						<div className="col-span-2">Location</div>
-						<div className="col-span-2">Time</div>
+						<div className="col-span-3">Time</div>
 						<div className="col-span-2">Status</div>
 						<div className="col-span-2">Updated</div>
 					</div>
@@ -110,7 +120,7 @@ export function AuthLogs() {
 									log.urgency,
 								)}`}
 							>
-								<div className="col-span-1">
+								<div className="col-span-2">
 									<Badge
 										variant="outline"
 										className={`text-xs ${
@@ -130,11 +140,8 @@ export function AuthLogs() {
 										{log.email}
 									</div>
 								</div>
-								<div className="col-span-2 flex items-center gap-1">
-									<MapPin className="h-3 w-3 text-muted-foreground" />
-									{log.location}
-								</div>
-								<div className="col-span-2 flex items-center gap-1">
+
+								<div className="col-span-3 flex items-center gap-1">
 									<Clock className="h-3 w-3 text-muted-foreground" />
 									{log.time}
 								</div>

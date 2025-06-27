@@ -6,9 +6,11 @@ export function RegistrationChart() {
 			<CardContent className="p-6">
 				<div className="space-y-4">
 					<div>
-						<p className="text-sm opacity-80">New Registrations</p>
-						<p className="font-bold text-4xl">42%</p>
-						<p className="text-sm opacity-80">847 this week</p>
+						<p className="font-semibold text-lg opacity-80">
+							New Registrations
+						</p>
+						<p className="font-bold text-6xl">42%</p>
+						<p className="mt-2 text-base opacity-80">847 this week</p>
 					</div>
 					<div className="h-2 overflow-hidden rounded-full bg-white/20">
 						<div className="h-full w-[42%] rounded-full bg-white" />
