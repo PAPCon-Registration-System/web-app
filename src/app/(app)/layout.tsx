@@ -1,15 +1,21 @@
 import { Header } from "@/features/shared/layout/header";
 import { Footer } from "@/features/shared/layout/footer";
+import { SidebarProvider } from "@/features/shared/components/base/sidebar";
+import { AppSidebar } from "@/features/shared/layout/app-sidebar";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<>
-			<Header />
-			{/* Height is: screen - y-margins - header - footer - 1px offset to remove scrollbar */}
-			<main className="container mx-auto my-8 flex min-h-[calc(100vh-64px-64px-96px-1px)] max-w-screen-2xl flex-grow auto-rows-auto flex-col gap-4 px-4 md:grid md:grid-cols-12 md:px-10">
-				{children}
-			</main>
-			<Footer />
-		</>
+		<SidebarProvider defaultOpen={true}>
+			<div className="flex min-h-screen w-full ">
+				<AppSidebar />
+				<div className="flex min-h-screen flex-1 flex-col transition-all duration-300">
+					<Header />
+					<main className="w-full flex-1 overflow-auto px-4 py-8 md:px-10">
+						{children}
+					</main>
+					<Footer />
+				</div>
+			</div>
+		</SidebarProvider>
 	);
 }

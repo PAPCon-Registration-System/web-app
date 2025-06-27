@@ -2,28 +2,32 @@ import { Bell, User } from "lucide-react";
 import { Button } from "../components/base/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/base/avatar";
 import { ModeToggle } from "../components/base/theme-toggle";
-import Link from "next/link";
+import { SidebarTrigger } from "../components/base/sidebar";
+import { Separator } from "../components/base/separator";
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbList,
+	BreadcrumbPage,
+} from "../components/base/breadcrumb";
 
 export function Header() {
-	const navItems = ["Dashboard", "Schedules", "Attendees"];
-
 	return (
 		<header className="border-border border-b bg-card">
 			<div className="container mx-auto px-4 py-4">
 				<div className="flex items-center justify-between">
 					<div className="flex items-center space-x-8">
-						<div className="font-bold text-2xl text-primary">PAP Dashboard</div>
-						<nav className="hidden gap-6 md:flex">
-							{navItems.map((item) => (
-								<Link
-									className="text-muted-foreground"
-									href={`/${item.toLowerCase()}`}
-									key={item}
-								>
-									{item}
-								</Link>
-							))}
-						</nav>
+						<div className="mr-2">
+							<SidebarTrigger />
+						</div>
+						<Separator orientation="vertical" className="mr-2 h-4" />
+						<Breadcrumb>
+							<BreadcrumbList>
+								<BreadcrumbItem>
+									<BreadcrumbPage>Dashboard</BreadcrumbPage>
+								</BreadcrumbItem>
+							</BreadcrumbList>
+						</Breadcrumb>
 					</div>
 
 					<div className="flex items-center space-x-2">
