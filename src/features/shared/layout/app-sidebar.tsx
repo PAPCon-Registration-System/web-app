@@ -20,17 +20,18 @@ import {
 	SidebarMenuItem,
 	SidebarRail,
 } from "@/features/shared/components/base/sidebar";
+import Link from "next/link";
 
 // Menu items.
 const items = [
 	{
 		title: "Home",
-		url: "#",
+		url: "/",
 		icon: Home,
 	},
 	{
-		title: "Inbox",
-		url: "#",
+		title: "Logs",
+		url: "/logs",
 		icon: Inbox,
 	},
 	{
@@ -80,10 +81,10 @@ export function AppSidebar() {
 							{items.map((item) => (
 								<SidebarMenuItem key={item.title}>
 									<SidebarMenuButton asChild tooltip={item.title}>
-										<a href={item.url}>
+										<Link href={item.url}>
 											<item.icon />
 											<span>{item.title}</span>
-										</a>
+										</Link>
 									</SidebarMenuButton>
 								</SidebarMenuItem>
 							))}
