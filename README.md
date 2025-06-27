@@ -9,6 +9,7 @@ The following environment variables are needed:
 1. `DB_URL` - specifies the URL of the database to connect to (see `docker-compose.db.yml` for local database credentials)
 2. `BETTER_AUTH_SECRET` - used to encrypt and generate hashes
 3. `BETTER_AUTH_URL` - base URL of the app
+4. `NEXT_PUBLIC_BASE_URL` - base URL of the app, but accessible on the client
 
 ### Getting the app to run
 
