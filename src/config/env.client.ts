@@ -18,10 +18,7 @@ const envParseResult = z
 	});
 
 if (!envParseResult.success) {
-	console.error(
-		"❌ Invalid environment variables:",
-		envParseResult.error.format(),
-	);
+	console.error("❌ Invalid environment variables:", envParseResult.error.format());
 	throw new Error("Invalid environment variables");
 }
 
