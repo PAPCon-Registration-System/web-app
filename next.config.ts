@@ -1,9 +1,9 @@
 import type { NextConfig } from "next";
 
-import "@/config/env"; // validates environment variables
+import "@/config/env.server"; // validates environment variables
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  serverExternalPackages: ["pino", "pino-pretty"],
 };
 
 export default nextConfig;

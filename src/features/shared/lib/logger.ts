@@ -1,25 +1,117 @@
-import consola from "consola";
+import pino, { type Logger as PinoLogger } from "pino";
+
+// #region Constants
 
 const environment = process.env.NODE_ENV;
 
+const COLOR = {
+	GREEN: `\x1b[32m`,
+	RED: `\x1b[31m`,
+	WHITE: `\x1b[37m`,
+	YELLOW: `\x1b[33m`,
+	CYAN: `\x1b[36m`,
+};
+
+const LEVEL_COLORS = {
+	FATAL: COLOR.RED,
+	ERROR: COLOR.RED,
+	WARN: COLOR.YELLOW,
+	INFO: COLOR.GREEN,
+	DEBUG: COLOR.GREEN,
+	TRACE: COLOR.GREEN,
+};
+
+// #region Helpers
+
+function formatTime(date: Date): string {
+	const pad = (n: number, z = 2) => String(n).padStart(z, "0");
+	return (
+		pad(date.getHours()) +
+		":" +
+		pad(date.getMinutes()) +
+		":" +
+		pad(date.getSeconds()) +
+		"." +
+		pad(date.getMilliseconds(), 3)
+	);
+}
+
+// #region Logger Class
+
 /**
- * Logger class for logging messages with optional context and data.
- * Supports both instance-based and static logging.
+ * Application-level logger that supports structured logging with context.
+ *
+ * Intended for both server and browser environments. Logs are pretty-printed
+ * in development and structured in production. Context (e.g., `userId`, `group`)
+ * will be included in every log entry.
+ *
+ * @example
+ * // Basic usage
+ * const logger = new Logger();
+ * logger.info("App started");
+ *
+ * @example
+ * // With context
+ * const authLogger = new Logger({ group: "auth", userId: "abc123" });
+ * authLogger.debug("User authenticated", { email: "user@example.com" });
+ *
+ * @example
+ * // Logging an error
+ * const taskLogger = new Logger({ group: "queue" });
+ * taskLogger.error("Job failed", { jobId: "xyz789", reason: "timeout" });
  */
 export class Logger {
-	private context: object | null;
+	// biome-ignore lint: context can be any type
+	private context: Record<string, any>;
+	private logger: PinoLogger;
 
-	/**
-	 * Creates an instance of Logger with an optional context object.
-	 * @param {object | null} context - Context to include in all log messages (default is null).
-	 *
-	 * @example
-	 * const customLogger = new Logger({ serverId: '123', userId: 456 });
-	 * customLogger.log('Operation started');
-	 */
-	constructor(context: object | null = null) {
+	// biome-ignore lint: context can be any type
+	constructor(context: Record<string, any> = {}) {
 		this.context = context;
+		this.logger = Logger.baseLogger.child({
+			...context,
+			group: context.group ?? "default",
+		});
 	}
+
+	// TODO: Server writable for pushing logs to persistence layer
+	private static readonly baseLogger: PinoLogger = pino({
+		level: process.env.PINO_LOG_LEVEL || "trace",
+		timestamp: pino.stdTimeFunctions.isoTime,
+		browser: {
+			asObject: true,
+			write: (logObj) => {
+				const { level, msg, group, time } = logObj as Record<string, string>;
+
+				// TODO: Asynchronously push log to a persistence layer
+
+				const levelUpper = level.toUpperCase();
+				const color =
+					LEVEL_COLORS[levelUpper as keyof typeof LEVEL_COLORS] || COLOR.WHITE;
+				const timeFormatted = formatTime(new Date(time));
+				const groupDisplay = group ? ` ${COLOR.CYAN}[${group}]` : "";
+
+				console.log(
+					`[${timeFormatted}] ${color}${levelUpper}${groupDisplay} ${msg} ${COLOR.WHITE}`,
+					logObj,
+				);
+			},
+			formatters: {
+				level: (label) => ({ level: label }),
+			},
+		},
+		...(environment === "production"
+			? {}
+			: {
+					transport: {
+						target: "pino-pretty",
+						options: {
+							colorize: true,
+							messageFormat: "[{group}] {msg}",
+						},
+					},
+				}),
+	});
 
 	private static formatPayload(data?: object) {
 		return data ? { ...data, environment } : { environment };
@@ -32,27 +124,19 @@ export class Logger {
 		};
 	}
 
-	static log(msg: string, data?: object) {
-		consola.info(msg, Logger.formatPayload(data));
+	debug(msg: string, data?: object) {
+		this.logger.debug(this.formatWithContext(data), msg);
 	}
 
-	log(msg: string, data?: object) {
-		consola.info(msg, this.formatWithContext(data));
-	}
-
-	static warn(msg: string, data?: object) {
-		consola.warn(msg, Logger.formatPayload(data));
+	info(msg: string, data?: object) {
+		this.logger.info(this.formatWithContext(data), msg);
 	}
 
 	warn(msg: string, data?: object) {
-		consola.warn(msg, this.formatWithContext(data));
-	}
-
-	static error(msg: string, data?: object) {
-		consola.error(msg, Logger.formatPayload(data));
+		this.logger.warn(this.formatWithContext(data), msg);
 	}
 
 	error(msg: string, data?: object) {
-		consola.error(msg, this.formatWithContext(data));
+		this.logger.error(this.formatWithContext(data), msg);
 	}
 }
