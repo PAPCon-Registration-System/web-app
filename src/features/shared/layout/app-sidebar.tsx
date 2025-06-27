@@ -95,11 +95,11 @@ export function AppSidebar() {
 			<SidebarFooter>
 				<SidebarMenu>
 					<SidebarMenuItem>
-						<SidebarMenuButton size="sm" className="text-sidebar-foreground/70">
-							<div className="flex aspect-square size-6 items-center justify-center rounded-full bg-sidebar-accent">
+						<SidebarMenuButton tooltip="User Account">
+							<div className="flex aspect-square size-4 items-center justify-center rounded-full bg-sidebar-accent">
 								<span className="font-medium text-xs">U</span>
 							</div>
-							<span className="text-sm">User Account</span>
+							<span>User Account</span>
 						</SidebarMenuButton>
 					</SidebarMenuItem>
 				</SidebarMenu>
