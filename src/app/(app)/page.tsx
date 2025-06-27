@@ -1,6 +1,4 @@
 import { Dashboard } from "@/features/dashboard/components/dashboard";
-import { BaseLayout } from "@/features/shared/layout/content-layout";
-
 import { Logger } from "@/features/shared/lib/logger";
 import { rpc } from "@/infrastructure/server/rpc";
 
@@ -25,8 +23,8 @@ export default async function Home() {
 	logger.error("error in a Server Component!");
 
 	return (
-		<BaseLayout>
+		<div className="col-span-full flex flex-col">
 			<Dashboard />
-		</BaseLayout>
+		</div>
 	);
 }

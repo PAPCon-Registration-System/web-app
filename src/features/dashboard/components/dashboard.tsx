@@ -24,7 +24,7 @@ export function Dashboard() {
 			</div>
 
 			<div className="col-span-1 md:col-span-2 lg:col-span-2">
-				<TurnoutChart />
+				<TurnoutChart attendees={3000} registered={2500} />
 			</div>
 
 			<div className="col-span-1 md:col-span-1 lg:col-span-2">

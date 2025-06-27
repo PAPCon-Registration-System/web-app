@@ -28,7 +28,9 @@ export function TurnoutChart({
 			</CardHeader>
 			<CardContent className="flex items-center justify-center">
 				<div className="relative">
+					{/* Temporary Graph */}
 					<svg className="-rotate-90 h-32 w-32 transform">
+						<title>Turnout Pie Chart</title>
 						<circle
 							cx="64"
 							cy="64"
