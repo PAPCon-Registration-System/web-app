@@ -7,9 +7,13 @@ const envParseResult = z
 	.object({
 		DB_URL: z.string().url().startsWith("postgresql://"),
 		BETTER_AUTH_SECRET: z.string().min(1, "BETTER_AUTH_SECRET is required"),
-		BETTER_AUTH_URL: z.string().url().refine(isNotTrailingSlash, {
-			message: "BETTER_AUTH_URL must not end with a slash",
-		}),
+		BETTER_AUTH_URL: z
+			.string()
+			.url()
+			.refine(isNotTrailingSlash, {
+				message: "BETTER_AUTH_URL must not end with a slash",
+			})
+			.default("http://localhost:3000"),
 	})
 	.safeParse(process.env);
 

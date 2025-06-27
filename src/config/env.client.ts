@@ -4,9 +4,13 @@ const isNotTrailingSlash = (val: string) => !val.endsWith("/");
 
 const envParseResult = z
 	.object({
-		NEXT_PUBLIC_BASE_URL: z.string().url().refine(isNotTrailingSlash, {
-			message: "NEXT_PUBLIC_BASE_URL must not end with a slash",
-		}),
+		NEXT_PUBLIC_BASE_URL: z
+			.string()
+			.url()
+			.refine(isNotTrailingSlash, {
+				message: "NEXT_PUBLIC_BASE_URL must not end with a slash",
+			})
+			.default("http://localhost:3000"),
 	})
 	.safeParse({
 		// Add the client environment variables here!
