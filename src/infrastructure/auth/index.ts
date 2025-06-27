@@ -7,6 +7,7 @@ import {
 	userTable,
 	verificationTable,
 } from "../db/schema/auth.schema";
+import { magicLink } from "better-auth/plugins/magic-link";
 
 const auth = betterAuth({
 	database: drizzleAdapter(db, {
@@ -18,5 +19,12 @@ const auth = betterAuth({
 			verification: verificationTable,
 		},
 	}),
+	plugins: [
+		magicLink({
+			sendMagicLink: async ({ email, token, url }, _request) => {
+				// TODO: Send magic link to email
+			},
+		}),
+	],
 });
 export default { auth };
