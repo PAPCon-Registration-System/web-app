@@ -46,7 +46,7 @@ export function StatsCards() {
 											: "text-red-500"
 									}`}
 								>
-									{stat.change} from last week
+									{stat.change} from yesterday
 								</p>
 							</div>
 							<div className="rounded-full bg-primary/10 p-3">
