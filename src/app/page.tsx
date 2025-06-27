@@ -1,5 +1,7 @@
 import { rpc } from "@/infrastructure/server/rpc";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
 	const [helloRes, worldRes] = await Promise.all([
 		rpc.api.hello.$get(),
