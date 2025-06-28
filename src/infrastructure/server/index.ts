@@ -2,10 +2,14 @@ import { Hono } from "hono";
 
 import hello from "./routers/hello.router";
 import world from "./routers/world.router";
+import user from "./routers/user.router";
 
 export const app = new Hono().basePath("/api");
 
-const routes = app.route("/hello", hello).route("/world", world);
+const routes = app
+	.route("/hello", hello)
+	.route("/world", world)
+	.route("/user", user);
 
 /**
  * @example
