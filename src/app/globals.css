@@ -119,4 +119,62 @@
 	body {
 		@apply bg-background text-foreground;
 	}
+	:root {
+		--sidebar: oklch(0.985 0 0);
+		--sidebar-foreground: oklch(0.145 0 0);
+		--sidebar-primary: oklch(0.205 0 0);
+		--sidebar-primary-foreground: oklch(0.985 0 0);
+		--sidebar-accent: oklch(0.97 0 0);
+		--sidebar-accent-foreground: oklch(0.205 0 0);
+		--sidebar-border: oklch(0.922 0 0);
+		--sidebar-ring: oklch(0.708 0 0);
+	}
+}
+
+::-webkit-scrollbar {
+	height: 0.2em;
+	width: 0.2em;
+	border-radius: 50px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f4f4f4;
+	border-radius: 50px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #27272a;
+	border-radius: 100px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #241e2f;
+}
+
+.dark {
+	::-webkit-scrollbar {
+		height: 0.2em;
+		width: 0.2em;
+		border-radius: 50px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+		background: #27272a;
+		border-radius: 50px;
+	}
+
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		background: #3d3d3d;
+		border-radius: 100px;
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+		background: #241e2f;
+	}
 }

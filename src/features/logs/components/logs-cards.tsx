@@ -1,0 +1,51 @@
+import { Card, CardContent } from "@/features/shared/components/base/card";
+import { Clock } from "lucide-react";
+import StatusBadge from "./status-badge";
+
+interface Log {
+	id: number;
+	status: string;
+	name: string;
+	email: string;
+	time: string;
+	updated: string;
+}
+
+interface LogsCardsProps {
+	logs: Log[];
+}
+
+export default function LogsCards({ logs }: LogsCardsProps) {
+	return (
+		<div className="space-y-3 sm:hidden">
+			{logs.map((log) => (
+				<Card key={log.id}>
+					<CardContent className="p-4">
+						<div className="space-y-3">
+							<div className="flex items-start justify-between">
+								<div className="min-w-0 flex-1">
+									<div className="truncate font-medium text-white">
+										{log.name}
+									</div>
+									<div className="truncate text-gray-400 text-sm">
+										{log.email}
+									</div>
+								</div>
+								<div className="ml-3 flex-shrink-0">
+									<StatusBadge status={log.status} />
+								</div>
+							</div>
+							<div className="flex items-center justify-between text-sm">
+								<div className="flex items-center space-x-1 text-gray-300">
+									<Clock className="h-3 w-3 text-gray-400" />
+									<span>{log.time}</span>
+								</div>
+								<div className="text-gray-400">Updated {log.updated}</div>
+							</div>
+						</div>
+					</CardContent>
+				</Card>
+			))}
+		</div>
+	);
+}
