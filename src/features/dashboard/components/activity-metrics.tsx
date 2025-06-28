@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/features/shared/components/base/card";
+import { cn } from "@/features/shared/lib/utils";
 
 interface ActivityMetricsProps {
 	newCheckins: number;
@@ -18,7 +19,10 @@ export function ActivityMetrics({
 
 	return (
 		<Card
-			className={`border-0 bg-gradient-to-br bg-popover-foreground/90 text-black ${className}`}
+			className={cn(
+				"border-0 bg-gradient-to-br bg-popover-foreground/90 text-white dark:text-black",
+				className,
+			)}
 		>
 			<CardContent className="p-6">
 				<div className="space-y-4">
@@ -36,7 +40,7 @@ export function ActivityMetrics({
 							</div>
 							<div className="h-2 overflow-hidden rounded-full bg-white/20">
 								<div
-									className="h-full rounded-full bg-black/90 transition-all duration-500"
+									className="h-full rounded-full bg-white transition-all duration-500 dark:bg-black/90"
 									style={{ width: `${checkinPercentage}%` }}
 								/>
 							</div>
@@ -51,7 +55,7 @@ export function ActivityMetrics({
 							</div>
 							<div className="h-2 overflow-hidden rounded-full bg-white/20">
 								<div
-									className="h-full rounded-full bg-black/90 transition-all duration-500"
+									className="h-full rounded-full bg-white transition-all duration-500 dark:bg-black/90"
 									style={{ width: `${registrationPercentage}%` }}
 								/>
 							</div>

@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "PAP Summit",
+	title: "PAP Annual Convention",
 	description: "PAP Summit Registration System",
 };
 

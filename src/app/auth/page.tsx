@@ -13,8 +13,9 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/features/shared/components/base/card";
-import { Mail, ArrowRight, CheckCircle } from "lucide-react";
+import { Mail, ArrowRight } from "lucide-react";
 import { Button } from "@/features/shared/components/base/button";
+import EmailSentCard from "@/features/auth/components/email-sent-card";
 
 export default function LoginPage() {
 	const [email, setEmail] = useState("");
@@ -27,7 +28,7 @@ export default function LoginPage() {
 
 		setIsLoading(true);
 
-		// Simulate API call
+		// mock API call
 		await new Promise((resolve) => setTimeout(resolve, 2000));
 
 		setIsLoading(false);
@@ -35,38 +36,7 @@ export default function LoginPage() {
 	};
 
 	if (isEmailSent) {
-		return (
-			<div className="flex min-h-screen items-center justify-center p-4">
-				<Card className="w-full max-w-md ">
-					<CardHeader className="text-center">
-						<div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-600">
-							<CheckCircle className="h-6 w-6 text-white" />
-						</div>
-						<CardTitle className="text-white">Check your email</CardTitle>
-						<CardDescription className="text-gray-400">
-							We've sent a magic link to{" "}
-							<span className="font-medium text-white">{email}</span>
-						</CardDescription>
-					</CardHeader>
-					<CardContent className="space-y-4">
-						<div className="text-center text-gray-400 text-sm">
-							<p>Click the link in your email to sign in to your account.</p>
-							<p className="mt-2">The link will expire in 15 minutes.</p>
-						</div>
-						<Button
-							variant="outline"
-							className="w-full border-gray-600 bg-transparent text-gray-300 hover:bg-gray-700"
-							onClick={() => {
-								setIsEmailSent(false);
-								setEmail("");
-							}}
-						>
-							Use a different email
-						</Button>
-					</CardContent>
-				</Card>
-			</div>
-		);
+		return <EmailSentCard />;
 	}
 
 	return (

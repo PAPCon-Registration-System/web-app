@@ -29,7 +29,7 @@ export function StatsCards() {
 	return (
 		<div className="grid grid-cols-1 gap-6 md:grid-cols-3">
 			{stats.map((stat) => (
-				<Card key={stat.title} className="border-border bg-card">
+				<Card key={stat.title} className="border-border bg-accent">
 					<CardContent className="px-6 py-2">
 						<div className="flex items-center justify-between">
 							<div>

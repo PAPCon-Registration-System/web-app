@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 
 export function EventAnalytics() {
 	return (
-		<Card className="h-full border-border bg-card">
+		<Card className="h-full border-border bg-accent">
 			<CardContent className="p-6">
 				<div className="space-y-4">
 					<div className="flex items-center justify-between">

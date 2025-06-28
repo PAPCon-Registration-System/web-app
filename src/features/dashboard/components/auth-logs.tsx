@@ -4,9 +4,8 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/features/shared/components/base/card";
-import { Badge } from "@/features/shared/components/base/badge";
-
-import { Clock, User } from "lucide-react";
+import { User } from "lucide-react";
+import { LogItem } from "./log-item";
 
 export function AuthLogs() {
 	const logs = [
@@ -61,21 +60,8 @@ export function AuthLogs() {
 		},
 	];
 
-	const _getStatusColor = (status: string) => {
-		switch (status) {
-			case "checked-in":
-				return "bg-green-500/10 text-green-500 border-green-500/20";
-			case "registered":
-				return "bg-blue-500/10 text-blue-500 border-blue-500/20";
-			case "no-show":
-				return "bg-red-500/10 text-red-500 border-red-500/20";
-			default:
-				return "bg-gray-500/10 text-gray-500 border-gray-500/20";
-		}
-	};
-
 	return (
-		<Card className="border-border bg-card">
+		<Card className="border-border bg-accent">
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					<User className="h-5 w-5" />
@@ -98,40 +84,7 @@ export function AuthLogs() {
 							{/* Logs - Scrollable container */}
 							<div className="max-h-[340px] space-y-1 overflow-y-auto">
 								{logs.map((log) => (
-									<div
-										key={log.id}
-										className="grid grid-cols-12 gap-4 border-l-2 px-4 py-3 text-sm transition-colors hover:bg-muted/50"
-									>
-										<div className="col-span-2">
-											<Badge
-												variant="outline"
-												className={`text-xs ${
-													log.status === "no-show"
-														? "border-red-500 text-red-500"
-														: log.status === "registered"
-															? "border-yellow-500 text-yellow-500"
-															: "border-green-500 text-green-500"
-												}`}
-											>
-												{log.status}
-											</Badge>
-										</div>
-										<div className="col-span-4">
-											<div className="font-medium">{log.name}</div>
-											<div className="text-muted-foreground text-xs">
-												{log.email}
-											</div>
-										</div>
-
-										<div className="col-span-4 flex items-center gap-1">
-											<Clock className="h-3 w-3 text-muted-foreground" />
-											{log.time}
-										</div>
-
-										<div className="col-span-2 text-muted-foreground">
-											{log.time}
-										</div>
-									</div>
+									<LogItem key={log.id} log={log} />
 								))}
 							</div>
 						</div>

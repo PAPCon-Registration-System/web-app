@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/features/shared/components/base/card";
+import { cn } from "@/features/shared/lib/utils";
 
 interface TurnoutChartProps {
 	attendees: number;
@@ -18,7 +19,10 @@ export function TurnoutChart({
 
 	return (
 		<Card
-			className={`border-0 bg-gradient-to-br from-blue-600 to-blue-700 text-white ${className}`}
+			className={cn(
+				"border-0 bg-gradient-to-br from-blue-600 to-blue-700 text-white",
+				className,
+			)}
 		>
 			<CardContent className="p-6">
 				<div className="flex h-full items-center justify-between">
