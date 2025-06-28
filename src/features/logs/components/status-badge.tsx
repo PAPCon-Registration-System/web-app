@@ -1,5 +1,6 @@
 import { Badge } from "@/features/shared/components/base/badge";
 
+// TODO: Change this to an enum for type safety and better maintainability
 interface StatusBadgeProps {
 	status: string;
 }

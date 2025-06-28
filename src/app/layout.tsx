@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
 	title: "PAP Annual Convention",
-	description: "PAP Summit Registration System",
+	description: "PAP Annual Convention Registration System",
 };
 
 export default function RootLayout({
