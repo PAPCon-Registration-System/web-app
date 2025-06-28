@@ -1,6 +1,6 @@
-import { Hono } from "hono";
+import { factory } from "../utils/factory";
 
-const app = new Hono().get("/", (c) => {
+const app = factory.createApp().get("/", (c) => {
 	return c.json({
 		message: "World",
 	});

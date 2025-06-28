@@ -73,7 +73,6 @@ export class Logger {
 	constructor(context: Record<string, any> = {}) {
 		this.context = context;
 		this.logger = Logger.baseLogger.child({
-			...context,
 			group: context.group ?? "default",
 		});
 	}
@@ -122,9 +121,10 @@ export class Logger {
 	}
 
 	private formatWithContext(data?: object) {
+		const { group: _, ...restContext } = this.context ?? {};
 		return {
 			...Logger.formatPayload(data),
-			...(this.context ? { context: this.context } : {}),
+			...(Object.keys(restContext).length > 0 ? { context: restContext } : {}),
 		};
 	}
 
