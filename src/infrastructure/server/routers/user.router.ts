@@ -10,7 +10,7 @@ const routes = app
 	.post(
 		"seed/manual",
 		zValidator("json", UserCreateEntitySchema),
-		async (c): Promise<Response> => {
+		async (c) => {
 			const data = c.req.valid("json");
 
 			const res = await auth.auth.api.signUpEmail({
@@ -19,9 +19,9 @@ const routes = app
 					name: `${data.firstName} ${data.middleName} ${data.lastName}`,
 					password: data.password,
 				},
-				asResponse: true,
 			});
-			return res;
+
+			return c.json(res);
 		},
 	)
 	.post("seed/csv", async (c) => {

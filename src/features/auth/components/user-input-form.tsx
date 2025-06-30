@@ -5,9 +5,9 @@ import { useState } from "react";
 import { Button } from "@/features/shared/components/base/button";
 import { Input } from "@/features/shared/components/base/input";
 import { Label } from "@/features/shared/components/base/label";
-import { rpc } from "@/infrastructure/server/rpc";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import type { UserCreateEntity } from "@/types/entities/user.entity";
+import { useRegisterUserManually } from "../data/useRegisterUserManually.mutation";
 
 type FormData = UserCreateEntity & {
 	confirmPassword: string;
@@ -27,6 +27,7 @@ const UserInputForm = () => {
 	const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
 		useState(false);
 	const [formData, setFormData] = useState<FormData>(initialFormData);
+	const mutation = useRegisterUserManually();
 
 	const handleInputChange = (newData: FormData) => {
 		setFormData(newData);
@@ -41,25 +42,15 @@ const UserInputForm = () => {
 			return;
 		}
 
-		// TODO: Wrap in React-Query
-		const res = await rpc.api.user.seed.manual.$post({
-			json: {
-				email: formData.email,
-				firstName: formData.firstName,
-				middleName: formData.middleName,
-				lastName: formData.lastName,
-				password: formData.password,
+		mutation.mutate(formData, {
+			onSuccess: () => {
+				setFormData(initialFormData);
+				alert("User registered successfully");
+			},
+			onError: (error) => {
+				alert(error.message);
 			},
 		});
-
-		if (res.ok) {
-			// TODO: Integrate into toast
-			alert("User created successfully");
-			setFormData(initialFormData);
-		} else {
-			// TODO: Integrate into toast
-			alert("Failed to create user");
-		}
 	};
 
 	return (
