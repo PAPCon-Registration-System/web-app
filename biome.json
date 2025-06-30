@@ -14,7 +14,8 @@
 			"src/**/*.css",
 			"src/**/*.md",
 			"src/**/*.mdx"
-		]
+		],
+		"experimentalScannerIgnores": ["src/features/shared/components/base/*.tsx"]
 	},
 	"formatter": {
 		"enabled": true,

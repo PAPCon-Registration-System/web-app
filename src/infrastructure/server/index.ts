@@ -1,11 +1,16 @@
-import { Hono } from "hono";
-
+import { requestId } from "hono/request-id";
+import { loggerMiddleware } from "./middleware/logger.middleware";
 import hello from "./routers/hello.router";
 import world from "./routers/world.router";
 import user from "./routers/user.router";
 import auth from "../auth";
+import { factory } from "./utils/factory";
 
-export const app = new Hono().basePath("/api");
+export const app = factory
+	.createApp()
+	.basePath("/api")
+	.use(requestId())
+	.use(loggerMiddleware);
 
 const routes = app
 	.on(["GET", "POST"], "/auth/**", (c) => auth.auth.handler(c.req.raw))
