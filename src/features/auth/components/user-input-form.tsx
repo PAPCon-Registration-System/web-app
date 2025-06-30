@@ -8,6 +8,8 @@ import { Label } from "@/features/shared/components/base/label";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import type { UserCreateEntity } from "@/types/entities/user.entity";
 import { useRegisterUserManually } from "../data/useRegisterUserManually.mutation";
+import { toast } from "sonner";
+import { TOAST_DURATION } from "@/config/constants";
 
 type FormData = UserCreateEntity & {
 	confirmPassword: string;
@@ -37,18 +39,23 @@ const UserInputForm = () => {
 		e.preventDefault();
 
 		if (formData.password !== formData.confirmPassword) {
-			// TODO: Integrate into toast
-			alert("Passwords do not match");
+			toast.error("Passwords do not match", {
+				duration: TOAST_DURATION,
+			});
 			return;
 		}
 
 		mutation.mutate(formData, {
 			onSuccess: () => {
 				setFormData(initialFormData);
-				alert("User registered successfully");
+				toast.success("User registered successfully", {
+					duration: TOAST_DURATION,
+				});
 			},
 			onError: (error) => {
-				alert(error.message);
+				toast.error(error.message, {
+					duration: TOAST_DURATION,
+				});
 			},
 		});
 	};
