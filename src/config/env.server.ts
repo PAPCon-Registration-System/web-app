@@ -1,11 +1,14 @@
-import "server-only";
+// Not using 'server-only' because it breaks the Better Auth and Drizzle CLI's
+// See https://www.answeroverflow.com/m/1351139964632694794
+// and https://github.com/drizzle-team/drizzle-orm/issues/4208
+
 import { z } from "zod";
 
 const isNotTrailingSlash = (val: string) => !val.endsWith("/");
 
 const envParseResult = z
 	.object({
-		DB_URL: z.string().url().startsWith("postgresql://"),
+		DB_URL: z.string().url().startsWith("postgres://"),
 		BETTER_AUTH_SECRET: z.string().min(1, "BETTER_AUTH_SECRET is required"),
 		BETTER_AUTH_URL: z
 			.string()
