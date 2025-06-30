@@ -3,10 +3,12 @@ import { Hono } from "hono";
 import hello from "./routers/hello.router";
 import world from "./routers/world.router";
 import user from "./routers/user.router";
+import auth from "../auth";
 
 export const app = new Hono().basePath("/api");
 
 const routes = app
+	.on(["GET", "POST"], "/auth/**", (c) => auth.auth.handler(c.req.raw))
 	.route("/hello", hello)
 	.route("/world", world)
 	.route("/user", user);
