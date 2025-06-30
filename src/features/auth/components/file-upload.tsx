@@ -21,8 +21,7 @@ const FileUpload = () => {
 	};
 
 	return (
-		<button
-			type="button"
+		<div
 			className="w-full cursor-pointer rounded-lg border-2 border-zinc-600 border-dashed p-8 text-center transition-colors hover:border-zinc-500"
 			onClick={handleUploadClick}
 		>
@@ -32,7 +31,10 @@ const FileUpload = () => {
 			<Button
 				type="button"
 				className="bg-blue-600 text-white hover:bg-blue-700"
-				onClick={handleUploadClick}
+				onClick={(event) => {
+					event.stopPropagation();
+					handleUploadClick();
+				}}
 			>
 				Choose File
 			</Button>
@@ -43,7 +45,7 @@ const FileUpload = () => {
 				onChange={handleFileSelect}
 				className="hidden"
 			/>
-		</button>
+		</div>
 	);
 };
 
