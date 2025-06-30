@@ -18,11 +18,6 @@ const auth = betterAuth({
 		enabled: true,
 		autoSignIn: false,
 	},
-	user: {
-		fields: {
-			emailVerified: "is_email_verified",
-		},
-	},
 	plugins: [
 		magicLink({
 			sendMagicLink: async ({ email, token, url }, _request) => {
@@ -31,4 +26,5 @@ const auth = betterAuth({
 		}),
 	],
 });
+
 export default { auth };

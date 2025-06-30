@@ -15,6 +15,7 @@ export type UserEntity = z.infer<typeof UserEntitySchema>;
 
 export const UserCreateEntitySchema = UserEntitySchema.pick({
 	email: true,
+	password: true,
 	firstName: true,
 	middleName: true,
 	lastName: true,
