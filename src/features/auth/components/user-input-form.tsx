@@ -63,7 +63,10 @@ const UserInputForm = () => {
 	return (
 		<form onSubmit={handleSubmit} className="space-y-4">
 			<div className="space-y-2">
-				<Label htmlFor="email" className="font-medium text-zinc-300">
+				<Label
+					htmlFor="email"
+					className="font-medium text-zinc-700 dark:text-zinc-300"
+				>
 					Email
 				</Label>
 				<Input
@@ -74,14 +77,17 @@ const UserInputForm = () => {
 					onChange={(e) =>
 						handleInputChange({ ...formData, email: e.target.value })
 					}
-					className="border-zinc-600 bg-zinc-700 text-white placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20"
+					className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
 					required
 				/>
 			</div>
 
 			<div className="grid grid-cols-2 gap-4">
 				<div className="space-y-2">
-					<Label htmlFor="firstName" className="font-medium text-zinc-300">
+					<Label
+						htmlFor="firstName"
+						className="font-medium text-zinc-700 dark:text-zinc-300"
+					>
 						First Name
 					</Label>
 					<Input
@@ -92,13 +98,16 @@ const UserInputForm = () => {
 						onChange={(e) =>
 							handleInputChange({ ...formData, firstName: e.target.value })
 						}
-						className="border-zinc-600 bg-zinc-700 text-white placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20"
+						className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
 						required
 					/>
 				</div>
 
 				<div className="space-y-2">
-					<Label htmlFor="middleName" className="font-medium text-zinc-300">
+					<Label
+						htmlFor="middleName"
+						className="font-medium text-zinc-700 dark:text-zinc-300"
+					>
 						Middle Name
 					</Label>
 					<Input
@@ -109,13 +118,16 @@ const UserInputForm = () => {
 						onChange={(e) =>
 							handleInputChange({ ...formData, middleName: e.target.value })
 						}
-						className="border-zinc-600 bg-zinc-700 text-white placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20"
+						className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
 					/>
 				</div>
 			</div>
 
 			<div className="space-y-2">
-				<Label htmlFor="lastName" className="font-medium text-zinc-300">
+				<Label
+					htmlFor="lastName"
+					className="font-medium text-zinc-700 dark:text-zinc-300"
+				>
 					Last Name
 				</Label>
 				<Input
@@ -126,13 +138,16 @@ const UserInputForm = () => {
 					onChange={(e) =>
 						handleInputChange({ ...formData, lastName: e.target.value })
 					}
-					className="border-zinc-600 bg-zinc-700 text-white placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20"
+					className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
 					required
 				/>
 			</div>
 
 			<div className="space-y-2">
-				<Label htmlFor="password" className="font-medium text-zinc-300">
+				<Label
+					htmlFor="password"
+					className="font-medium text-zinc-700 dark:text-zinc-300"
+				>
 					Password
 				</Label>
 				<div className="flex items-center space-x-2">
@@ -144,7 +159,7 @@ const UserInputForm = () => {
 						onChange={(e) =>
 							handleInputChange({ ...formData, password: e.target.value })
 						}
-						className="border-zinc-600 bg-zinc-700 text-white placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20"
+						className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
 						required
 					/>
 					<Button
@@ -152,6 +167,7 @@ const UserInputForm = () => {
 						size="icon"
 						type="button"
 						onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+						className="hover:cursor-pointer"
 					>
 						{isPasswordVisible ? (
 							<EyeIcon className="h-4 w-4" />
@@ -163,7 +179,10 @@ const UserInputForm = () => {
 			</div>
 
 			<div className="space-y-2">
-				<Label htmlFor="confirmPassword" className="font-medium text-zinc-300">
+				<Label
+					htmlFor="confirmPassword"
+					className="font-medium text-zinc-700 dark:text-zinc-300"
+				>
 					Confirm Password
 				</Label>
 				<div className="flex items-center space-x-2">
@@ -178,7 +197,7 @@ const UserInputForm = () => {
 								confirmPassword: e.target.value,
 							})
 						}
-						className="border-zinc-600 bg-zinc-700 text-white placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20"
+						className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
 						required
 					/>
 					<Button
@@ -188,6 +207,7 @@ const UserInputForm = () => {
 						onClick={() =>
 							setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
 						}
+						className="hover:cursor-pointer"
 					>
 						{isConfirmPasswordVisible ? (
 							<EyeIcon className="h-4 w-4" />
