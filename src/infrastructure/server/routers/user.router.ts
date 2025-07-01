@@ -1,12 +1,12 @@
-import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import auth from "@/infrastructure/auth";
 import { UserCreateEntitySchema } from "@/types/entities/user.entity";
+import { factory } from "../utils/factory";
 
 // TODO: Protect routes (only admin can seed)
-const app = new Hono();
 
-const routes = app
+const routes = factory
+	.createApp()
 	.post(
 		"seed/manual",
 		zValidator("json", UserCreateEntitySchema),
