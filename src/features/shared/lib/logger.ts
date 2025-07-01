@@ -37,15 +37,6 @@ function formatTime(date: Date): string {
 	);
 }
 
-export const levelMap: Record<pino.Level, number> = {
-	fatal: 60,
-	error: 50,
-	warn: 40,
-	info: 30,
-	debug: 20,
-	trace: 10,
-};
-
 // #region Logger Class
 
 /**
@@ -78,6 +69,15 @@ export class Logger {
 	// biome-ignore lint: context can be any type
 	private context: Record<string, any>;
 	private logger: PinoLogger;
+
+	public static levelMap: Record<pino.Level, number> = {
+		fatal: 60,
+		error: 50,
+		warn: 40,
+		info: 30,
+		debug: 20,
+		trace: 10,
+	};
 
 	// biome-ignore lint: context can be any type
 	constructor(context: Record<string, any> = {}) {
@@ -134,7 +134,7 @@ export class Logger {
 	});
 
 	public static getLogLevelValue(logLevel: pino.Level): number {
-		return levelMap[logLevel] ?? -1;
+		return Logger.levelMap[logLevel] ?? -1;
 	}
 
 	private static formatPayload(data?: object) {

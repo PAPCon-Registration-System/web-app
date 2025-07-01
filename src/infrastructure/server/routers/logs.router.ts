@@ -5,7 +5,7 @@ import { zValidator } from "@hono/zod-validator";
 import db from "@/infrastructure/db";
 import { logs } from "@/infrastructure/db/schema/logs.schema";
 import { eq, sql, and } from "drizzle-orm";
-import { levelMap } from "@/features/shared/lib/logger";
+import { Logger } from "@/features/shared/lib/logger";
 
 const ROUTER_GROUP = "logs";
 
@@ -51,7 +51,7 @@ const app = factory
 			z.object({
 				group: z.string().optional(),
 				level: z
-					.enum(Object.keys(levelMap) as [keyof typeof levelMap])
+					.enum(Object.keys(Logger.levelMap) as [keyof typeof Logger.levelMap])
 					.optional(),
 				environment: z.enum(["production", "development", "test"]).optional(),
 				limit: z.number().positive().default(100),
@@ -67,7 +67,12 @@ const app = factory
 			}
 
 			if (query.level !== undefined) {
-				conditions.push(eq(sql`(content->>'level')::int`, query.level));
+				conditions.push(
+					eq(
+						sql`(content->>'level')::int`,
+						Logger.getLogLevelValue(query.level),
+					),
+				);
 			}
 
 			if (query.environment) {
