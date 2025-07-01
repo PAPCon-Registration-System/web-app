@@ -6,6 +6,11 @@ import db from "@/infrastructure/db";
 import { logs } from "@/infrastructure/db/schema/logs.schema";
 import { eq, sql, and } from "drizzle-orm";
 import { Logger } from "@/features/shared/lib/logger";
+import type {
+	ClientErrorStatusCode,
+	ServerErrorStatusCode,
+	SuccessStatusCode,
+} from "hono/utils/http-status";
 
 const ROUTER_GROUP = "logs";
 
@@ -21,7 +26,7 @@ const validateLog = validator("json", (value, c) => {
 
 	const parsed = postLogSchema.safeParse(value);
 	if (!parsed.success) {
-		return c.text("Malformed log structure.", 400);
+		return c.text("Malformed log structure.", 400 as ClientErrorStatusCode);
 	}
 	return parsed.data;
 });
@@ -38,10 +43,10 @@ const app = factory
 				"An error occured while inserting a log to the database.",
 				{ error, group: ROUTER_GROUP },
 			);
-			return c.body(null, 500);
+			return c.body(null, 500 as ServerErrorStatusCode);
 		}
 
-		return c.body(null, 201);
+		return c.body(null, 201 as SuccessStatusCode);
 	})
 	// TODO: add auth role-based middleware for admin access to view logs
 	.get(
