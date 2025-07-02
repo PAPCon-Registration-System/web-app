@@ -14,24 +14,21 @@ interface LogItemProps {
 export function LogItem({ log }: LogItemProps) {
 	const getStatusColor = (status: string) => {
 		switch (status) {
-			case "checked-in":
-				return "border-success text-success";
-			case "registered":
-				return "border-analytics-warning text-analytics-warning";
-			case "no-show":
-				return "border-analytics-danger text-analytics-danger";
+			case "Checked-in":
+				return "bg-success";
+			case "Registered":
+				return "bg-analytics-warning ";
+			case "No-show":
+				return "bg-analytics-danger ";
 			default:
-				return "border-muted-foreground text-muted-foreground";
+				return "bg-muted-foreground ";
 		}
 	};
 
 	return (
 		<div className="grid grid-cols-12 gap-4 border-border border-l-2 px-4 py-3 text-sm transition-colors hover:bg-muted/50">
 			<div className="col-span-2">
-				<Badge
-					variant="outline"
-					className={`text-xs ${getStatusColor(log.status)}`}
-				>
+				<Badge className={`text-xs ${getStatusColor(log.status)}`}>
 					{log.status}
 				</Badge>
 			</div>

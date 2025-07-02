@@ -25,7 +25,7 @@ interface LogsTableProps {
 
 export default function LogsTable({ logs }: LogsTableProps) {
 	return (
-		<Card className="hidden bg-accent sm:block">
+		<Card className="hidden border-border sm:block">
 			<CardContent className="p-0">
 				<div className="overflow-x-auto">
 					<Table className="min-w-[800px]">

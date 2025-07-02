@@ -31,7 +31,7 @@ export function StatsCards() {
 			{stats.map((stat) => (
 				<Card
 					key={stat.title}
-					className="rounded-2xl border-0 bg-accent text-accent-foreground shadow-lg"
+					className="rounded-2xl border-border text-accent-foreground shadow-lg"
 				>
 					<CardContent className="px-8 py-4">
 						<div className="space-y-4">

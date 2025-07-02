@@ -11,7 +11,7 @@ import { Search } from "lucide-react";
 
 export default function LogsFilters() {
 	return (
-		<Card className="bg-accent">
+		<Card className="border-border">
 			<CardContent className="p-3 sm:p-4">
 				<div className="space-y-3 sm:space-y-4">
 					<div className="relative">

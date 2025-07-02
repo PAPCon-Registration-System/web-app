@@ -5,7 +5,7 @@ export function RegistrationChart() {
 	const weeklyCount = 847;
 
 	return (
-		<Card className="relative h-full overflow-hidden rounded-2xl border-0 bg-gradient-to-br from-success to-success-dark text-white shadow-lg">
+		<Card className="relative h-full overflow-hidden rounded-2xl border-border bg-gradient-to-br from-success to-success-dark text-white shadow-lg">
 			<div className="absolute inset-0 opacity-20">
 				<div className="-translate-y-8 absolute top-0 right-0 h-32 w-32 translate-x-8 rounded-full bg-white" />
 				<div className="absolute top-8 right-8 h-20 w-20 rounded-full bg-white" />

@@ -19,7 +19,7 @@ export default function LogsCards({ logs }: LogsCardsProps) {
 	return (
 		<div className="space-y-3 sm:hidden">
 			{logs.map((log) => (
-				<Card key={log.id}>
+				<Card className="border-border" key={log.id}>
 					<CardContent className="p-4">
 						<div className="space-y-3">
 							<div className="flex items-start justify-between">

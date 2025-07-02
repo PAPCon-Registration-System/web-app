@@ -23,7 +23,7 @@ export function TurnoutChart({
 	return (
 		<Card
 			className={cn(
-				"relative overflow-hidden rounded-2xl border-0 bg-gradient-to-br from-info to-info-dark text-white shadow-lg",
+				"relative overflow-hidden rounded-2xl border-border bg-gradient-to-br from-info to-info-dark text-white shadow-lg",
 				className,
 			)}
 		>

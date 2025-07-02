@@ -5,29 +5,20 @@ import { useState } from "react";
 import { Button } from "@/features/shared/components/base/button";
 import { Input } from "@/features/shared/components/base/input";
 import { Label } from "@/features/shared/components/base/label";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
 import type { UserCreateEntity } from "@/types/entities/user.entity";
-import { useRegisterUserManually } from "../data/useRegisterUserManually.mutation";
-import { toast } from "sonner";
-import { TOAST_DURATION } from "@/config/constants";
+import { useRegisterUserManually } from "../data/use-register-user-manually";
+import { toast } from "@/features/shared/lib/toast";
 
-type FormData = UserCreateEntity & {
-	confirmPassword: string;
-};
+type FormData = Omit<UserCreateEntity, "password">;
 
 const initialFormData: FormData = {
 	email: "",
 	firstName: "",
 	middleName: "",
 	lastName: "",
-	password: "",
-	confirmPassword: "",
 };
 
 const UserInputForm = () => {
-	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-	const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
-		useState(false);
 	const [formData, setFormData] = useState<FormData>(initialFormData);
 	const mutation = useRegisterUserManually();
 
@@ -38,24 +29,13 @@ const UserInputForm = () => {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
-		if (formData.password !== formData.confirmPassword) {
-			toast.error("Passwords do not match", {
-				duration: TOAST_DURATION,
-			});
-			return;
-		}
-
 		mutation.mutate(formData, {
-			onSuccess: () => {
+			onSuccess: (data) => {
+				toast.success(data.message);
 				setFormData(initialFormData);
-				toast.success("User registered successfully", {
-					duration: TOAST_DURATION,
-				});
 			},
 			onError: (error) => {
-				toast.error(error.message, {
-					duration: TOAST_DURATION,
-				});
+				toast.error(error.message);
 			},
 		});
 	};
@@ -130,82 +110,10 @@ const UserInputForm = () => {
 					required
 				/>
 			</div>
-
-			<div className="space-y-2">
-				<Label htmlFor="password" className="font-medium text-foreground">
-					Password
-				</Label>
-				<div className="flex items-center space-x-2">
-					<Input
-						id="password"
-						type={isPasswordVisible ? "text" : "password"}
-						placeholder="Create a password"
-						value={formData.password}
-						onChange={(e) =>
-							handleInputChange({ ...formData, password: e.target.value })
-						}
-						className="border-input bg-input text-foreground placeholder:text-muted-foreground focus:border-ring focus:ring-ring/20"
-						required
-					/>
-					<Button
-						variant="outline"
-						size="icon"
-						type="button"
-						onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-						className="hover:cursor-pointer"
-					>
-						{isPasswordVisible ? (
-							<EyeIcon className="h-4 w-4" />
-						) : (
-							<EyeOffIcon className="h-4 w-4" />
-						)}
-					</Button>
-				</div>
-			</div>
-
-			<div className="space-y-2">
-				<Label
-					htmlFor="confirmPassword"
-					className="font-medium text-foreground"
-				>
-					Confirm Password
-				</Label>
-				<div className="flex items-center space-x-2">
-					<Input
-						id="confirmPassword"
-						type={isConfirmPasswordVisible ? "text" : "password"}
-						placeholder="Confirm password"
-						value={formData.confirmPassword}
-						onChange={(e) =>
-							handleInputChange({
-								...formData,
-								confirmPassword: e.target.value,
-							})
-						}
-						className="border-input bg-input text-foreground placeholder:text-muted-foreground focus:border-ring focus:ring-ring/20"
-						required
-					/>
-					<Button
-						variant="outline"
-						size="icon"
-						type="button"
-						onClick={() =>
-							setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
-						}
-						className="hover:cursor-pointer"
-					>
-						{isConfirmPasswordVisible ? (
-							<EyeIcon className="h-4 w-4" />
-						) : (
-							<EyeOffIcon className="h-4 w-4" />
-						)}
-					</Button>
-				</div>
-			</div>
-
 			<Button
 				type="submit"
-				className="mt-6 w-full bg-primary py-2.5 font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary/90"
+				className="mt-2 w-full bg-info-dark py-2.5 font-medium text-white transition-colors duration-200 hover:bg-info-light dark:text-white"
+				disabled={mutation.isPending}
 			>
 				Register User
 			</Button>

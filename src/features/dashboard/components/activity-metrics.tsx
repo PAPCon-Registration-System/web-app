@@ -29,7 +29,7 @@ export function ActivityMetrics({
 	];
 
 	return (
-		<Card className={cn("rounded-2xl border-0 bg-accent shadow-lg", className)}>
+		<Card className={cn("rounded-2xl border-border shadow-lg", className)}>
 			<CardContent className="px-8 py-4">
 				<div className="flex items-center justify-between">
 					<div className="space-y-3">
@@ -40,7 +40,7 @@ export function ActivityMetrics({
 							<span className="font-bold text-4xl">
 								{total.toLocaleString()}
 							</span>
-							<span className="rounded bg-success px-2 py-1 text-sm text-success-foreground">
+							<span className="rounded bg-success-dark px-2 py-1 font-semibold text-sm text-success-foreground">
 								+{Math.round(((newCheckins + newRegistrations) / 2000) * 100)}%
 							</span>
 						</div>
