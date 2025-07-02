@@ -15,9 +15,6 @@ const routes = app
 			"json",
 			z.object({
 				email: z.email(),
-				// TODO: Randomly generate password
-				// since we're just using magic link (users don't need to know their password)
-				password: z.string().min(8),
 				firstName: z.string().min(1),
 				middleName: z.string().optional(),
 				lastName: z.string().min(1),
@@ -31,7 +28,7 @@ const routes = app
 				body: {
 					email: data.email,
 					name: `${data.firstName} ${data.middleName} ${data.lastName}`,
-					password: data.password,
+					password: generateRandomPassword(),
 				},
 			});
 
