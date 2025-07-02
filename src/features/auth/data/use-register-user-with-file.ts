@@ -2,13 +2,13 @@ import { rpc } from "@/infrastructure/server/rpc";
 import { useMutation } from "@tanstack/react-query";
 import type { InferRequestType } from "hono";
 
-const $registerUserWithExcel = rpc.api.user.seed.excel.$post;
-type Input = InferRequestType<typeof $registerUserWithExcel>["form"];
+const $registerUserWithFile = rpc.api.user.seed.file.$post;
+type Input = InferRequestType<typeof $registerUserWithFile>["form"];
 
-export function useRegisterUserWithExcel() {
+export function useRegisterUserWithFile() {
 	return useMutation({
 		mutationFn: async (payload: Input) => {
-			const res = await $registerUserWithExcel({ form: payload });
+			const res = await $registerUserWithFile({ form: payload });
 
 			if (!res.ok) {
 				throw new Error("Failed to register user with excel");

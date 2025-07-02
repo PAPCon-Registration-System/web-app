@@ -5,14 +5,14 @@ import { useRef, useState } from "react";
 import { Button } from "@/features/shared/components/base/button";
 import { Label } from "@/features/shared/components/base/label";
 import { Input } from "@/features/shared/components/base/input";
-import { useRegisterUserWithExcel } from "../data/use-register-user-with-excel";
+import { useRegisterUserWithFile } from "../data/use-register-user-with-file";
 import { toast } from "sonner";
 import { TOAST_DURATION } from "@/config/constants";
 
 const FileUpload = () => {
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const [file, setFile] = useState<File | null>(null);
-	const mutation = useRegisterUserWithExcel();
+	const mutation = useRegisterUserWithFile();
 
 	const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0];

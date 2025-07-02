@@ -40,27 +40,22 @@ const routes = app
 			});
 		},
 	)
-	.post("seed/csv", async (c) => {
-		// TODO: Implement CSV seeding
-		return c.json({ message: "CSV seeding" });
-	})
 	.post(
-		"seed/excel",
+		"seed/file",
 		zValidator(
 			"form",
 			z.object({
-				file: z
-					.instanceof(File)
-					.refine(
-						(file) =>
-							[
-								"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-								"application/vnd.ms-excel",
-							].includes(file.type),
-						{
-							error: "Invalid file type.",
-						},
-					),
+				file: z.instanceof(File).refine(
+					(file) =>
+						[
+							"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // xls
+							"application/vnd.ms-excel", // xlsx
+							"text/csv", // csv
+						].includes(file.type),
+					{
+						error: "Invalid file type.",
+					},
+				),
 			}),
 		),
 		async (c) => {
