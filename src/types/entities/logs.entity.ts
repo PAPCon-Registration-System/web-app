@@ -23,19 +23,8 @@ export const GetLogsQueryParamsSchema = z.object({
 		.enum(Object.keys(Logger.levelMap) as [keyof typeof Logger.levelMap])
 		.optional(),
 	environment: z.enum(["production", "development", "test"]).optional(),
-	limit: z.number().positive().default(100),
+	limit: z.number().positive().default(100).optional(),
 	startTime: z.string().datetime().optional(),
 	endTime: z.string().datetime().optional(),
 });
 export type GetLogsQueryParams = z.infer<typeof GetLogsQueryParamsSchema>;
-
-export const GetLogsStreamQueryParamsSchema = GetLogsQueryParamsSchema.pick({
-	group: true,
-	level: true,
-	environment: true,
-}).extend({
-	prevLogId: z.number().nonnegative().optional().default(0),
-});
-export type GetLogsStreamQueryParams = z.infer<
-	typeof GetLogsStreamQueryParamsSchema
->;

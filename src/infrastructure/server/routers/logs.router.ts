@@ -6,11 +6,9 @@ import type {
 	ServerErrorStatusCode,
 	SuccessStatusCode,
 } from "hono/utils/http-status";
-import { streamSSE } from "hono/streaming";
 import {
 	LogContentSchema,
 	GetLogsQueryParamsSchema,
-	GetLogsStreamQueryParamsSchema,
 } from "@/types/entities/logs.entity";
 import { LogsService } from "../services/logs.service";
 
@@ -31,7 +29,8 @@ const app = factory
 		const logsService = new LogsService(c.var.logger);
 
 		try {
-			await logsService.insertLog(logContent);
+			const newLog = await logsService.insertLog(logContent);
+			c.var.io.emit(logContent.group, newLog);
 		} catch (error) {
 			c.var.logger.error(
 				"An error occured while inserting a log to the database.",
@@ -50,28 +49,6 @@ const app = factory
 		const result = await logsService.getLogs(query);
 
 		return c.json(result);
-	})
-	.get(
-		"/stream",
-		zValidator("query", GetLogsStreamQueryParamsSchema),
-		async (c) => {
-			const query = c.req.valid("query");
-			const logsService = new LogsService(c.var.logger);
-
-			return streamSSE(c, async (stream) => {
-				while (true) {
-					const result = await logsService.getLogsStream(query);
-
-					// SSE requires you to serialize payloads into strings, so we need to parse it on the frontend
-					await stream.writeSSE({
-						data: JSON.stringify(result),
-						event: "log-stream",
-					});
-
-					await stream.sleep(1000);
-				}
-			});
-		},
-	);
+	});
 
 export default app;

@@ -1,21 +1,29 @@
+"use client";
+
+import { Button } from "@/features/shared/components/base/button";
 import { Logger } from "@/features/shared/lib/logger";
-import { env } from "@/config/env.server";
-import ClientComponent from "./client-component";
+import { useLogStream } from "@/features/logs/hooks/use-log-stream";
+import { useMemo } from "react";
 
-export const dynamic = "force-dynamic";
+export default function RealtimeLogsPage() {
+	const query = useMemo(() => ({ group: "test" }), []);
 
-export default function ServerPage() {
-	const logsLogger = new Logger({ group: "logs" });
-
-	logsLogger.debug(
-		"I should run in the server and you should see DB_URL attached!",
-		{ DB_URL: env.DB_URL },
-	);
+	const { logs } = useLogStream<{
+		id: number;
+		content: unknown;
+	}>(query);
 
 	return (
 		<section>
 			<h1 className="font-bold text-4xl">Logs</h1>
-			<ClientComponent />
+			<Button
+				onClick={() =>
+					Logger.error("You did an oopsie!", { group: "test", hello: "world" })
+				}
+			>
+				Do an oopsie
+			</Button>
+			{JSON.stringify(logs)}
 		</section>
 	);
 }

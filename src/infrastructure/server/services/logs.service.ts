@@ -4,9 +4,8 @@ import { Logger } from "@/features/shared/lib/logger";
 import type {
 	LogContent,
 	GetLogsQueryParams,
-	GetLogsStreamQueryParams,
 } from "@/types/entities/logs.entity";
-import { eq, sql, and, gt } from "drizzle-orm";
+import { eq, sql, and } from "drizzle-orm";
 
 export class LogsService {
 	private logger: Logger;
@@ -16,7 +15,11 @@ export class LogsService {
 	}
 
 	public async insertLog(logContent: LogContent) {
-		await db.insert(logs).values({ content: logContent });
+		const result = await db
+			.insert(logs)
+			.values({ content: logContent })
+			.returning();
+		return result[0];
 	}
 
 	public async getLogs(query: GetLogsQueryParams) {
@@ -49,37 +52,7 @@ export class LogsService {
 			.from(logs)
 			.where(conditions.length ? and(...conditions) : undefined)
 			.orderBy(sql`content->>'time' DESC`)
-			.limit(query.limit);
-
-		return result;
-	}
-
-	/**
-	 * Queries logs after the `query.prevLogId` for the admin dashboard.
-	 */
-	public async getLogsStream(query: GetLogsStreamQueryParams) {
-		const conditions = [sql`jsonb_typeof(content) = 'object'`];
-		conditions.push(gt(logs.id, query.prevLogId));
-
-		if (query.group) {
-			conditions.push(eq(sql`content->>'group'`, query.group));
-		}
-
-		if (query.level !== undefined) {
-			conditions.push(
-				eq(sql`(content->>'level')::int`, Logger.getLogLevelValue(query.level)),
-			);
-		}
-
-		if (query.environment) {
-			conditions.push(eq(sql`content->>'environment'`, query.environment));
-		}
-
-		const result = await db
-			.select()
-			.from(logs)
-			.where(conditions.length ? and(...conditions) : undefined)
-			.orderBy(sql`content->>'time' DESC`);
+			.limit(query.limit ?? 100);
 
 		return result;
 	}
