@@ -1,30 +1,23 @@
 import { factory } from "../utils/factory";
-import { z } from "zod";
 import { validator } from "hono/validator";
 import { zValidator } from "@hono/zod-validator";
-import db from "@/infrastructure/db";
-import { logs } from "@/infrastructure/db/schema/logs.schema";
-import { eq, sql, and } from "drizzle-orm";
-import { Logger } from "@/features/shared/lib/logger";
 import type {
 	ClientErrorStatusCode,
 	ServerErrorStatusCode,
 	SuccessStatusCode,
 } from "hono/utils/http-status";
+import { streamSSE } from "hono/streaming";
+import {
+	LogContentSchema,
+	GetLogsQueryParamsSchema,
+	GetLogsStreamQueryParamsSchema,
+} from "@/types/entities/logs.entity";
+import { LogsService } from "../services/logs.service";
 
 const ROUTER_GROUP = "logs";
 
 const validateLog = validator("json", (value, c) => {
-	const postLogSchema = z.object({
-		msg: z.string().optional(),
-		level: z.number(),
-		time: z.string(),
-		group: z.string(),
-		environment: z.enum(["production", "development", "test"]),
-		context: z.any().optional(),
-	});
-
-	const parsed = postLogSchema.safeParse(value);
+	const parsed = LogContentSchema.safeParse(value);
 	if (!parsed.success) {
 		return c.text("Malformed log structure.", 400 as ClientErrorStatusCode);
 	}
@@ -34,10 +27,11 @@ const validateLog = validator("json", (value, c) => {
 const app = factory
 	.createApp()
 	.post("/", validateLog, async (c) => {
-		const log = c.req.valid("json");
+		const logContent = c.req.valid("json");
+		const logsService = new LogsService(c.var.logger);
 
 		try {
-			await db.insert(logs).values({ content: log });
+			await logsService.insertLog(logContent);
 		} catch (error) {
 			c.var.logger.error(
 				"An error occured while inserting a log to the database.",
@@ -48,50 +42,35 @@ const app = factory
 
 		return c.body(null, 201 as SuccessStatusCode);
 	})
-	// TODO: add auth role-based middleware for admin access to view logs
+	// TODO: add auth role-based middleware for admin access to view & stream logs
+	.get("/", zValidator("query", GetLogsQueryParamsSchema), async (c) => {
+		const query = c.req.valid("query");
+		const logsService = new LogsService(c.var.logger);
+
+		const result = await logsService.getLogs(query);
+
+		return c.json(result);
+	})
 	.get(
-		"/",
-		zValidator(
-			"query",
-			z.object({
-				group: z.string().optional(),
-				level: z
-					.enum(Object.keys(Logger.levelMap) as [keyof typeof Logger.levelMap])
-					.optional(),
-				environment: z.enum(["production", "development", "test"]).optional(),
-				limit: z.number().positive().default(100),
-			}),
-		),
+		"/stream",
+		zValidator("query", GetLogsStreamQueryParamsSchema),
 		async (c) => {
 			const query = c.req.valid("query");
+			const logsService = new LogsService(c.var.logger);
 
-			const conditions = [sql`jsonb_typeof(content) = 'object'`];
+			return streamSSE(c, async (stream) => {
+				while (true) {
+					const result = await logsService.getLogsStream(query);
 
-			if (query.group) {
-				conditions.push(eq(sql`content->>'group'`, query.group));
-			}
+					// SSE requires you to serialize payloads into strings, so we need to parse it on the frontend
+					await stream.writeSSE({
+						data: JSON.stringify(result),
+						event: "log-stream",
+					});
 
-			if (query.level !== undefined) {
-				conditions.push(
-					eq(
-						sql`(content->>'level')::int`,
-						Logger.getLogLevelValue(query.level),
-					),
-				);
-			}
-
-			if (query.environment) {
-				conditions.push(eq(sql`content->>'environment'`, query.environment));
-			}
-
-			const result = await db
-				.select()
-				.from(logs)
-				.where(conditions.length ? and(...conditions) : undefined)
-				.orderBy(sql`content->>'time' DESC`)
-				.limit(query.limit);
-
-			return c.json(result);
+					await stream.sleep(1000);
+				}
+			});
 		},
 	);
 
