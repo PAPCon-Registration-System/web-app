@@ -52,23 +52,25 @@ const FileUpload = () => {
 	};
 
 	return (
-		<div className="flex flex-col gap-2">
+		<form className="flex flex-col gap-2" onSubmit={handleUploadClick}>
 			<Label htmlFor="file">Upload CSV or Excel file only</Label>
 			<Input
 				id="file"
 				type="file"
 				accept=".csv,.xlsx,.xls"
+				className="cursor-pointer bg-zinc-50"
 				onChange={handleFileSelect}
 				ref={fileInputRef}
+				required
 			/>
 			<Button
-				type="button"
-				onClick={handleUploadClick}
+				disabled={mutation.isPending}
+				type="submit"
 				className="bg-blue-600 text-white hover:bg-blue-700"
 			>
 				Upload
 			</Button>
-		</div>
+		</form>
 	);
 };
 

@@ -46,11 +46,11 @@ const UserInputForm = () => {
 		}
 
 		mutation.mutate(formData, {
-			onSuccess: () => {
-				setFormData(initialFormData);
-				toast.success("User registered successfully", {
+			onSuccess: (data) => {
+				toast.success(data.message, {
 					duration: TOAST_DURATION,
 				});
+				setFormData(initialFormData);
 			},
 			onError: (error) => {
 				toast.error(error.message, {
@@ -77,7 +77,7 @@ const UserInputForm = () => {
 					onChange={(e) =>
 						handleInputChange({ ...formData, email: e.target.value })
 					}
-					className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
+					className="border-zinc-300 bg-zinc-50 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
 					required
 				/>
 			</div>
@@ -98,7 +98,7 @@ const UserInputForm = () => {
 						onChange={(e) =>
 							handleInputChange({ ...formData, firstName: e.target.value })
 						}
-						className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
+						className="border-zinc-300 bg-zinc-50 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
 						required
 					/>
 				</div>
@@ -118,7 +118,7 @@ const UserInputForm = () => {
 						onChange={(e) =>
 							handleInputChange({ ...formData, middleName: e.target.value })
 						}
-						className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
+						className="border-zinc-300 bg-zinc-50 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
 					/>
 				</div>
 			</div>
@@ -138,7 +138,7 @@ const UserInputForm = () => {
 					onChange={(e) =>
 						handleInputChange({ ...formData, lastName: e.target.value })
 					}
-					className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
+					className="border-zinc-300 bg-zinc-50 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
 					required
 				/>
 			</div>
@@ -159,7 +159,7 @@ const UserInputForm = () => {
 						onChange={(e) =>
 							handleInputChange({ ...formData, password: e.target.value })
 						}
-						className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
+						className="border-zinc-300 bg-zinc-50 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
 						required
 					/>
 					<Button
@@ -197,7 +197,7 @@ const UserInputForm = () => {
 								confirmPassword: e.target.value,
 							})
 						}
-						className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
+						className="border-zinc-300 bg-zinc-50 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
 						required
 					/>
 					<Button
@@ -221,6 +221,7 @@ const UserInputForm = () => {
 			<Button
 				type="submit"
 				className="mt-6 w-full bg-blue-600 py-2.5 font-medium text-white transition-colors duration-200 hover:bg-blue-700"
+				disabled={mutation.isPending}
 			>
 				Register User
 			</Button>
