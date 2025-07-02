@@ -63,10 +63,7 @@ const UserInputForm = () => {
 	return (
 		<form onSubmit={handleSubmit} className="space-y-4">
 			<div className="space-y-2">
-				<Label
-					htmlFor="email"
-					className="font-medium text-zinc-700 dark:text-zinc-300"
-				>
+				<Label htmlFor="email" className="font-medium text-foreground">
 					Email
 				</Label>
 				<Input
@@ -77,17 +74,14 @@ const UserInputForm = () => {
 					onChange={(e) =>
 						handleInputChange({ ...formData, email: e.target.value })
 					}
-					className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
+					className="border-input bg-input text-foreground placeholder:text-muted-foreground focus:border-ring focus:ring-ring/20"
 					required
 				/>
 			</div>
 
 			<div className="grid grid-cols-2 gap-4">
 				<div className="space-y-2">
-					<Label
-						htmlFor="firstName"
-						className="font-medium text-zinc-700 dark:text-zinc-300"
-					>
+					<Label htmlFor="firstName" className="font-medium text-foreground">
 						First Name
 					</Label>
 					<Input
@@ -98,16 +92,13 @@ const UserInputForm = () => {
 						onChange={(e) =>
 							handleInputChange({ ...formData, firstName: e.target.value })
 						}
-						className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
+						className="border-input bg-input text-foreground placeholder:text-muted-foreground focus:border-ring focus:ring-ring/20"
 						required
 					/>
 				</div>
 
 				<div className="space-y-2">
-					<Label
-						htmlFor="middleName"
-						className="font-medium text-zinc-700 dark:text-zinc-300"
-					>
+					<Label htmlFor="middleName" className="font-medium text-foreground">
 						Middle Name
 					</Label>
 					<Input
@@ -118,16 +109,13 @@ const UserInputForm = () => {
 						onChange={(e) =>
 							handleInputChange({ ...formData, middleName: e.target.value })
 						}
-						className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
+						className="border-input bg-input text-foreground placeholder:text-muted-foreground focus:border-ring focus:ring-ring/20"
 					/>
 				</div>
 			</div>
 
 			<div className="space-y-2">
-				<Label
-					htmlFor="lastName"
-					className="font-medium text-zinc-700 dark:text-zinc-300"
-				>
+				<Label htmlFor="lastName" className="font-medium text-foreground">
 					Last Name
 				</Label>
 				<Input
@@ -138,16 +126,13 @@ const UserInputForm = () => {
 					onChange={(e) =>
 						handleInputChange({ ...formData, lastName: e.target.value })
 					}
-					className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
+					className="border-input bg-input text-foreground placeholder:text-muted-foreground focus:border-ring focus:ring-ring/20"
 					required
 				/>
 			</div>
 
 			<div className="space-y-2">
-				<Label
-					htmlFor="password"
-					className="font-medium text-zinc-700 dark:text-zinc-300"
-				>
+				<Label htmlFor="password" className="font-medium text-foreground">
 					Password
 				</Label>
 				<div className="flex items-center space-x-2">
@@ -159,7 +144,7 @@ const UserInputForm = () => {
 						onChange={(e) =>
 							handleInputChange({ ...formData, password: e.target.value })
 						}
-						className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
+						className="border-input bg-input text-foreground placeholder:text-muted-foreground focus:border-ring focus:ring-ring/20"
 						required
 					/>
 					<Button
@@ -181,7 +166,7 @@ const UserInputForm = () => {
 			<div className="space-y-2">
 				<Label
 					htmlFor="confirmPassword"
-					className="font-medium text-zinc-700 dark:text-zinc-300"
+					className="font-medium text-foreground"
 				>
 					Confirm Password
 				</Label>
@@ -197,7 +182,7 @@ const UserInputForm = () => {
 								confirmPassword: e.target.value,
 							})
 						}
-						className="border-zinc-300 bg-zinc-200 text-zinc-900 placeholder:text-zinc-400 focus:border-blue-500 focus:ring-blue-500/20 dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-100"
+						className="border-input bg-input text-foreground placeholder:text-muted-foreground focus:border-ring focus:ring-ring/20"
 						required
 					/>
 					<Button
@@ -220,7 +205,7 @@ const UserInputForm = () => {
 
 			<Button
 				type="submit"
-				className="mt-6 w-full bg-blue-600 py-2.5 font-medium text-white transition-colors duration-200 hover:bg-blue-700"
+				className="mt-6 w-full bg-primary py-2.5 font-medium text-primary-foreground transition-colors duration-200 hover:bg-primary/90"
 			>
 				Register User
 			</Button>

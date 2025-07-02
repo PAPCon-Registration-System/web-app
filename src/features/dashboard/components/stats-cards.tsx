@@ -31,7 +31,7 @@ export function StatsCards() {
 			{stats.map((stat) => (
 				<Card
 					key={stat.title}
-					className="rounded-2xl border-0 bg-accent text-black shadow-lg dark:text-white"
+					className="rounded-2xl border-0 bg-accent text-accent-foreground shadow-lg"
 				>
 					<CardContent className="px-8 py-4">
 						<div className="space-y-4">
@@ -44,15 +44,15 @@ export function StatsCards() {
 									<p
 										className={`font-medium text-base ${
 											stat.changeType === "positive"
-												? "text-green-500 dark:text-green-400"
-												: "text-red-500 dark:text-red-400"
+												? "text-success dark:text-success"
+												: "text-analytics-danger dark:text-analytics-danger"
 										}`}
 									>
 										{stat.change} from yesterday
 									</p>
 								</div>
 								<div className="rounded-full bg-muted p-3">
-									<stat.icon className="h-8 w-8 text-muted-foreground" />
+									<stat.icon className="h-10 w-10 text-foreground" />
 								</div>
 							</div>
 						</div>

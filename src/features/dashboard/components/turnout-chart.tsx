@@ -23,7 +23,7 @@ export function TurnoutChart({
 	return (
 		<Card
 			className={cn(
-				"relative overflow-hidden rounded-2xl border-0 bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-lg dark:from-blue-500 dark:to-blue-600",
+				"relative overflow-hidden rounded-2xl border-0 bg-gradient-to-br from-info to-info-dark text-white shadow-lg",
 				className,
 			)}
 		>
@@ -40,7 +40,7 @@ export function TurnoutChart({
 							TURNOUT ANALYTICS
 						</div>
 						<div className="font-bold text-6xl">{percentage}%</div>
-						<div className="inline-block rounded-full bg-yellow-400 px-3 py-1 font-medium text-base text-black">
+						<div className="inline-block rounded-full bg-analytics-warning-dark px-3 py-1 font-medium text-base text-white">
 							Active
 						</div>
 
@@ -97,7 +97,7 @@ export function TurnoutChart({
 						{/* Arrow */}
 						<div className="absolute right-3 bottom-3 flex h-8 w-8 items-center justify-center rounded-full bg-white">
 							<svg
-								className="h-4 w-4 text-blue-600"
+								className="h-4 w-4 text-analytics-primary"
 								fill="currentColor"
 								viewBox="0 0 20 20"
 							>

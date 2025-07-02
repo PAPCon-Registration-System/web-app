@@ -61,7 +61,7 @@ export function AuthLogs() {
 	];
 
 	return (
-		<Card className="border-border bg-accent">
+		<Card className="border-border bg-accent shadow-lg">
 			<CardHeader className="px-8 pt-4">
 				<CardTitle className="flex items-center gap-2">
 					<User className="h-5 w-5" />

@@ -31,16 +31,16 @@ export default function LogsTable({ logs }: LogsTableProps) {
 					<Table className="min-w-[800px]">
 						<TableHeader>
 							<TableRow>
-								<TableHead className="p-4 font-medium text-black dark:text-gray-400">
+								<TableHead className="p-4 font-medium text-foreground">
 									Status
 								</TableHead>
-								<TableHead className="p-4 font-medium text-black dark:text-gray-400">
+								<TableHead className="p-4 font-medium text-foreground">
 									Attendee
 								</TableHead>
-								<TableHead className="p-4 font-medium text-black dark:text-gray-400">
+								<TableHead className="p-4 font-medium text-foreground">
 									Time
 								</TableHead>
-								<TableHead className="p-4 font-medium text-black dark:text-gray-400">
+								<TableHead className="p-4 font-medium text-foreground">
 									Updated
 								</TableHead>
 							</TableRow>
@@ -53,21 +53,19 @@ export default function LogsTable({ logs }: LogsTableProps) {
 									</TableCell>
 									<TableCell className="p-4">
 										<div>
-											<div className="font-medium text-black dark:text-white">
+											<div className="font-medium text-foreground">
 												{log.name}
 											</div>
-											<div className="text-black text-sm dark:text-gray-400">
-												{log.email}
-											</div>
+											<div className="text-foreground text-sm">{log.email}</div>
 										</div>
 									</TableCell>
-									<TableCell className="p-4 text-black dark:text-gray-400">
+									<TableCell className="p-4 text-foreground">
 										<div className="flex items-center space-x-2">
-											<Clock className="h-4 w-4 text-black dark:text-gray-400" />
+											<Clock className="h-4 w-4 text-muted-foreground" />
 											<span>{log.time}</span>
 										</div>
 									</TableCell>
-									<TableCell className="p-4 text-black dark:text-gray-400">
+									<TableCell className="p-4 text-foreground">
 										{log.updated}
 									</TableCell>
 								</TableRow>

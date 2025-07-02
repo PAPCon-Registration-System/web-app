@@ -15,18 +15,18 @@ export function LogItem({ log }: LogItemProps) {
 	const getStatusColor = (status: string) => {
 		switch (status) {
 			case "checked-in":
-				return "border-green-500 text-green-500";
+				return "border-success text-success";
 			case "registered":
-				return "border-yellow-500 text-yellow-500";
+				return "border-analytics-warning text-analytics-warning";
 			case "no-show":
-				return "border-red-500 text-red-500";
+				return "border-analytics-danger text-analytics-danger";
 			default:
-				return "border-gray-500 text-gray-500";
+				return "border-muted-foreground text-muted-foreground";
 		}
 	};
 
 	return (
-		<div className="grid grid-cols-12 gap-4 border-l-2 px-4 py-3 text-sm transition-colors hover:bg-muted/50">
+		<div className="grid grid-cols-12 gap-4 border-border border-l-2 px-4 py-3 text-sm transition-colors hover:bg-muted/50">
 			<div className="col-span-2">
 				<Badge
 					variant="outline"

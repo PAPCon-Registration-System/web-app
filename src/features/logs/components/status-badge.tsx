@@ -9,19 +9,19 @@ export default function StatusBadge({ status }: StatusBadgeProps) {
 	switch (status) {
 		case "checked-in":
 			return (
-				<Badge className="bg-green-600 text-white hover:bg-green-700">
+				<Badge className="bg-success text-success-foreground hover:bg-success/90">
 					checked-in
 				</Badge>
 			);
 		case "registered":
 			return (
-				<Badge className="bg-yellow-600 text-white hover:bg-yellow-700">
+				<Badge className="bg-analytics-warning text-white hover:bg-analytics-warning-dark">
 					registered
 				</Badge>
 			);
 		case "no-show":
 			return (
-				<Badge className="bg-red-600 text-white hover:bg-red-700">
+				<Badge className="bg-analytics-danger text-white hover:bg-analytics-danger-dark">
 					no-show
 				</Badge>
 			);

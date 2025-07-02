@@ -20,7 +20,7 @@ export default function Pagination({
 
 	return (
 		<div className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
-			<p className="text-center text-black text-sm sm:text-left dark:text-gray-400">
+			<p className="text-center text-foreground text-sm sm:text-left">
 				Showing {startResult} to {endResult} of {totalResults.toLocaleString()}{" "}
 				results
 			</p>
@@ -28,14 +28,14 @@ export default function Pagination({
 				<Button
 					variant="outline"
 					size="sm"
-					className="flex-1 bg-transparent text-black hover:bg-gray-800 sm:flex-none dark:text-gray-400"
+					className="flex-1 bg-transparent text-foreground hover:bg-accent sm:flex-none"
 				>
 					Previous
 				</Button>
 				<Button
 					variant="outline"
 					size="sm"
-					className="flex-1 bg-transparent text-black hover:bg-gray-800 sm:flex-none dark:text-gray-400"
+					className="flex-1 bg-transparent text-foreground hover:bg-accent sm:flex-none"
 				>
 					Next
 				</Button>

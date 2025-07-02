@@ -15,7 +15,7 @@ export default function LogsFilters() {
 			<CardContent className="p-3 sm:p-4">
 				<div className="space-y-3 sm:space-y-4">
 					<div className="relative">
-						<Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 transform text-gray-400" />
+						<Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 transform text-muted-foreground" />
 						<Input
 							placeholder="Search by name or email..."
 							className="bg-white pl-10 text-white placeholder-gray-400 dark:bg-card"

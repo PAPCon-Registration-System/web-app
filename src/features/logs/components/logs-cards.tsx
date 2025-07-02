@@ -24,10 +24,10 @@ export default function LogsCards({ logs }: LogsCardsProps) {
 						<div className="space-y-3">
 							<div className="flex items-start justify-between">
 								<div className="min-w-0 flex-1">
-									<div className="truncate font-medium text-white">
+									<div className="truncate font-medium text-foreground">
 										{log.name}
 									</div>
-									<div className="truncate text-gray-400 text-sm">
+									<div className="truncate text-muted-foreground text-sm">
 										{log.email}
 									</div>
 								</div>
@@ -36,11 +36,13 @@ export default function LogsCards({ logs }: LogsCardsProps) {
 								</div>
 							</div>
 							<div className="flex items-center justify-between text-sm">
-								<div className="flex items-center space-x-1 text-gray-300">
-									<Clock className="h-3 w-3 text-gray-400" />
+								<div className="flex items-center space-x-1 text-muted-foreground">
+									<Clock className="h-3 w-3 text-muted-foreground" />
 									<span>{log.time}</span>
 								</div>
-								<div className="text-gray-400">Updated {log.updated}</div>
+								<div className="text-muted-foreground">
+									Updated {log.updated}
+								</div>
 							</div>
 						</div>
 					</CardContent>

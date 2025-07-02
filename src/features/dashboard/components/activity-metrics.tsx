@@ -18,14 +18,14 @@ export function ActivityMetrics({
 		total > 0 ? (newRegistrations / total) * 100 : 0;
 
 	// Sample data for bar chart visualization
-	const chartData = [
-		{ value: 40, color: "bg-blue-500" },
-		{ value: 60, color: "bg-blue-400" },
-		{ value: 30, color: "bg-blue-600" },
-		{ value: 80, color: "bg-blue-500" },
-		{ value: 50, color: "bg-blue-400" },
-		{ value: 90, color: "bg-blue-600" },
-		{ value: 70, color: "bg-blue-500" },
+	const data = [
+		{ value: 40, color: "bg-analytics-primary" },
+		{ value: 60, color: "bg-info-light" },
+		{ value: 30, color: "bg-analytics-primary-dark" },
+		{ value: 80, color: "bg-analytics-primary" },
+		{ value: 50, color: "bg-info-light" },
+		{ value: 90, color: "bg-analytics-primary-dark" },
+		{ value: 70, color: "bg-analytics-primary" },
 	];
 
 	return (
@@ -40,7 +40,7 @@ export function ActivityMetrics({
 							<span className="font-bold text-4xl">
 								{total.toLocaleString()}
 							</span>
-							<span className="rounded bg-green-500 px-2 py-1 text-sm text-white">
+							<span className="rounded bg-success px-2 py-1 text-sm text-success-foreground">
 								+{Math.round(((newCheckins + newRegistrations) / 2000) * 100)}%
 							</span>
 						</div>
@@ -52,7 +52,7 @@ export function ActivityMetrics({
 					{/* Chart Area */}
 					<div className="relative h-20 w-32">
 						<div className="flex h-full items-end justify-between space-x-1">
-							{chartData.map((bar) => (
+							{data.map((bar) => (
 								<div
 									key={bar.value}
 									className={`${bar.color} w-3 rounded-t transition-all duration-500`}

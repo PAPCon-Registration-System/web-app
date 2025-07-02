@@ -13,23 +13,23 @@ export default function EmailSentCard() {
 		<div className="flex min-h-screen items-center justify-center p-4">
 			<Card className="w-full max-w-md ">
 				<CardHeader className="text-center">
-					<div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-600">
+					<div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-success">
 						<CheckCircle className="h-6 w-6 text-white" />
 					</div>
 					<CardTitle className="text-white">Check your email</CardTitle>
-					<CardDescription className="text-gray-400">
+					<CardDescription className="text-muted-foreground">
 						We've sent a magic link to{" "}
 						<span className="font-medium text-white">example@gmail.com</span>
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
-					<div className="text-center text-gray-400 text-sm">
+					<div className="text-center text-muted-foreground text-sm">
 						<p>Click the link in your email to sign in to your account.</p>
 						<p className="mt-2">The link will expire in 15 minutes.</p>
 					</div>
 					<Button
 						variant="outline"
-						className="w-full border-gray-600 bg-transparent text-gray-300 hover:bg-gray-700"
+						className="w-full border bg-background text-foreground hover:bg-accent"
 					>
 						Use a different email
 					</Button>

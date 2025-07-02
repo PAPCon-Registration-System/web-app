@@ -24,7 +24,9 @@ export function Header() {
 						<Breadcrumb>
 							<BreadcrumbList>
 								<BreadcrumbItem>
-									<BreadcrumbPage>Dashboard</BreadcrumbPage>
+									<BreadcrumbPage className="font-semibold">
+										Dashboard
+									</BreadcrumbPage>
 								</BreadcrumbItem>
 							</BreadcrumbList>
 						</Breadcrumb>

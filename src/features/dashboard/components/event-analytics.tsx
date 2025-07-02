@@ -5,7 +5,7 @@ export function EventAnalytics() {
 	return (
 		<Card className="relative h-full overflow-hidden rounded-2xl border-0 bg-accent shadow-lg">
 			{/* Background accent */}
-			<div className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-yellow-400">
+			<div className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-analytics-warning">
 				<ArrowUpRight className="h-4 w-4 text-black" />
 			</div>
 
