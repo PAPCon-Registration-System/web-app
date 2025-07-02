@@ -21,7 +21,9 @@ const FileUpload = () => {
 		}
 	};
 
-	const handleUploadClick = () => {
+	const handleUploadClick = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
 		if (!file) {
 			toast.error("Please select a file", {
 				duration: TOAST_DURATION,
