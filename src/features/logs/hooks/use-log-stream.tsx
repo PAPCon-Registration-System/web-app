@@ -3,13 +3,11 @@ import { io, type Socket } from "socket.io-client";
 import { rpc } from "@/infrastructure/server/rpc";
 import type { GetLogsQueryParams } from "@/types/entities/logs.entity";
 import { Logger } from "@/features/shared/lib/logger";
+import type { Log } from "@/types/entities/logs.entity";
 
-export function useLogStream<
-	T = {
-		id: number;
-		content: unknown;
-	},
->(query: GetLogsQueryParams & { group: string }) {
+export function useLogStream<T = Log>(
+	query: GetLogsQueryParams & { group: string },
+) {
 	const [logs, setLogs] = useState<T[]>([]);
 	const [socket, setSocket] = useState<Socket | null>(null);
 
