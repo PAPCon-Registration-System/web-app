@@ -21,13 +21,13 @@ const routes = app
 				firstName: z.string().min(1),
 				middleName: z.string().optional(),
 				lastName: z.string().min(1),
-				photoUrl: z.string().optional(),
 			}),
 		),
 		async (c) => {
 			const data = c.req.valid("json");
 
-			const _res = await auth.auth.api.signUpEmail({
+			// TODO: Add logger for errors
+			await auth.auth.api.signUpEmail({
 				body: {
 					email: data.email,
 					name: `${data.firstName} ${data.middleName} ${data.lastName}`,
@@ -81,6 +81,7 @@ const routes = app
 				email,
 			}));
 
+			// TODO: Add logger for errors and check if user already exists
 			await Promise.all(
 				userInformation.map(async (user) => {
 					await auth.auth.api.signUpEmail({
