@@ -4,6 +4,7 @@ import { rpc } from "@/infrastructure/server/rpc";
 import type { GetLogsQueryParams } from "@/types/entities/logs.entity";
 import { Logger } from "@/features/shared/lib/logger";
 import type { Log } from "@/types/entities/logs.entity";
+import { env } from "@/config/env.client";
 
 /**
  * You can pass your own log types via `<T>` for soft type-safety.
@@ -38,7 +39,7 @@ export function useLogStream<T = Log>(
 
 		fetchInitial();
 
-		const socket = io("http://localhost:6969", {
+		const socket = io(env.NEXT_PUBLIC_API_BASE_URL, {
 			transports: ["websocket"],
 		});
 
