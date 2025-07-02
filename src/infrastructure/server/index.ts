@@ -11,9 +11,21 @@ import auth from "../auth";
 import { factory } from "./utils/factory";
 import { serve } from "@hono/node-server";
 
+import { env } from "@/config/env.client";
+
 export const app = factory
 	.createApp()
-	.use(cors())
+	.use(
+		"*",
+		cors({
+			origin: env.NEXT_PUBLIC_BASE_URL,
+			allowHeaders: ["Content-Type", "Authorization"],
+			allowMethods: ["POST", "GET", "OPTIONS"],
+			exposeHeaders: ["Content-Length"],
+			maxAge: 600,
+			credentials: true,
+		}),
+	)
 	.use(requestId())
 	.use(loggerMiddleware)
 	.use(socketIoMiddleware)
