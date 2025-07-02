@@ -1,4 +1,5 @@
 import pino, { type Logger as PinoLogger } from "pino";
+import { rpc } from "@/infrastructure/server/rpc";
 
 // #region Constants
 
@@ -69,6 +70,15 @@ export class Logger {
 	private context: Record<string, any>;
 	private logger: PinoLogger;
 
+	public static levelMap: Record<pino.Level, number> = {
+		fatal: 60,
+		error: 50,
+		warn: 40,
+		info: 30,
+		debug: 20,
+		trace: 10,
+	};
+
 	// biome-ignore lint: context can be any type
 	constructor(context: Record<string, any> = {}) {
 		this.context = context;
@@ -77,7 +87,6 @@ export class Logger {
 		});
 	}
 
-	// TODO: Server writable for pushing logs to persistence layer
 	private static readonly baseLogger: PinoLogger = pino({
 		level: process.env.PINO_LOG_LEVEL || "trace",
 		timestamp: pino.stdTimeFunctions.isoTime,
@@ -86,7 +95,15 @@ export class Logger {
 			write: (logObj) => {
 				const { level, msg, group, time } = logObj as Record<string, string>;
 
-				// TODO: Asynchronously push log to a persistence layer
+				rpc.api.logs.$post({
+					json: {
+						time,
+						group: group ?? "default",
+						msg,
+						level: Logger.getLogLevelValue(level as pino.Level),
+						environment,
+					},
+				});
 
 				const levelUpper = level.toUpperCase();
 				const color =
@@ -115,6 +132,10 @@ export class Logger {
 					},
 				}),
 	});
+
+	public static getLogLevelValue(logLevel: pino.Level): number {
+		return Logger.levelMap[logLevel] ?? -1;
+	}
 
 	private static formatPayload(data?: object) {
 		return data ? { ...data, environment } : { environment };
