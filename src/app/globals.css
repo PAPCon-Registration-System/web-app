@@ -21,6 +21,29 @@
 	--color-chart-3: var(--chart-3);
 	--color-chart-2: var(--chart-2);
 	--color-chart-1: var(--chart-1);
+	
+	/* Analytics and chart colors */
+	--color-analytics-primary: var(--analytics-primary);
+	--color-analytics-primary-dark: var(--analytics-primary-dark);
+	--color-analytics-secondary: var(--analytics-secondary);
+	--color-analytics-secondary-dark: var(--analytics-secondary-dark);
+	--color-analytics-warning: var(--analytics-warning);
+	--color-analytics-warning-dark: var(--analytics-warning-dark);
+	--color-analytics-danger: var(--analytics-danger);
+	--color-analytics-danger-dark: var(--analytics-danger-dark);
+	
+	/* Success/Growth colors */
+	--color-success: var(--success);
+	--color-success-foreground: var(--success-foreground);
+	--color-success-dark: var(--success-dark);
+	--color-success-light: var(--success-light);
+	
+	/* Info/Primary analytics */
+	--color-info: var(--info);
+	--color-info-foreground: var(--info-foreground);
+	--color-info-dark: var(--info-dark);
+	--color-info-light: var(--info-light);
+	
 	--color-ring: var(--ring);
 	--color-input: var(--input);
 	--color-border: var(--border);
@@ -41,6 +64,39 @@
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);
 	--radius-xl: calc(var(--radius) + 4px);
+}
+
+/* Disable default Tailwind colors to enforce design system usage */
+@theme {
+	/* Reset default Tailwind color palette */
+	--color-slate-*: initial;
+	--color-gray-*: initial;
+	--color-zinc-*: initial;
+	--color-neutral-*: initial;
+	--color-stone-*: initial;
+	--color-red-*: initial;
+	--color-orange-*: initial;
+	--color-amber-*: initial;
+	--color-yellow-*: initial;
+	--color-lime-*: initial;
+	--color-green-*: initial;
+	--color-emerald-*: initial;
+	--color-teal-*: initial;
+	--color-cyan-*: initial;
+	--color-sky-*: initial;
+	--color-blue-*: initial;
+	--color-indigo-*: initial;
+	--color-violet-*: initial;
+	--color-purple-*: initial;
+	--color-fuchsia-*: initial;
+	--color-pink-*: initial;
+	--color-rose-*: initial;
+	
+	/* Only allow these specific colors for edge cases */
+	--color-white: #fff;
+	--color-black: #000;
+	--color-transparent: transparent;
+	--color-current: currentColor;
 }
 
 :root {
@@ -68,6 +124,29 @@
 	--chart-3: oklch(0.398 0.07 227.392);
 	--chart-4: oklch(0.828 0.189 84.429);
 	--chart-5: oklch(0.769 0.188 70.08);
+	
+	/* Analytics and chart specific colors */
+	--analytics-primary: oklch(0.488 0.243 264.376);
+	--analytics-primary-dark: oklch(0.398 0.243 264.376);
+	--analytics-secondary: oklch(0.646 0.222 142.496);
+	--analytics-secondary-dark: oklch(0.556 0.222 142.496);
+	--analytics-warning: oklch(0.828 0.189 84.429);
+	--analytics-warning-dark: oklch(0.738 0.189 84.429);
+	--analytics-danger: oklch(0.645 0.246 16.439);
+	--analytics-danger-dark: oklch(0.555 0.246 16.439);
+	
+	/* Success/Growth colors */
+	--success: oklch(0.646 0.222 142.496);
+	--success-foreground: oklch(0.985 0.001 106.423);
+	--success-dark: oklch(0.556 0.222 142.496);
+	--success-light: oklch(0.736 0.152 142.496);
+	
+	/* Info/Primary analytics */
+	--info: oklch(0.488 0.243 264.376);
+	--info-foreground: oklch(0.985 0.001 106.423);
+	--info-dark: oklch(0.398 0.243 264.376);
+	--info-light: oklch(0.578 0.193 264.376);
+	
 	--sidebar: oklch(0.985 0.001 106.423);
 	--sidebar-foreground: oklch(0.147 0.004 49.25);
 	--sidebar-primary: oklch(0.216 0.006 56.043);
@@ -102,6 +181,29 @@
 	--chart-3: oklch(0.769 0.188 70.08);
 	--chart-4: oklch(0.627 0.265 303.9);
 	--chart-5: oklch(0.645 0.246 16.439);
+	
+	/* Analytics and chart specific colors */
+	--analytics-primary: oklch(0.578 0.193 264.376);
+	--analytics-primary-dark: oklch(0.488 0.243 264.376);
+	--analytics-secondary: oklch(0.736 0.152 142.496);
+	--analytics-secondary-dark: oklch(0.646 0.222 142.496);
+	--analytics-warning: oklch(0.908 0.139 84.429);
+	--analytics-warning-dark: oklch(0.828 0.189 84.429);
+	--analytics-danger: oklch(0.725 0.196 16.439);
+	--analytics-danger-dark: oklch(0.645 0.246 16.439);
+	
+	/* Success/Growth colors */
+	--success: oklch(0.736 0.152 142.496);
+	--success-foreground: oklch(0.147 0.004 49.25);
+	--success-dark: oklch(0.646 0.222 142.496);
+	--success-light: oklch(0.826 0.122 142.496);
+	
+	/* Info/Primary analytics */
+	--info: oklch(0.578 0.193 264.376);
+	--info-foreground: oklch(0.147 0.004 49.25);
+	--info-dark: oklch(0.488 0.243 264.376);
+	--info-light: oklch(0.668 0.163 264.376);
+	
 	--sidebar: oklch(0.216 0.006 56.043);
 	--sidebar-foreground: oklch(0.985 0.001 106.423);
 	--sidebar-primary: oklch(0.488 0.243 264.376);
@@ -111,6 +213,8 @@
 	--sidebar-border: oklch(1 0 0 / 10%);
 	--sidebar-ring: oklch(0.553 0.013 58.071);
 }
+
+
 
 @layer base {
 	* {
@@ -131,6 +235,7 @@
 	}
 }
 
+
 ::-webkit-scrollbar {
 	height: 0.2em;
 	width: 0.2em;
@@ -139,19 +244,19 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-	background: #f4f4f4;
+	background: hsl(var(--muted));
 	border-radius: 50px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: #27272a;
+	background: hsl(var(--muted-foreground));
 	border-radius: 100px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-	background: #241e2f;
+	background: hsl(var(--primary));
 }
 
 .dark {
@@ -163,18 +268,19 @@
 
 	/* Track */
 	::-webkit-scrollbar-track {
-		background: #27272a;
+		background: hsl(var(--muted));
 		border-radius: 50px;
 	}
 
 	/* Handle */
 	::-webkit-scrollbar-thumb {
-		background: #3d3d3d;
+		background: hsl(var(--muted-foreground));
 		border-radius: 100px;
 	}
 
 	/* Handle on hover */
 	::-webkit-scrollbar-thumb:hover {
-		background: #241e2f;
+		background: hsl(var(--primary));
 	}
 }
+

@@ -3,23 +3,34 @@ import { ArrowUpRight } from "lucide-react";
 
 export function EventAnalytics() {
 	return (
-		<Card className="h-full border-border bg-accent">
-			<CardContent className="p-6">
-				<div className="space-y-4">
-					<div className="flex items-center justify-between">
-						<h3 className="font-semibold text-3xl">Event Analytics</h3>
-						<ArrowUpRight className="h-10 w-10 text-green-500" />
-					</div>
-					<div className="space-y-3">
-						<div>
-							<p className="text-lg text-muted-foreground">
-								Peak Check-in Time
-							</p>
-							<p className="font-bold text-2xl">9:30 AM</p>
+		<Card className="relative h-full overflow-hidden rounded-2xl border-border shadow-lg">
+			{/* Background accent */}
+			<div className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-analytics-warning-dark">
+				<ArrowUpRight className="h-4 w-4 text-black" />
+			</div>
+
+			<CardContent className="px-8 py-4">
+				<div className="space-y-6">
+					<div>
+						<div className="font-medium text-base text-muted-foreground">
+							Event Analytics
 						</div>
+						<div className="mt-1 text-muted-foreground text-sm">Real-time</div>
+					</div>
+
+					<div className="space-y-4">
 						<div>
-							<p className="text-lg text-muted-foreground">Average Stay</p>
-							<p className="font-semibold text-2xl">4.2 hours</p>
+							<div className="mb-1 text-muted-foreground text-sm">
+								Peak Check-in Time
+							</div>
+							<div className="font-bold text-3xl">9:30 AM</div>
+						</div>
+
+						<div>
+							<div className="mb-1 text-muted-foreground text-sm">
+								Average Stay
+							</div>
+							<div className="font-bold text-3xl">4.2h</div>
 						</div>
 					</div>
 				</div>

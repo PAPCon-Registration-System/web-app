@@ -43,18 +43,18 @@ export default function LoginPage() {
 		<div className="flex min-h-screen items-center justify-center p-4">
 			<Card className="w-full max-w-md ">
 				<CardHeader className="text-center">
-					<div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600">
+					<div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary">
 						<Mail className="h-6 w-6 text-white" />
 					</div>
 					<CardTitle className="text-white">Welcome back</CardTitle>
-					<CardDescription className="text-gray-400">
+					<CardDescription className="text-muted-foreground">
 						Enter your email to receive a magic link
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<form onSubmit={handleSubmit} className="space-y-4">
 						<div className="space-y-2">
-							<Label htmlFor="email" className="text-gray-300">
+							<Label htmlFor="email" className="text-foreground">
 								Email address
 							</Label>
 							<Input
@@ -64,12 +64,12 @@ export default function LoginPage() {
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 								required
-								className="border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+								className="border-input bg-input text-foreground placeholder-muted-foreground focus:border-ring focus:ring-ring"
 							/>
 						</div>
 						<Button
 							type="submit"
-							className="w-full bg-blue-600 text-white hover:bg-blue-700"
+							className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
 							disabled={isLoading || !email}
 						>
 							{isLoading ? (

@@ -6,8 +6,7 @@ import { Button } from "@/features/shared/components/base/button";
 import { Label } from "@/features/shared/components/base/label";
 import { Input } from "@/features/shared/components/base/input";
 import { useRegisterUserWithFile } from "../data/use-register-user-with-file";
-import { toast } from "sonner";
-import { TOAST_DURATION } from "@/config/constants";
+import { toast } from "@/features/shared/lib/toast";
 
 const FileUpload = () => {
 	const fileInputRef = useRef<HTMLInputElement>(null);
@@ -25,9 +24,7 @@ const FileUpload = () => {
 		e.preventDefault();
 
 		if (!file) {
-			toast.error("Please select a file", {
-				duration: TOAST_DURATION,
-			});
+			toast.error("Please select a file");
 			return;
 		}
 
@@ -35,9 +32,7 @@ const FileUpload = () => {
 			{ file },
 			{
 				onSuccess: (data) => {
-					toast.success(data.message, {
-						duration: TOAST_DURATION,
-					});
+					toast.success(data.message);
 					// Reset the file input
 					if (fileInputRef.current) {
 						fileInputRef.current.value = "";
@@ -45,16 +40,14 @@ const FileUpload = () => {
 					setFile(null);
 				},
 				onError: (error) => {
-					toast.error(error.message, {
-						duration: TOAST_DURATION,
-					});
+					toast.error(error.message);
 				},
 			},
 		);
 	};
 
 	return (
-		<form className="flex flex-col gap-2" onSubmit={handleUploadClick}>
+		<form className="flex flex-col gap-4" onSubmit={handleUploadClick}>
 			<Label htmlFor="file">Upload CSV or Excel file only</Label>
 			<Input
 				id="file"
@@ -68,7 +61,7 @@ const FileUpload = () => {
 			<Button
 				disabled={mutation.isPending}
 				type="submit"
-				className="bg-blue-600 text-white hover:bg-blue-700"
+				className="bg-info-dark text-white hover:bg-info-light"
 			>
 				Upload
 			</Button>

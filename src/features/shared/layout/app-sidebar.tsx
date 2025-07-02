@@ -36,6 +36,11 @@ const items = [
 		icon: Inbox,
 	},
 	{
+		title: "Registration",
+		url: "/registration",
+		icon: UserPlus,
+	},
+	{
 		title: "Calendar",
 		url: "#",
 		icon: Calendar,
@@ -50,17 +55,12 @@ const items = [
 		url: "#",
 		icon: Settings,
 	},
-	{
-		title: "Registration",
-		url: "/registration",
-		icon: UserPlus,
-	},
 ];
 
 export function AppSidebar() {
 	return (
 		<Sidebar collapsible="icon">
-			<SidebarHeader className="py-4">
+			<SidebarHeader className="border-border border-r py-4">
 				<SidebarMenu>
 					<SidebarMenuItem>
 						<SidebarMenuButton size="lg" asChild>
@@ -79,7 +79,7 @@ export function AppSidebar() {
 					</SidebarMenuItem>
 				</SidebarMenu>
 			</SidebarHeader>
-			<SidebarContent>
+			<SidebarContent className="border-border border-r">
 				<SidebarGroup>
 					<SidebarGroupLabel>Navigation</SidebarGroupLabel>
 					<SidebarGroupContent>
@@ -98,7 +98,7 @@ export function AppSidebar() {
 					</SidebarGroupContent>
 				</SidebarGroup>
 			</SidebarContent>
-			<SidebarFooter>
+			<SidebarFooter className="border-border border-r">
 				<SidebarMenu>
 					<SidebarMenuItem>
 						<SidebarMenuButton tooltip="User Account">

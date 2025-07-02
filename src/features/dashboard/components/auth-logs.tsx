@@ -14,61 +14,61 @@ export function AuthLogs() {
 			name: "Sarah Johnson",
 			email: "sarah.j@email.com",
 			time: "2 minutes ago",
-			status: "checked-in",
+			status: "Checked-in",
 		},
 		{
 			id: 2,
 			name: "Michael Chen",
 			email: "michael.c@email.com",
 			time: "5 minutes ago",
-			status: "checked-in",
+			status: "Checked-in",
 		},
 		{
 			id: 3,
 			name: "Emily Davis",
 			email: "emily.d@email.com",
 			time: "8 minutes ago",
-			status: "registered",
+			status: "Registered",
 		},
 		{
 			id: 4,
 			name: "David Wilson",
 			email: "david.w@email.com",
 			time: "12 minutes ago",
-			status: "checked-in",
+			status: "Checked-in",
 		},
 		{
 			id: 5,
 			name: "Lisa Anderson",
 			email: "lisa.a@email.com",
 			time: "15 minutes ago",
-			status: "no-show",
+			status: "No-show",
 		},
 		{
 			id: 6,
 			name: "David Wilson",
 			email: "david.w@email.com",
 			time: "12 minutes ago",
-			status: "checked-in",
+			status: "Checked-in",
 		},
 		{
 			id: 7,
 			name: "Lisa Anderson",
 			email: "lisa.a@email.com",
 			time: "15 minutes ago",
-			status: "no-show",
+			status: "No-show",
 		},
 	];
 
 	return (
-		<Card className="border-border bg-accent">
-			<CardHeader>
+		<Card className="border-border shadow-lg">
+			<CardHeader className="px-8 pt-4">
 				<CardTitle className="flex items-center gap-2">
 					<User className="h-5 w-5" />
 					Registration Logs
 				</CardTitle>
 			</CardHeader>
-			<CardContent>
+			<CardContent className="px-8 pb-4">
 				<div className="space-y-1">
 					{/* Horizontal scroll container */}
 					<div className="overflow-x-auto">
