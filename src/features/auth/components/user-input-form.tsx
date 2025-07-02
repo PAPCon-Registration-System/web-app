@@ -7,7 +7,7 @@ import { Input } from "@/features/shared/components/base/input";
 import { Label } from "@/features/shared/components/base/label";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import type { UserCreateEntity } from "@/types/entities/user.entity";
-import { useRegisterUserManually } from "../data/useRegisterUserManually.mutation";
+import { useRegisterUserManually } from "@/features/auth/data/use-register-user-manually";
 import { toast } from "sonner";
 import { TOAST_DURATION } from "@/config/constants";
 
