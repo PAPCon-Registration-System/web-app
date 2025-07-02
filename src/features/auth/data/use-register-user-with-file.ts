@@ -2,7 +2,7 @@ import { rpc } from "@/infrastructure/server/rpc";
 import { useMutation } from "@tanstack/react-query";
 import type { InferRequestType } from "hono";
 
-const $registerUserWithFile = rpc.api.user.seed.file.$post;
+const $registerUserWithFile = rpc.user.seed.file.$post;
 type Input = InferRequestType<typeof $registerUserWithFile>["form"];
 
 export function useRegisterUserWithFile() {

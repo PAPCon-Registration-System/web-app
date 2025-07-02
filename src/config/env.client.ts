@@ -11,10 +11,18 @@ const envParseResult = z
 				message: "NEXT_PUBLIC_BASE_URL must not end with a slash",
 			})
 			.default("http://localhost:3000"),
+		NEXT_PUBLIC_API_BASE_URL: z
+			.string()
+			.url()
+			.refine(isNotTrailingSlash, {
+				message: "NEXT_PUBLIC_API_BASE_URL must not end with a slash",
+			})
+			.default("http://localhost:6969"),
 	})
 	.safeParse({
 		// Add the client environment variables here!
 		NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+		NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
 	});
 
 if (!envParseResult.success) {

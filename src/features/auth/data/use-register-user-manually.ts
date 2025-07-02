@@ -2,7 +2,7 @@ import { rpc } from "@/infrastructure/server/rpc";
 import { useMutation } from "@tanstack/react-query";
 import type { InferRequestType } from "hono";
 
-const $registerUser = rpc.api.user.seed.manual.$post;
+const $registerUser = rpc.user.seed.manual.$post;
 type Input = InferRequestType<typeof $registerUser>["json"];
 
 export function useRegisterUserManually() {

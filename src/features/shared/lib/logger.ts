@@ -95,7 +95,7 @@ export class Logger {
 			write: (logObj) => {
 				const { level, msg, group, time } = logObj as Record<string, string>;
 
-				rpc.api.logs.$post({
+				rpc.logs.$post({
 					json: {
 						time,
 						group: group ?? "default",
