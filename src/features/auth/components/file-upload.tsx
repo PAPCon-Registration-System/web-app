@@ -1,51 +1,78 @@
 "use client";
 
 import type React from "react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/features/shared/components/base/button";
-import { Upload } from "lucide-react";
+import { Label } from "@/features/shared/components/base/label";
+import { Input } from "@/features/shared/components/base/input";
+import { useRegisterUserWithFile } from "../data/use-register-user-with-file";
+import { toast } from "sonner";
+import { TOAST_DURATION } from "@/config/constants";
 
 const FileUpload = () => {
 	const fileInputRef = useRef<HTMLInputElement>(null);
+	const [file, setFile] = useState<File | null>(null);
+	const mutation = useRegisterUserWithFile();
 
 	const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0];
 		if (file) {
-			console.log("Selected file:", file.name, file.type);
-			// Handle file upload logic here
+			setFile(file);
 		}
 	};
 
-	const handleUploadClick = () => {
-		fileInputRef.current?.click();
+	const handleUploadClick = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		if (!file) {
+			toast.error("Please select a file", {
+				duration: TOAST_DURATION,
+			});
+			return;
+		}
+
+		mutation.mutate(
+			{ file },
+			{
+				onSuccess: (data) => {
+					toast.success(data.message, {
+						duration: TOAST_DURATION,
+					});
+					// Reset the file input
+					if (fileInputRef.current) {
+						fileInputRef.current.value = "";
+					}
+					setFile(null);
+				},
+				onError: (error) => {
+					toast.error(error.message, {
+						duration: TOAST_DURATION,
+					});
+				},
+			},
+		);
 	};
 
 	return (
-		<div
-			className="w-full cursor-pointer rounded-lg border-2 border-zinc-600 border-dashed p-8 text-center transition-colors hover:border-zinc-500"
-			onClick={handleUploadClick}
-		>
-			<Upload className="mx-auto mb-4 h-12 w-12 text-zinc-400" />
-			<p className="mb-2 text-zinc-300">Click to upload or drag and drop</p>
-			<p className="mb-4 text-sm text-zinc-500">CSV or Excel files only</p>
-			<Button
-				type="button"
-				className="bg-blue-600 text-white hover:bg-blue-700"
-				onClick={(event) => {
-					event.stopPropagation();
-					handleUploadClick();
-				}}
-			>
-				Choose File
-			</Button>
-			<input
-				ref={fileInputRef}
+		<form className="flex flex-col gap-2" onSubmit={handleUploadClick}>
+			<Label htmlFor="file">Upload CSV or Excel file only</Label>
+			<Input
+				id="file"
 				type="file"
 				accept=".csv,.xlsx,.xls"
+				className="cursor-pointer bg-zinc-50"
 				onChange={handleFileSelect}
-				className="hidden"
+				ref={fileInputRef}
+				required
 			/>
-		</div>
+			<Button
+				disabled={mutation.isPending}
+				type="submit"
+				className="bg-blue-600 text-white hover:bg-blue-700"
+			>
+				Upload
+			</Button>
+		</form>
 	);
 };
 

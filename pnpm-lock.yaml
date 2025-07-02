@@ -74,6 +74,9 @@ importers:
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      node-xlsx:
+        specifier: ^0.24.0
+        version: 0.24.0
       pg:
         specifier: ^8.16.2
         version: 8.16.2
@@ -2245,6 +2248,11 @@ packages:
       sass:
         optional: true
 
+  node-xlsx@0.24.0:
+    resolution: {integrity: sha512-1olwK48XK9nXZsyH/FCltvGrQYvXXZuxVitxXXv2GIuRm51aBi1+5KwR4rWM4KeO61sFU+00913WLZTD+AcXEg==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+
   on-exit-leak-free@2.1.2:
     resolution: {integrity: sha512-0eJJY6hXLGf1udHwfNftBqH+g73EU4B504nZeKpz1sYRKafAghwxEJunB2O7rDZkL4PGfsMVnTXZ2EjibbqcsA==}
     engines: {node: '>=14.0.0'}
@@ -2698,6 +2706,12 @@ packages:
 
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
+
+  xlsx@https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz:
+    resolution: {tarball: https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz}
+    version: 0.20.2
+    engines: {node: '>=0.8'}
+    hasBin: true
 
   xtend@4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
@@ -4542,6 +4556,10 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
+  node-xlsx@0.24.0:
+    dependencies:
+      xlsx: https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz
+
   on-exit-leak-free@2.1.2: {}
 
   once@1.4.0:
@@ -4980,6 +4998,8 @@ snapshots:
       strip-ansi: 6.0.1
 
   wrappy@1.0.2: {}
+
+  xlsx@https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz: {}
 
   xtend@4.0.2: {}
 
