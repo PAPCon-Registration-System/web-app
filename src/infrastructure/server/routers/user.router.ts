@@ -3,6 +3,7 @@ import { zValidator } from "@hono/zod-validator";
 import auth from "@/infrastructure/auth";
 import { z } from "zod/v4";
 import xlsx from "node-xlsx";
+import generateRandomPassword from "./utils/generate-random-password";
 
 // TODO: Protect routes (only admin can seed)
 const app = new Hono();
@@ -26,7 +27,7 @@ const routes = app
 		async (c) => {
 			const data = c.req.valid("json");
 
-			const res = await auth.auth.api.signUpEmail({
+			const _res = await auth.auth.api.signUpEmail({
 				body: {
 					email: data.email,
 					name: `${data.firstName} ${data.middleName} ${data.lastName}`,
@@ -34,7 +35,9 @@ const routes = app
 				},
 			});
 
-			return c.json(res);
+			return c.json({
+				message: `Successfully registered user ${data.email}`,
+			});
 		},
 	)
 	.post("seed/csv", async (c) => {
@@ -66,7 +69,7 @@ const routes = app
 			const arrayBuffer = await file.arrayBuffer();
 			const buffer = Buffer.from(arrayBuffer);
 
-			// * Should expect name, email, and designation
+			// Should expect name, email, and designation
 			// The actual shape is TBD, but I'll assume that the file has the following structure:
 			// [
 			// 	["name", "email", "designation"],
@@ -75,9 +78,29 @@ const routes = app
 			// ]
 			const sheets = xlsx.parse(buffer);
 			const data = sheets[0].data as [string, string, string][];
-			console.log(data);
+			const userInformation: {
+				name: string;
+				email: string;
+			}[] = data.slice(1).map(([name, email]) => ({
+				name,
+				email,
+			}));
 
-			return c.json({ message: "Excel seeding" });
+			await Promise.all(
+				userInformation.map(async (user) => {
+					await auth.auth.api.signUpEmail({
+						body: {
+							email: user.email,
+							name: user.name,
+							password: generateRandomPassword(),
+						},
+					});
+				}),
+			);
+
+			return c.json({
+				message: `Successfully seeded ${userInformation.length} users`,
+			});
 		},
 	);
 
