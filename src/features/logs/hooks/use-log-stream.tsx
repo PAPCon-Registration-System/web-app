@@ -5,6 +5,13 @@ import type { GetLogsQueryParams } from "@/types/entities/logs.entity";
 import { Logger } from "@/features/shared/lib/logger";
 import type { Log } from "@/types/entities/logs.entity";
 
+/**
+ * You can pass your own log types via `<T>` for soft type-safety.
+ * NOTE: It's not enforced on the server though, so you need to double-check whether `logs` actually conform to your type.
+ *
+ * @param query the query params to GET /logs for the initial logs before streaming new ones
+ * @returns
+ */
 export function useLogStream<T = Log>(
 	query: GetLogsQueryParams & { group: string },
 ) {
