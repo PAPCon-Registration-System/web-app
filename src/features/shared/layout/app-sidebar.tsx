@@ -36,6 +36,11 @@ const items = [
 		icon: Inbox,
 	},
 	{
+		title: "Registration",
+		url: "/registration",
+		icon: UserPlus,
+	},
+	{
 		title: "Calendar",
 		url: "#",
 		icon: Calendar,
@@ -49,11 +54,6 @@ const items = [
 		title: "Settings",
 		url: "#",
 		icon: Settings,
-	},
-	{
-		title: "Registration",
-		url: "/registration",
-		icon: UserPlus,
 	},
 ];
 

@@ -15,22 +15,24 @@ export function LogItem({ log }: LogItemProps) {
 	const getStatusColor = (status: string) => {
 		switch (status) {
 			case "Checked-in":
-				return "bg-success";
+				return "success";
 			case "Registered":
-				return "bg-analytics-warning ";
+				return "analytics-warning ";
 			case "No-show":
-				return "bg-analytics-danger ";
+				return "analytics-danger ";
 			default:
-				return "bg-muted-foreground ";
+				return "muted-foreground ";
 		}
 	};
 
+	const statusColor = getStatusColor(log.status);
+
 	return (
-		<div className="grid grid-cols-12 gap-4 border-border border-l-2 px-4 py-3 text-sm transition-colors hover:bg-muted/50">
+		<div
+			className={`grid grid-cols-12 gap-4 border-${statusColor} border-l-4 px-4 py-3 text-sm transition-colors hover:bg-muted/50`}
+		>
 			<div className="col-span-2">
-				<Badge className={`text-xs ${getStatusColor(log.status)}`}>
-					{log.status}
-				</Badge>
+				<Badge className={`text-xs bg-${statusColor}`}>{log.status}</Badge>
 			</div>
 			<div className="col-span-4">
 				<div className="font-medium">{log.name}</div>
