@@ -43,6 +43,39 @@
 	--radius-xl: calc(var(--radius) + 4px);
 }
 
+/* Disable default Tailwind colors to enforce design system usage */
+@theme {
+	/* Reset default Tailwind color palette */
+	--color-slate-*: initial;
+	--color-gray-*: initial;
+	--color-zinc-*: initial;
+	--color-neutral-*: initial;
+	--color-stone-*: initial;
+	--color-red-*: initial;
+	--color-orange-*: initial;
+	--color-amber-*: initial;
+	--color-yellow-*: initial;
+	--color-lime-*: initial;
+	--color-green-*: initial;
+	--color-emerald-*: initial;
+	--color-teal-*: initial;
+	--color-cyan-*: initial;
+	--color-sky-*: initial;
+	--color-blue-*: initial;
+	--color-indigo-*: initial;
+	--color-violet-*: initial;
+	--color-purple-*: initial;
+	--color-fuchsia-*: initial;
+	--color-pink-*: initial;
+	--color-rose-*: initial;
+	
+	/* Only allow these specific colors for edge cases */
+	--color-white: #fff;
+	--color-black: #000;
+	--color-transparent: transparent;
+	--color-current: currentColor;
+}
+
 :root {
 	--radius: 0.625rem;
 	--background: oklch(1 0 0);
@@ -112,6 +145,8 @@
 	--sidebar-ring: oklch(0.553 0.013 58.071);
 }
 
+
+
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
@@ -130,6 +165,7 @@
 		--sidebar-ring: oklch(0.708 0 0);
 	}
 }
+
 
 ::-webkit-scrollbar {
 	height: 0.2em;

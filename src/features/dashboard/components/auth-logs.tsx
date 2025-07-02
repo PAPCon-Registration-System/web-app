@@ -62,13 +62,13 @@ export function AuthLogs() {
 
 	return (
 		<Card className="border-border bg-accent">
-			<CardHeader>
+			<CardHeader className="px-8 pt-4">
 				<CardTitle className="flex items-center gap-2">
 					<User className="h-5 w-5" />
 					Registration Logs
 				</CardTitle>
 			</CardHeader>
-			<CardContent>
+			<CardContent className="px-8 pb-4">
 				<div className="space-y-1">
 					{/* Horizontal scroll container */}
 					<div className="overflow-x-auto">
