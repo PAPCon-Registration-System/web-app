@@ -11,6 +11,12 @@ export const LOG_GROUPS = {
 	PAYMENTS: "payments",
 	NOTIFICATIONS: "notifications",
 
+	// Application-specific
+	REGISTRATION: "registration",
+	QR_SCANNING: "qr-scanning",
+	BADGE_ACTIVITY: "badge-activity",
+	ADMIN_ACTIVITY: "admin-activity",
+
 	// Development
 	TEST: "test",
 	DEBUG: "debug",

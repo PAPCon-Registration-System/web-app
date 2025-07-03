@@ -1,6 +1,7 @@
 import { getConnInfo } from "hono/vercel";
 import { Logger } from "@/features/shared/lib/logger";
 import { factory } from "../utils/factory";
+import { LOG_GROUPS } from "@/config/constants";
 
 /**
  * Attaches a `logger` instance to each request with the requestId included in the context.
@@ -15,7 +16,7 @@ export const loggerMiddleware = factory.createMiddleware(async (c, next) => {
 
 	const connInfo = getConnInfo(c);
 	const requestLoggerInstance = new Logger({
-		group: "server",
+		group: LOG_GROUPS.SERVER,
 		requestId: c.var.requestId,
 		method: c.req.method,
 		path: c.req.path,

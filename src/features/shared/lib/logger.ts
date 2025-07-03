@@ -1,5 +1,6 @@
 import pino, { type Logger as PinoLogger } from "pino";
 import { rpc } from "@/infrastructure/server/rpc";
+import { LOG_GROUPS } from "@/config/constants";
 
 // #region Constants
 
@@ -83,7 +84,7 @@ export class Logger {
 	constructor(context: Record<string, any> = {}) {
 		this.context = context;
 		this.logger = Logger.baseLogger.child({
-			group: context.group ?? "default",
+			group: context.group ?? LOG_GROUPS.DEBUG,
 		});
 	}
 
@@ -98,7 +99,7 @@ export class Logger {
 				rpc.logs.$post({
 					json: {
 						time,
-						group: group ?? "default",
+						group: group ?? LOG_GROUPS.DEBUG,
 						msg,
 						level: Logger.getLogLevelValue(level as pino.Level),
 						environment,
