@@ -7,9 +7,9 @@ import LogsTable from "./logs-table";
 import LogsCards from "./logs-cards";
 import Pagination from "./pagination";
 import TestButtons from "./test-buttons";
-import LogsHeaderEnhanced from "./logs-header-enhanced";
-import StatsCardsEnhanced from "./stats-cards-enhanced";
-import LogsFiltersEnhanced from "./logs-filters-enhanced";
+import LogsHeader from "./logs-header";
+import StatsCards from "./stats-cards";
+import LogsFilters from "./logs-filters";
 import type { Log } from "@/types/entities/logs.entity";
 
 interface LogTabProps {
@@ -30,7 +30,6 @@ export default function LogTab({ group }: LogTabProps) {
 
 	const { logs } = useLogStream<Log>(query);
 
-	// Filter logs based on search
 	const filteredLogs = useMemo(() => {
 		if (!searchQuery) return logs;
 		return logs.filter(
@@ -59,10 +58,10 @@ export default function LogTab({ group }: LogTabProps) {
 
 	return (
 		<div className="space-y-4">
-			<LogsHeaderEnhanced group={group} logsCount={logs.length} />
+			<LogsHeader group={group} logsCount={logs.length} />
 			<TestButtons group={group} />
-			<StatsCardsEnhanced logs={filteredLogs} />
-			<LogsFiltersEnhanced onSearch={handleSearch} />
+			<StatsCards logs={filteredLogs} />
+			<LogsFilters onSearch={handleSearch} />
 
 			{filteredLogs.length === 0 ? (
 				<Card>
