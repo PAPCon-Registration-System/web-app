@@ -50,13 +50,10 @@ export const LOG_LEVEL_NAMES = {
 	10: "trace",
 };
 
-// Transform real logs to fit existing component interface
 export function transformLogsForComponents(logs: Log[]): TransformedLog[] {
 	return logs.map((log) => ({
 		id: log.id,
-		status:
-			LOG_LEVEL_NAMES[log.content.level as keyof typeof LOG_LEVEL_NAMES] ||
-			"unknown",
+		status: LOG_LEVEL_NAMES[log.content.level as keyof typeof LOG_LEVEL_NAMES],
 		name: log.content.msg || "No message",
 		email: log.content.group || "unknown",
 		time: new Date(log.content.time).toLocaleTimeString(),
