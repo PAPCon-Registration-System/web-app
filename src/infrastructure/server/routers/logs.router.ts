@@ -11,7 +11,7 @@ import {
 	GetLogsQueryParamsSchema,
 } from "@/types/entities/logs.entity";
 import { LogsService } from "../services/logs.service";
-import { LOG_GROUPS } from "@/config/constants";
+import { LOG_GROUPS } from "@/features/shared/lib/logger";
 
 const ROUTER_GROUP = LOG_GROUPS.DATABASE;
 

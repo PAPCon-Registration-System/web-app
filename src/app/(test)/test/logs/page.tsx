@@ -1,10 +1,9 @@
 "use client";
 
 import { Button } from "@/features/shared/components/base/button";
-import { Logger } from "@/features/shared/lib/logger";
+import { LOG_GROUPS, Logger } from "@/features/shared/lib/logger";
 import { useLogStream } from "@/features/logs/hooks/use-log-stream";
 import { useMemo } from "react";
-import { LOG_GROUPS } from "@/config/constants";
 
 export default function RealtimeLogsPage() {
 	const query = useMemo(() => ({ group: LOG_GROUPS.TEST }), []);

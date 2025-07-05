@@ -1,8 +1,7 @@
 import { Server } from "socket.io";
 import { factory } from "../utils/factory";
-import { Logger } from "@/features/shared/lib/logger";
+import { LOG_GROUPS, Logger } from "@/features/shared/lib/logger";
 import type { ServerType } from "@hono/node-server";
-import { LOG_GROUPS } from "@/config/constants";
 
 let io: Server | null;
 

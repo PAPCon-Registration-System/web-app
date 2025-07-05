@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Card, CardContent } from "@/features/shared/components/base/card";
 import { Database } from "lucide-react";
 import type { Log } from "@/types/entities/logs.entity";
+import { Logger } from "@/features/shared/lib/logger";
 
 interface StatsCardsEnhancedProps {
 	logs: Log[];
@@ -9,9 +10,15 @@ interface StatsCardsEnhancedProps {
 
 export default function StatsCards({ logs }: StatsCardsEnhancedProps) {
 	const stats = useMemo(() => {
-		const errorLogs = logs.filter((log) => log.content.level >= 50).length;
-		const warningLogs = logs.filter((log) => log.content.level === 40).length;
-		const infoLogs = logs.filter((log) => log.content.level === 30).length;
+		const errorLogs = logs.filter(
+			(log) => log.content.level >= Logger.levelMap.error,
+		).length;
+		const warningLogs = logs.filter(
+			(log) => log.content.level === Logger.levelMap.warn,
+		).length;
+		const infoLogs = logs.filter(
+			(log) => log.content.level === Logger.levelMap.info,
+		).length;
 
 		return [
 			{

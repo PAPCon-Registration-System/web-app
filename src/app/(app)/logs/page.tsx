@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { LOG_GROUPS } from "@/config/constants";
+
 import {
 	Card,
 	CardContent,
@@ -18,6 +18,7 @@ import {
 import { Zap } from "lucide-react";
 import { LOG_TABS } from "@/features/logs/types";
 import LogTab from "@/features/logs/components/log-tab";
+import { LOG_GROUPS } from "@/features/shared/lib/logger";
 
 export default function LogsPage() {
 	const [activeTab, setActiveTab] = useState<string>(LOG_GROUPS.REGISTRATION);

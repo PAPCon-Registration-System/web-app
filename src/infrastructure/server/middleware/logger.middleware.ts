@@ -1,7 +1,6 @@
 import { getConnInfo } from "hono/vercel";
-import { Logger } from "@/features/shared/lib/logger";
+import { LOG_GROUPS, Logger } from "@/features/shared/lib/logger";
 import { factory } from "../utils/factory";
-import { LOG_GROUPS } from "@/config/constants";
 
 /**
  * Attaches a `logger` instance to each request with the requestId included in the context.

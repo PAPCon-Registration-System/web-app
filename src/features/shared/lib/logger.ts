@@ -1,6 +1,5 @@
 import pino, { type Logger as PinoLogger } from "pino";
 import { rpc } from "@/infrastructure/server/rpc";
-import { LOG_GROUPS } from "@/config/constants";
 
 // #region Constants
 
@@ -22,6 +21,29 @@ const LEVEL_COLORS = {
 	DEBUG: COLOR.GREEN,
 	TRACE: COLOR.GREEN,
 };
+
+export const LOG_GROUPS = {
+	// Infrastructure
+	SERVER: "server",
+	DATABASE: "database",
+	WEBSOCKET: "ws",
+
+	// Features
+	AUTH: "auth",
+	NOTIFICATIONS: "notifications",
+
+	// Required in contract
+	REGISTRATION: "registration",
+	QR: "qr",
+	KITS: "kits",
+	ADMIN: "admin",
+
+	// Development
+	TEST: "test",
+	DEBUG: "debug",
+} as const;
+
+export type LogGroup = (typeof LOG_GROUPS)[keyof typeof LOG_GROUPS];
 
 // #region Helpers
 
@@ -136,6 +158,13 @@ export class Logger {
 
 	public static getLogLevelValue(logLevel: pino.Level): number {
 		return Logger.levelMap[logLevel] ?? -1;
+	}
+
+	public static getLevelName(levelValue: number): string {
+		const entry = Object.entries(Logger.levelMap).find(
+			([_, value]) => value === levelValue,
+		);
+		return entry ? entry[0] : "unknown";
 	}
 
 	private static formatPayload(data?: object) {
