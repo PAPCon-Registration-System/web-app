@@ -3,6 +3,7 @@ import {
 	Calendar,
 	Home,
 	Inbox,
+	QrCode,
 	Search,
 	Settings,
 	UserPlus,
@@ -41,7 +42,12 @@ const items = [
 		icon: UserPlus,
 	},
 	{
-		title: "Calendar",
+		title: "QR Code",
+		url: "/qr-code",
+		icon: QrCode,
+	},
+	{
+		title: "Event Schedule",
 		url: "#",
 		icon: Calendar,
 	},
