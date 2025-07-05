@@ -1,4 +1,4 @@
-import { Badge } from "@/features/shared/components/base/badge";
+import StatusBadge from "@/features/logs/components/status-badge";
 import { Clock } from "lucide-react";
 
 interface LogItemProps {
@@ -12,27 +12,12 @@ interface LogItemProps {
 }
 
 export function LogItem({ log }: LogItemProps) {
-	const getStatusColor = (status: string) => {
-		switch (status) {
-			case "Checked-in":
-				return "success";
-			case "Registered":
-				return "analytics-warning ";
-			case "No-show":
-				return "analytics-danger ";
-			default:
-				return "muted-foreground ";
-		}
-	};
-
-	const statusColor = getStatusColor(log.status);
-
 	return (
 		<div
-			className={`grid grid-cols-12 gap-4 border-${statusColor} border-l-4 px-4 py-3 text-sm transition-colors hover:bg-muted/50`}
+			className={`grid grid-cols-12 gap-4 border-l-4 px-4 py-3 text-sm transition-colors hover:bg-muted/50`}
 		>
 			<div className="col-span-2">
-				<Badge className={`text-xs bg-${statusColor}`}>{log.status}</Badge>
+				<StatusBadge status={log.status} />
 			</div>
 			<div className="col-span-4">
 				<div className="font-medium">{log.name}</div>

@@ -1,64 +1,33 @@
+"use client";
+
+import { useMemo } from "react";
 import {
 	Card,
 	CardContent,
 	CardHeader,
 	CardTitle,
 } from "@/features/shared/components/base/card";
-import { User } from "lucide-react";
+import { User, Database } from "lucide-react";
 import { LogItem } from "./log-item";
+import { useLogStream } from "@/features/logs/hooks/use-log-stream";
+import { transformLogsForComponents } from "@/features/logs/types";
+import { LOG_GROUPS } from "@/features/shared/lib/logger";
+import type { Log } from "@/types/entities/logs.entity";
 
 export function AuthLogs() {
-	const logs = [
-		{
-			id: 1,
-			name: "Sarah Johnson",
-			email: "sarah.j@email.com",
-			time: "2 minutes ago",
-			status: "Checked-in",
-		},
-		{
-			id: 2,
-			name: "Michael Chen",
-			email: "michael.c@email.com",
-			time: "5 minutes ago",
-			status: "Checked-in",
-		},
-		{
-			id: 3,
-			name: "Emily Davis",
-			email: "emily.d@email.com",
-			time: "8 minutes ago",
-			status: "Registered",
-		},
-		{
-			id: 4,
-			name: "David Wilson",
-			email: "david.w@email.com",
-			time: "12 minutes ago",
-			status: "Checked-in",
-		},
-		{
-			id: 5,
-			name: "Lisa Anderson",
-			email: "lisa.a@email.com",
-			time: "15 minutes ago",
-			status: "No-show",
-		},
-		{
-			id: 6,
-			name: "David Wilson",
-			email: "david.w@email.com",
-			time: "12 minutes ago",
-			status: "Checked-in",
-		},
-		{
-			id: 7,
-			name: "Lisa Anderson",
-			email: "lisa.a@email.com",
-			time: "15 minutes ago",
-			status: "No-show",
-		},
-	];
+	const query = useMemo(
+		() => ({
+			group: LOG_GROUPS.REGISTRATION,
+		}),
+		[],
+	);
+
+	const { logs } = useLogStream<Log>(query);
+
+	const transformedLogs = useMemo(
+		() => transformLogsForComponents(logs.slice(0, 10)), // Show only the latest 10 logs
+		[logs],
+	);
 
 	return (
 		<Card className="border-border shadow-lg">
@@ -70,22 +39,31 @@ export function AuthLogs() {
 			</CardHeader>
 			<CardContent className="px-8 pb-4">
 				<div className="space-y-1">
-					{/* Horizontal scroll container */}
 					<div className="overflow-x-auto">
 						<div className="min-w-[640px]">
-							{/* Header */}
 							<div className="grid grid-cols-12 gap-4 border-border border-b px-4 py-2 font-medium text-muted-foreground text-sm">
-								<div className="col-span-2">Registered</div>
-								<div className="col-span-4">Attendee</div>
+								<div className="col-span-2">Status</div>
+								<div className="col-span-4">Message</div>
 								<div className="col-span-4">Time</div>
-								<div className="col-span-2">Updated</div>
+								<div className="col-span-2">Group</div>
 							</div>
 
-							{/* Logs - Scrollable container */}
 							<div className="max-h-[340px] space-y-1 overflow-y-auto">
-								{logs.map((log) => (
-									<LogItem key={log.id} log={log} />
-								))}
+								{transformedLogs.length === 0 ? (
+									<div className="flex flex-col items-center justify-center py-8 text-center">
+										<Database className="mb-4 h-12 w-12 text-muted-foreground" />
+										<p className="text-muted-foreground">
+											No authentication logs yet
+										</p>
+										<p className="mt-1 text-muted-foreground text-sm">
+											Logs will appear here when authentication events occur
+										</p>
+									</div>
+								) : (
+									transformedLogs.map((log) => (
+										<LogItem key={log.id} log={log} />
+									))
+								)}
 							</div>
 						</div>
 					</div>
