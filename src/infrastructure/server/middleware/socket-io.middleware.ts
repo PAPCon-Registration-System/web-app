@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 import { factory } from "../utils/factory";
-import { Logger } from "@/features/shared/lib/logger";
+import { LOG_GROUPS, Logger } from "@/features/shared/lib/logger";
 import type { ServerType } from "@hono/node-server";
 
 let io: Server | null;
@@ -14,7 +14,10 @@ export function initWebsocket(server: ServerType) {
 	});
 
 	io.on("error", (err) => {
-		Logger.error("A websocket error occured", { group: "ws", err });
+		Logger.error("A websocket error occured", {
+			group: LOG_GROUPS.WEBSOCKET,
+			err,
+		});
 	});
 }
 

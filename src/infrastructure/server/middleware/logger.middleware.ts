@@ -1,5 +1,5 @@
 import { getConnInfo } from "hono/vercel";
-import { Logger } from "@/features/shared/lib/logger";
+import { LOG_GROUPS, Logger } from "@/features/shared/lib/logger";
 import { factory } from "../utils/factory";
 
 /**
@@ -15,7 +15,7 @@ export const loggerMiddleware = factory.createMiddleware(async (c, next) => {
 
 	const connInfo = getConnInfo(c);
 	const requestLoggerInstance = new Logger({
-		group: "server",
+		group: LOG_GROUPS.SERVER,
 		requestId: c.var.requestId,
 		method: c.req.method,
 		path: c.req.path,

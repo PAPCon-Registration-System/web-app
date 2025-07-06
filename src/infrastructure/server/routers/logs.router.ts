@@ -11,8 +11,9 @@ import {
 	GetLogsQueryParamsSchema,
 } from "@/types/entities/logs.entity";
 import { LogsService } from "../services/logs.service";
+import { LOG_GROUPS } from "@/features/shared/lib/logger";
 
-const ROUTER_GROUP = "logs";
+const ROUTER_GROUP = LOG_GROUPS.DATABASE;
 
 const validateLog = validator("json", (value, c) => {
 	const parsed = LogContentSchema.safeParse(value);

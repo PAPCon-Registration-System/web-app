@@ -22,6 +22,29 @@ const LEVEL_COLORS = {
 	TRACE: COLOR.GREEN,
 };
 
+export const LOG_GROUPS = {
+	// Infrastructure
+	SERVER: "server",
+	DATABASE: "database",
+	WEBSOCKET: "ws",
+
+	// Features
+	AUTH: "auth",
+	NOTIFICATIONS: "notifications",
+
+	// Required in contract
+	REGISTRATION: "registration",
+	QR: "qr",
+	KITS: "kits",
+	ADMIN: "admin",
+
+	// Development
+	TEST: "test",
+	DEBUG: "debug",
+} as const;
+
+export type LogGroup = (typeof LOG_GROUPS)[keyof typeof LOG_GROUPS];
+
 // #region Helpers
 
 function formatTime(date: Date): string {
@@ -83,7 +106,7 @@ export class Logger {
 	constructor(context: Record<string, any> = {}) {
 		this.context = context;
 		this.logger = Logger.baseLogger.child({
-			group: context.group ?? "default",
+			group: context.group ?? LOG_GROUPS.DEBUG,
 		});
 	}
 
@@ -98,7 +121,7 @@ export class Logger {
 				rpc.logs.$post({
 					json: {
 						time,
-						group: group ?? "default",
+						group: group ?? LOG_GROUPS.DEBUG,
 						msg,
 						level: Logger.getLogLevelValue(level as pino.Level),
 						environment,
@@ -135,6 +158,13 @@ export class Logger {
 
 	public static getLogLevelValue(logLevel: pino.Level): number {
 		return Logger.levelMap[logLevel] ?? -1;
+	}
+
+	public static getLevelName(levelValue: number): string {
+		const entry = Object.entries(Logger.levelMap).find(
+			([_, value]) => value === levelValue,
+		);
+		return entry ? entry[0] : "unknown";
 	}
 
 	private static formatPayload(data?: object) {
