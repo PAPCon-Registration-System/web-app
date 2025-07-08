@@ -48,7 +48,8 @@ export default function QRScannerPage() {
 				const stream = await navigator.mediaDevices.getUserMedia({
 					video: true,
 				});
-				stream.getTracks().forEach((track) => track.stop()); // Stop the test stream
+				stream.getTracks().forEach((track) => track.stop());
+
 				setPermissionStatus("granted");
 				setCameraReady(true);
 			} catch (err: any) {
@@ -101,9 +102,9 @@ export default function QRScannerPage() {
 			Logger.info(`QR Scanned at ${confirmationData.terminalId}`, {
 				group: LOG_GROUPS.QR,
 				data: scanResult.decryptedData,
-			}),
-				// Reset form and close modal
-				setShowConfirmation(false);
+			});
+			// Reset form and close modal
+			setShowConfirmation(false);
 			setScanResult(null);
 			setConfirmationData({
 				actionType: QRScanActionEnum.CHECK_IN,
