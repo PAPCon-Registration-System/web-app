@@ -5,12 +5,7 @@ import {
 	CardTitle,
 } from "@/features/shared/components/base/card";
 import { Label } from "@/features/shared/components/base/label";
-
-interface ScanResult {
-	rawData: string;
-	decryptedData: string;
-	timestamp: Date;
-}
+import type { ScanResult } from "./types/scan-result";
 
 interface ScannedDataDisplayProps {
 	scanResult: ScanResult;

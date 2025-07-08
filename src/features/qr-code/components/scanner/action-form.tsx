@@ -8,13 +8,7 @@ import {
 	SelectValue,
 } from "@/features/shared/components/base/select";
 import { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
-
-interface ConfirmationData {
-	actionType: QRScanActionEnum;
-	event: string;
-	terminalId: string;
-	kitClaiming?: boolean;
-}
+import type { ConfirmationData } from "./types/confirmation-data";
 
 interface ActionFormProps {
 	confirmationData: ConfirmationData;

@@ -9,20 +9,8 @@ import {
 import { Separator } from "@/features/shared/components/base/separator";
 import { ScannedDataDisplay } from "./scanned-data-display";
 import { ActionForm } from "./action-form";
-import type { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
-
-interface ScanResult {
-	rawData: string;
-	decryptedData: string;
-	timestamp: Date;
-}
-
-interface ConfirmationData {
-	actionType: QRScanActionEnum;
-	event: string;
-	terminalId: string;
-	kitClaiming?: boolean;
-}
+import type { ScanResult } from "./types/scan-result";
+import type { ConfirmationData } from "./types/confirmation-data";
 
 interface ConfirmationSheetProps {
 	open: boolean;

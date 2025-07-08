@@ -11,19 +11,8 @@ import { ConfirmationSheet } from "@/features/qr-code/components/scanner/confirm
 import { LOG_GROUPS, Logger } from "@/features/shared/lib/logger";
 import { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
 import SuccessCard from "@/features/qr-code/components/scanner/success-card";
-
-interface ScanResult {
-	rawData: string;
-	decryptedData: string;
-	timestamp: Date;
-}
-
-interface ConfirmationData {
-	actionType: QRScanActionEnum;
-	event: string;
-	terminalId: string;
-	kitClaiming?: boolean;
-}
+import type { ScanResult } from "@/features/qr-code/components/scanner/types/scan-result";
+import type { ConfirmationData } from "@/features/qr-code/components/scanner/types/confirmation-data";
 
 export default function QRScannerPage() {
 	// TODO: If this gets any larger, let's move this to a zustand store
@@ -44,8 +33,8 @@ export default function QRScannerPage() {
 
 	const [isProcessing, setIsProcessing] = useState(false);
 
+	// Check camera permissions on component mount
 	useEffect(() => {
-		// Check camera permissions on component mount
 		const checkCameraPermission = async () => {
 			try {
 				const stream = await navigator.mediaDevices.getUserMedia({
@@ -66,7 +55,6 @@ export default function QRScannerPage() {
 	}, []);
 
 	const handleScanResult = (detectedCodes: any[]) => {
-		// Only process scan if scanner is active and no confirmation is showing
 		if (!scannerActive || showConfirmation || showSuccess) return;
 
 		if (detectedCodes && detectedCodes.length > 0) {
@@ -82,7 +70,7 @@ export default function QRScannerPage() {
 
 			setScanResult(result);
 			setShowConfirmation(true);
-			setScannerActive(false); // Pause scanning while confirming
+			setScannerActive(false);
 			setError(null);
 		}
 	};
@@ -111,7 +99,6 @@ export default function QRScannerPage() {
 				data: scanResult.decryptedData,
 			});
 
-			// Close confirmation and show success
 			setShowConfirmation(false);
 			setShowSuccess(true);
 			setScanResult(null);
