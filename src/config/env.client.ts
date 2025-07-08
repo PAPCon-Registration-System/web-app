@@ -18,11 +18,13 @@ const envParseResult = z
 				message: "NEXT_PUBLIC_API_BASE_URL must not end with a slash",
 			})
 			.default("http://localhost:6969"),
+		QR_ENCRYPTION_SECRET: z.string().min(1).default("ilovegaymmans"),
 	})
 	.safeParse({
 		// Add the client environment variables here!
 		NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
 		NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+		QR_ENCRYPTION_SECRET: process.env.QR_ENCRYPTION_SECRET,
 	});
 
 if (!envParseResult.success) {
