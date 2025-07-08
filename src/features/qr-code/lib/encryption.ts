@@ -1,7 +1,8 @@
-import { Logger } from "@/features/shared/lib/logger";
 import CryptoJS from "crypto-js";
+import { env } from "@/config/env.client";
+import { Logger } from "@/features/shared/lib/logger";
 
-const SECRET_KEY = process.env.QR_ENCRYPTION_SECRET || "ilovegaymmans";
+const SECRET_KEY = env.NEXT_PUBLIC_QR_ENCRYPTION_SECRET;
 
 export const encryptUserData = (data: string): string => {
 	try {

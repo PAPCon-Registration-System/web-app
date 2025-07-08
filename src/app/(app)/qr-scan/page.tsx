@@ -44,10 +44,10 @@ export default function QRScannerPage() {
 
 				setPermissionStatus("granted");
 				setCameraReady(true);
-			} catch (err: any) {
+			} catch (err) {
 				Logger.error("Camera permission error:", { err });
 				setPermissionStatus("denied");
-				setError(`Camera access denied: ${err.message}`);
+				setError(`Camera access denied: ${err}`);
 			}
 		};
 
@@ -94,7 +94,7 @@ export default function QRScannerPage() {
 		try {
 			// TODO: Implement API call (i am not sure what is meant by this so i will just leave this todo here)
 			// Just logging for now
-			Logger.info(`QR Scanned at ${confirmationData.terminalId}`, {
+			Logger.info(`QR Scanned at Terminal ${confirmationData.terminalId}`, {
 				group: LOG_GROUPS.QR,
 				data: scanResult.decryptedData,
 			});
