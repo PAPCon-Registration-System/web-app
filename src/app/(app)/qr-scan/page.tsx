@@ -10,6 +10,7 @@ import { TroubleshootingCard } from "@/features/qr-code/components/scanner/troub
 import { ConfirmationSheet } from "@/features/qr-code/components/scanner/confirmation-sheet";
 import { LOG_GROUPS, Logger } from "@/features/shared/lib/logger";
 import { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
+import SuccessCard from "@/features/qr-code/components/scanner/success-card";
 
 interface ScanResult {
 	rawData: string;
@@ -31,6 +32,8 @@ export default function QRScannerPage() {
 	const [cameraReady, setCameraReady] = useState(false);
 	const [permissionStatus, setPermissionStatus] = useState<string>("checking");
 	const [showConfirmation, setShowConfirmation] = useState(false);
+	const [showSuccess, setShowSuccess] = useState(false);
+	const [scannerActive, setScannerActive] = useState(true);
 
 	const [confirmationData, setConfirmationData] = useState<ConfirmationData>({
 		actionType: QRScanActionEnum.CHECK_IN,
@@ -63,6 +66,9 @@ export default function QRScannerPage() {
 	}, []);
 
 	const handleScanResult = (detectedCodes: any[]) => {
+		// Only process scan if scanner is active and no confirmation is showing
+		if (!scannerActive || showConfirmation || showSuccess) return;
+
 		if (detectedCodes && detectedCodes.length > 0) {
 			const firstCode = detectedCodes[0];
 
@@ -76,6 +82,7 @@ export default function QRScannerPage() {
 
 			setScanResult(result);
 			setShowConfirmation(true);
+			setScannerActive(false); // Pause scanning while confirming
 			setError(null);
 		}
 	};
@@ -103,18 +110,13 @@ export default function QRScannerPage() {
 				group: LOG_GROUPS.QR,
 				data: scanResult.decryptedData,
 			});
-			// Reset form and close modal
+
+			// Close confirmation and show success
 			setShowConfirmation(false);
+			setShowSuccess(true);
 			setScanResult(null);
-			setConfirmationData({
-				actionType: QRScanActionEnum.CHECK_IN,
-				event: "",
-				terminalId: "",
-				kitClaiming: false,
-			});
 		} catch (error) {
 			Logger.error("Error processing action:", { error });
-
 			setError("Failed to process the action. Please try again.");
 		} finally {
 			setIsProcessing(false);
@@ -124,6 +126,19 @@ export default function QRScannerPage() {
 	const handleCancelScan = () => {
 		setShowConfirmation(false);
 		setScanResult(null);
+		setScannerActive(true);
+		setConfirmationData({
+			actionType: QRScanActionEnum.CHECK_IN,
+			event: "",
+			terminalId: "",
+			kitClaiming: false,
+		});
+	};
+
+	const handleScanNext = () => {
+		setShowSuccess(false);
+		setScannerActive(true);
+		setError(null);
 		setConfirmationData({
 			actionType: QRScanActionEnum.CHECK_IN,
 			event: "",
@@ -147,12 +162,15 @@ export default function QRScannerPage() {
 				/>
 
 				{error && <ErrorCard error={error} />}
+				{showSuccess && <SuccessCard handleScanNext={handleScanNext} />}
 
 				<ScannerCard
 					cameraReady={cameraReady}
 					permissionStatus={permissionStatus}
 					onScan={handleScanResult}
 					onError={handleScanError}
+					scannerActive={scannerActive}
+					showSuccess={showSuccess}
 				/>
 
 				<TroubleshootingCard />
