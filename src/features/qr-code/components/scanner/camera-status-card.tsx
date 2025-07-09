@@ -4,11 +4,13 @@ import { Badge } from "@/features/shared/components/base/badge";
 interface CameraStatusCardProps {
 	permissionStatus: string;
 	terminalId: string;
+	event: string;
 }
 
 export function CameraStatusCard({
 	permissionStatus,
 	terminalId,
+	event,
 }: CameraStatusCardProps) {
 	return (
 		<Card>
@@ -36,11 +38,18 @@ export function CameraStatusCard({
 							</Badge>
 						</div>
 					</div>
-					<div className="text-left sm:text-right">
-						<p className="text-base text-muted-foreground sm:text-lg">
-							Terminal ID
-						</p>
-						<p className="font-mono text-base">{terminalId || "Not Set"}</p>
+
+					<div className="flex flex-col items-start justify-start gap-2 sm:flex-row sm:gap-4">
+						<div className="w-full rounded bg-accent p-2 px-4">
+							<p className="text-base text-muted-foreground">Event</p>
+							<p className="font-bold font-mono">{event || "Not Set"}</p>
+						</div>
+						<div className="w-full rounded bg-accent p-2 px-4">
+							<p className="text-base text-muted-foreground">
+								Terminal&nbsp;ID
+							</p>
+							<p className="font-bold font-mono">{terminalId || "Not Set"}</p>
+						</div>
 					</div>
 				</div>
 			</CardContent>

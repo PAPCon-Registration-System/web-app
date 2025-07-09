@@ -13,6 +13,7 @@ import { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
 import SuccessCard from "@/features/qr-code/components/scanner/success-card";
 import type { ScanResult } from "@/features/qr-code/components/scanner/types/scan-result";
 import type { ConfirmationData } from "@/features/qr-code/components/scanner/types/confirmation-data";
+import { QrCodeLogSchema } from "@/features/logs/types/qr-code-log";
 
 export default function QRScannerPage() {
 	// TODO: If this gets any larger, let's move this to a zustand store
@@ -96,11 +97,15 @@ export default function QRScannerPage() {
 		setIsProcessing(true);
 
 		try {
-			// TODO: Implement API call (i am not sure what is meant by this so i will just leave this todo here)
-			// Just logging for now
+			// Push log to database with user details & confirmation status
+			const context = QrCodeLogSchema.parse({
+				user: scanResult.decryptedData,
+				confirmationData,
+			});
+
 			Logger.info(`QR Scanned at Terminal ${confirmationData.terminalId}`, {
 				group: LOG_GROUPS.QR,
-				context: scanResult.decryptedData,
+				context,
 			});
 
 			setShowConfirmation(false);
@@ -118,24 +123,24 @@ export default function QRScannerPage() {
 		setShowConfirmation(false);
 		setScanResult(null);
 		setScannerActive(true);
-		setConfirmationData({
+		setConfirmationData((prev) => ({
 			actionType: QRScanActionEnum.CHECK_IN,
-			event: "",
-			terminalId: "",
+			event: prev.event,
+			terminalId: prev.terminalId,
 			kitClaiming: false,
-		});
+		}));
 	};
 
 	const handleScanNext = () => {
 		setShowSuccess(false);
 		setScannerActive(true);
 		setError(null);
-		setConfirmationData({
+		setConfirmationData((prev) => ({
 			actionType: QRScanActionEnum.CHECK_IN,
-			event: "",
-			terminalId: "",
+			event: prev.event,
+			terminalId: prev.terminalId,
 			kitClaiming: false,
-		});
+		}));
 	};
 
 	const handleUpdateConfirmationData = (data: Partial<ConfirmationData>) => {
@@ -149,7 +154,7 @@ export default function QRScannerPage() {
 
 				<CameraStatusCard
 					permissionStatus={permissionStatus}
-					terminalId={confirmationData.terminalId}
+					{...confirmationData}
 				/>
 
 				{error && <ErrorCard error={error} />}

@@ -10,7 +10,7 @@ import {
 import { User, Database } from "lucide-react";
 import { LogItem } from "./log-item";
 import { useLogStream } from "@/features/logs/hooks/use-log-stream";
-import { transformLogsForComponents } from "@/features/logs/types";
+import { transformLogsForComponents } from "@/features/logs/types/transformed-log";
 import { LOG_GROUPS } from "@/features/shared/lib/logger";
 import type { Log } from "@/types/entities/logs.entity";
 

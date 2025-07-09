@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback } from "react";
 import { useLogStream } from "@/features/logs/hooks/use-log-stream";
 import { Card, CardContent } from "@/features/shared/components/base/card";
 import { Database } from "lucide-react";
-import { transformLogsForComponents } from "../types";
+import { transformLogsForComponents } from "../types/transformed-log";
 import LogsTable from "./logs-table";
 import LogsCards from "./logs-cards";
 import Pagination from "./pagination";

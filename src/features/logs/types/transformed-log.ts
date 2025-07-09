@@ -1,6 +1,6 @@
 import type { Log } from "@/types/entities/logs.entity";
 import { Users, QrCode, Activity, Shield } from "lucide-react";
-import { LOG_GROUPS, Logger } from "../shared/lib/logger";
+import { LOG_GROUPS, Logger } from "../../shared/lib/logger";
 
 export interface TransformedLog {
 	id: number;
