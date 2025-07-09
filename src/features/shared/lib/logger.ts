@@ -120,11 +120,12 @@ export class Logger {
 
 				rpc.logs.$post({
 					json: {
+						...logObj,
 						time,
-						group: group ?? LOG_GROUPS.DEBUG,
 						msg,
-						level: Logger.getLogLevelValue(level as pino.Level),
 						environment,
+						level: Logger.getLogLevelValue(level as pino.Level),
+						group: group ?? LOG_GROUPS.DEBUG,
 					},
 				});
 

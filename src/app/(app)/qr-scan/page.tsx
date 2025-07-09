@@ -60,18 +60,22 @@ export default function QRScannerPage() {
 		if (detectedCodes && detectedCodes.length > 0) {
 			const firstCode = detectedCodes[0];
 
-			const decryptedData = decryptUserData(firstCode.rawValue);
+			try {
+				const decryptedData = decryptUserData(firstCode.rawValue);
 
-			const result: ScanResult = {
-				rawData: firstCode.rawValue,
-				decryptedData: decryptedData,
-				timestamp: new Date(),
-			};
+				const result: ScanResult = {
+					rawData: firstCode.rawValue,
+					decryptedData,
+					timestamp: new Date(),
+				};
 
-			setScanResult(result);
-			setShowConfirmation(true);
-			setScannerActive(false);
-			setError(null);
+				setScanResult(result);
+				setShowConfirmation(true);
+				setScannerActive(false);
+				setError(null);
+			} catch (e) {
+				handleScanError(e);
+			}
 		}
 	};
 
@@ -96,7 +100,7 @@ export default function QRScannerPage() {
 			// Just logging for now
 			Logger.info(`QR Scanned at Terminal ${confirmationData.terminalId}`, {
 				group: LOG_GROUPS.QR,
-				data: scanResult.decryptedData,
+				context: scanResult.decryptedData,
 			});
 
 			setShowConfirmation(false);
