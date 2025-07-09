@@ -29,8 +29,6 @@ const app = factory
 		const logContent = c.req.valid("json");
 		const logsService = new LogsService(c.var.logger);
 
-		console.log(logContent);
-
 		try {
 			const newLog = await logsService.insertLog(logContent);
 			c.var.io.emit(logContent.group, newLog);
