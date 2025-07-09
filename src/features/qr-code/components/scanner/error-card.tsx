@@ -7,7 +7,7 @@ interface ErrorCardProps {
 export function ErrorCard({ error }: ErrorCardProps) {
 	return (
 		<Card className="border-destructive/50 bg-destructive/10">
-			<CardContent className="pt-4 sm:pt-6">
+			<CardContent>
 				<div className="flex items-start gap-3">
 					<div className="flex-shrink-0 text-destructive text-lg">⚠️</div>
 					<div className="min-w-0 flex-1">
