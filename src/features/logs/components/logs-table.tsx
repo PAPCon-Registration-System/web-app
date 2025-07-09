@@ -35,13 +35,13 @@ export default function LogsTable({ logs }: LogsTableProps) {
 									Status
 								</TableHead>
 								<TableHead className="p-4 font-medium text-foreground">
-									Attendee
+									Data
 								</TableHead>
 								<TableHead className="p-4 font-medium text-foreground">
 									Time
 								</TableHead>
 								<TableHead className="p-4 font-medium text-foreground">
-									Updated
+									Date
 								</TableHead>
 							</TableRow>
 						</TableHeader>

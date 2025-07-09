@@ -47,6 +47,11 @@ const items = [
 		icon: QrCode,
 	},
 	{
+		title: "QR Scanner",
+		url: "/qr-scan",
+		icon: QrCode,
+	},
+	{
 		title: "Event Schedule",
 		url: "#",
 		icon: Calendar,

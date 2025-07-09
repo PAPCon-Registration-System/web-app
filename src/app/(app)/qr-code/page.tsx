@@ -1,4 +1,4 @@
-import { QRCodeGenerator } from "@/features/qr-code/components/qr-code-generator";
+import { QRCodeGenerator } from "@/features/qr-code/components/generator/qr-code-generator";
 
 export const dynamic = "force-dynamic";
 

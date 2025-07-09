@@ -11,6 +11,7 @@ The following environment variables are needed:
 3. `BETTER_AUTH_URL` - base URL of the app
 4. `NEXT_PUBLIC_BASE_URL` - base URL of the client (Next.js)
 5. `NEXT_PUBLIC_API_BASE_URL` - base URL of the server (Node.js)
+6. `NEXT_PUBLIC_QR_ENCRYPTION_SECRET` - secret key used for AES encryption of user data into QR code
 
 ### Getting the app to run
 
