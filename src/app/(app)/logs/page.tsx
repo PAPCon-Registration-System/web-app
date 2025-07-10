@@ -16,7 +16,7 @@ import {
 	TabsTrigger,
 } from "@/features/shared/components/base/tabs";
 import { Zap } from "lucide-react";
-import { LOG_TABS } from "@/features/logs/types";
+import { LOG_TABS } from "@/features/logs/types/transformed-log";
 import LogTab from "@/features/logs/components/log-tab";
 import { LOG_GROUPS } from "@/features/shared/lib/logger";
 

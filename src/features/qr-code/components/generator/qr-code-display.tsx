@@ -1,14 +1,11 @@
 import { QrCode, AlertTriangle } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { encryptUserData } from "../../lib/encryption";
+import type { QrUserData } from "../scanner/types/qr-user-data";
 
 interface QRCodeDisplayProps {
 	isGenerated: boolean;
-	userData: {
-		userId: string;
-		name: string;
-		email: string;
-	};
+	userData: QrUserData;
 }
 
 export function QRCodeDisplay({ isGenerated, userData }: QRCodeDisplayProps) {
@@ -25,7 +22,7 @@ export function QRCodeDisplay({ isGenerated, userData }: QRCodeDisplayProps) {
 		);
 	}
 
-	const qrValue = encryptUserData(JSON.stringify(userData));
+	const qrValue = encryptUserData(userData);
 
 	return (
 		<div className="space-y-4">

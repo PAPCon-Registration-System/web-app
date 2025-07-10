@@ -23,7 +23,8 @@ export function ScannedDataDisplay({ scanResult }: ScannedDataDisplayProps) {
 						Decrypted Data
 					</Label>
 					<div className="mt-1 max-h-32 overflow-y-auto break-all rounded bg-muted p-3 font-mono text-sm">
-						{scanResult.decryptedData || "Unable to decrypt data"}
+						{JSON.stringify(scanResult.decryptedData) ||
+							"Unable to decrypt data"}
 					</div>
 				</div>
 				<div className="space-y-2">

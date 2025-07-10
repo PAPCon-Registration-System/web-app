@@ -1,5 +1,5 @@
 import { Database } from "lucide-react";
-import { LOG_TABS } from "../types";
+import { LOG_TABS } from "../types/transformed-log";
 
 interface LogsHeaderEnhancedProps {
 	group: string;
