@@ -11,6 +11,7 @@ const MOCK_USER_DATA = {
 	userId: "user_123456789",
 	name: "John Doe",
 	email: "john.doe@example.com",
+	photoUrl: "https://randomuser.me/api/portraits/men/30.jpg",
 };
 
 export function QRCodeGenerator() {

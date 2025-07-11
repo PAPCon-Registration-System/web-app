@@ -4,6 +4,7 @@ import {
 	SelectContent,
 	SelectGroup,
 	SelectItem,
+	SelectLabel,
 	SelectTrigger,
 	SelectValue,
 } from "@/features/shared/components/base/select";
@@ -15,13 +16,16 @@ interface Props {
 export function TerminalSelect({ terminalIds }: Props) {
 	return (
 		<Select>
-			<SelectTrigger className="w-fit border-transparent pl-1 text-3xl shadow-none">
-				<SelectValue placeholder="Select a Terminal" />
+			<SelectTrigger className="w-fit border-transparent bg-card pl-1 text-3xl shadow-none dark:bg-card">
+				<SelectValue placeholder="??" />
 			</SelectTrigger>
 			<SelectContent>
 				<SelectGroup>
+					<SelectLabel>Select a Terminal</SelectLabel>
 					{terminalIds.map((tid) => (
-						<SelectItem value={tid}>{tid}</SelectItem>
+						<SelectItem key={`terminal-select__${tid}`} value={tid}>
+							{tid}
+						</SelectItem>
 					))}
 				</SelectGroup>
 			</SelectContent>

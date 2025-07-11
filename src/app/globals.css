@@ -3,6 +3,39 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Disable default Tailwind colors to enforce design system usage */
+@theme inline {
+	/* Reset default Tailwind color palette */
+	--color-slate-*: initial;
+	--color-gray-*: initial;
+	--color-zinc-*: initial;
+	--color-neutral-*: initial;
+	--color-stone-*: initial;
+	--color-red-*: initial;
+	--color-orange-*: initial;
+	--color-amber-*: initial;
+	--color-yellow-*: initial;
+	--color-lime-*: initial;
+	--color-green-*: initial;
+	--color-emerald-*: initial;
+	--color-teal-*: initial;
+	--color-cyan-*: initial;
+	--color-sky-*: initial;
+	--color-blue-*: initial;
+	--color-indigo-*: initial;
+	--color-violet-*: initial;
+	--color-purple-*: initial;
+	--color-fuchsia-*: initial;
+	--color-pink-*: initial;
+	--color-rose-*: initial;
+	
+	/* Only allow these specific colors for edge cases */
+	--color-white: #fff;
+	--color-black: #000;
+	--color-transparent: transparent;
+	--color-current: currentColor;
+}
+
 @theme inline {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
@@ -66,37 +99,28 @@
 	--radius-xl: calc(var(--radius) + 4px);
 }
 
-/* Disable default Tailwind colors to enforce design system usage */
-@theme {
-	/* Reset default Tailwind color palette */
-	--color-slate-*: initial;
-	--color-gray-*: initial;
-	--color-zinc-*: initial;
-	--color-neutral-*: initial;
-	--color-stone-*: initial;
-	--color-red-*: initial;
-	--color-orange-*: initial;
-	--color-amber-*: initial;
-	--color-yellow-*: initial;
-	--color-lime-*: initial;
-	--color-green-*: initial;
-	--color-emerald-*: initial;
-	--color-teal-*: initial;
-	--color-cyan-*: initial;
-	--color-sky-*: initial;
-	--color-blue-*: initial;
-	--color-indigo-*: initial;
-	--color-violet-*: initial;
-	--color-purple-*: initial;
-	--color-fuchsia-*: initial;
-	--color-pink-*: initial;
-	--color-rose-*: initial;
+:root {
+	/* Analytics and chart specific colors */
+	--analytics-primary: oklch(0.488 0.243 264.376);
+	--analytics-primary-dark: oklch(0.398 0.243 264.376);
+	--analytics-secondary: oklch(0.646 0.222 142.496);
+	--analytics-secondary-dark: oklch(0.556 0.222 142.496);
+	--analytics-warning: oklch(0.828 0.189 84.429);
+	--analytics-warning-dark: oklch(0.738 0.189 84.429);
+	--analytics-danger: oklch(0.645 0.246 16.439);
+	--analytics-danger-dark: oklch(0.555 0.246 16.439);
 	
-	/* Only allow these specific colors for edge cases */
-	--color-white: #fff;
-	--color-black: #000;
-	--color-transparent: transparent;
-	--color-current: currentColor;
+	/* Success/Growth colors */
+	--success: oklch(0.646 0.222 142.496);
+	--success-foreground: oklch(0.985 0.001 106.423);
+	--success-dark: oklch(0.556 0.222 142.496);
+	--success-light: oklch(0.736 0.152 142.496);
+	
+	/* Info/Primary analytics */
+	--info: oklch(0.488 0.243 264.376);
+	--info-foreground: oklch(0.985 0.001 106.423);
+	--info-dark: oklch(0.398 0.243 264.376);
+	--info-light: oklch(0.578 0.193 264.376);
 }
 
 :root {
@@ -181,29 +205,7 @@
   --sidebar-ring: var(--primary-600);
 }
 
-:root {
-	/* Analytics and chart specific colors */
-	--analytics-primary: oklch(0.488 0.243 264.376);
-	--analytics-primary-dark: oklch(0.398 0.243 264.376);
-	--analytics-secondary: oklch(0.646 0.222 142.496);
-	--analytics-secondary-dark: oklch(0.556 0.222 142.496);
-	--analytics-warning: oklch(0.828 0.189 84.429);
-	--analytics-warning-dark: oklch(0.738 0.189 84.429);
-	--analytics-danger: oklch(0.645 0.246 16.439);
-	--analytics-danger-dark: oklch(0.555 0.246 16.439);
-	
-	/* Success/Growth colors */
-	--success: oklch(0.646 0.222 142.496);
-	--success-foreground: oklch(0.985 0.001 106.423);
-	--success-dark: oklch(0.556 0.222 142.496);
-	--success-light: oklch(0.736 0.152 142.496);
-	
-	/* Info/Primary analytics */
-	--info: oklch(0.488 0.243 264.376);
-	--info-foreground: oklch(0.985 0.001 106.423);
-	--info-dark: oklch(0.398 0.243 264.376);
-	--info-light: oklch(0.578 0.193 264.376);
-}
+
 
 .dark {
 	/* Analytics and chart specific colors */
