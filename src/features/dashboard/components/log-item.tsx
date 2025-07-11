@@ -1,14 +1,9 @@
 import StatusBadge from "@/features/logs/components/status-badge";
+import type { TransformedLog } from "@/features/logs/types/transformed-log";
 import { Clock } from "lucide-react";
 
 interface LogItemProps {
-	log: {
-		id: number;
-		name: string;
-		email: string;
-		time: string;
-		status: string;
-	};
+	log: TransformedLog;
 }
 
 export function LogItem({ log }: LogItemProps) {
@@ -20,8 +15,8 @@ export function LogItem({ log }: LogItemProps) {
 				<StatusBadge status={log.status} />
 			</div>
 			<div className="col-span-4">
-				<div className="font-medium">{log.name}</div>
-				<div className="text-muted-foreground text-xs">{log.email}</div>
+				<div className="font-medium">{log.heading}</div>
+				<div className="text-muted-foreground text-xs">{log.group}</div>
 			</div>
 			<div className="col-span-4 flex items-center gap-1">
 				<Clock className="h-3 w-3 text-muted-foreground" />

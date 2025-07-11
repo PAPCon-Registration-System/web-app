@@ -2,25 +2,15 @@ import { Card, CardContent } from "@/features/shared/components/base/card";
 import {
 	Table,
 	TableBody,
-	TableCell,
 	TableHead,
 	TableHeader,
 	TableRow,
 } from "@/features/shared/components/base/table";
-import { Clock } from "lucide-react";
-import StatusBadge from "./status-badge";
-
-interface Log {
-	id: number;
-	status: string;
-	name: string;
-	email: string;
-	time: string;
-	updated: string;
-}
+import LogRow from "./log-row";
+import type { TransformedLog } from "../types/transformed-log";
 
 interface LogsTableProps {
-	logs: Log[];
+	logs: TransformedLog[];
 }
 
 export default function LogsTable({ logs }: LogsTableProps) {
@@ -47,28 +37,7 @@ export default function LogsTable({ logs }: LogsTableProps) {
 						</TableHeader>
 						<TableBody>
 							{logs.map((log) => (
-								<TableRow key={log.id}>
-									<TableCell className="p-4">
-										<StatusBadge status={log.status} />
-									</TableCell>
-									<TableCell className="p-4">
-										<div>
-											<div className="font-medium text-foreground">
-												{log.name}
-											</div>
-											<div className="text-foreground text-sm">{log.email}</div>
-										</div>
-									</TableCell>
-									<TableCell className="p-4 text-foreground">
-										<div className="flex items-center space-x-2">
-											<Clock className="h-4 w-4 text-muted-foreground" />
-											<span>{log.time}</span>
-										</div>
-									</TableCell>
-									<TableCell className="p-4 text-foreground">
-										{log.updated}
-									</TableCell>
-								</TableRow>
+								<LogRow key={log.id} log={log} />
 							))}
 						</TableBody>
 					</Table>
