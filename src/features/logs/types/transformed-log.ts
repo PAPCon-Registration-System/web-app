@@ -9,7 +9,7 @@ export interface TransformedLog {
 	group: string;
 	time: string;
 	date: string;
-	content: any;
+	context: any;
 }
 
 export const LOG_TABS = [
@@ -51,6 +51,6 @@ export function transformLogsForComponents(logs: Log[]): TransformedLog[] {
 		group: log.content.group || "unknown",
 		time: new Date(log.content.time).toLocaleTimeString(),
 		date: new Date(log.content.time).toLocaleDateString(),
-		content: log.content.context,
+		context: log.content.context,
 	}));
 }

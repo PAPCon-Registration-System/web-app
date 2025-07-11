@@ -5,8 +5,8 @@ import type { TransformedLog } from "../types/transformed-log";
 export function getSubtitleByLogGroup(log: TransformedLog): string {
 	switch (log.group) {
 		case LOG_GROUPS.QR: {
-			const userName = log.content.user.name || "Unknown user";
-			const confirmationData = log.content.confirmationData;
+			const userName = log.context?.user?.name || "Unknown user";
+			const confirmationData = log.context?.confirmationData;
 
 			if (!confirmationData) return `${userName} - QR scan`;
 
