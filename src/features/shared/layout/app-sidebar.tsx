@@ -7,6 +7,7 @@ import {
 	Search,
 	Settings,
 	UserPlus,
+	MonitorStop,
 } from "lucide-react";
 
 import {
@@ -40,6 +41,11 @@ const items = [
 		title: "Registration",
 		url: "/registration",
 		icon: UserPlus,
+	},
+	{
+		title: "Terminal",
+		url: "/terminal",
+		icon: MonitorStop,
 	},
 	{
 		title: "QR Code",

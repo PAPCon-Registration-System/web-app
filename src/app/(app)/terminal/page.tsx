@@ -7,24 +7,50 @@ import { useMemo } from "react";
 import type { QrCodeLog } from "@/features/logs/types/qr-code-log";
 import { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
 import { LogIn, DoorOpen } from "lucide-react";
+import { useState } from "react";
+import type { ConfirmationData } from "@/features/qr-code/components/scanner/types/confirmation-data";
 
-const VALID_TERMINAL_IDS = ["1", "2", "3", "4", "5"];
+const VALID_TERMINAL_IDS: ConfirmationData["terminalId"][] = [
+	"cock",
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+];
+
+type FullQrLog = { content: { context: QrCodeLog } };
 
 export default function Page() {
 	const query = useMemo(() => ({ group: LOG_GROUPS.QR }), []);
-
-	const { logs } = useLogStream<QrCodeLog>(query);
-	const _checkinLogs = logs.filter(
-		(l) =>
-			l.confirmationData?.actionType &&
-			l.confirmationData?.actionType === QRScanActionEnum.CHECK_IN,
-	);
-	const _checkoutLogs = logs.filter(
-		(l) =>
-			l.confirmationData?.actionType &&
-			l.confirmationData?.actionType === QRScanActionEnum.CHECK_IN,
+	const [terminal, _setTerminal] = useState<ConfirmationData["terminalId"]>(
+		VALID_TERMINAL_IDS[0],
 	);
 
+	const { logs } = useLogStream<FullQrLog>(query);
+
+	function filterLogsByAction(
+		logs: FullQrLog[],
+		terminal: string,
+		action: QRScanActionEnum,
+	) {
+		return logs.filter(
+			(l) =>
+				l.content.context?.confirmationData?.actionType === action &&
+				l.content.context?.confirmationData?.terminalId === terminal,
+		);
+	}
+
+	const checkInLogs = filterLogsByAction(
+		logs,
+		terminal,
+		QRScanActionEnum.CHECK_IN,
+	);
+	const checkOutLogs = filterLogsByAction(
+		logs,
+		terminal,
+		QRScanActionEnum.CHECK_OUT,
+	);
 	return (
 		<div className="grid">
 			<div className="mb-4 rounded-md border bg-card p-6 py-4">
@@ -42,6 +68,7 @@ export default function Page() {
 						</div>
 						Check-ins
 					</h2>
+					{JSON.stringify(checkInLogs)}
 				</section>
 				<section className="rounded-md border bg-card p-6">
 					<h2 className="mb-4 flex items-center font-bold text-2xl">
@@ -50,7 +77,7 @@ export default function Page() {
 						</div>
 						Check-outs
 					</h2>
-					{JSON.stringify(logs)}
+					{JSON.stringify(checkOutLogs)}
 				</section>
 			</div>
 		</div>
