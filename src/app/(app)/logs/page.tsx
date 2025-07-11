@@ -9,16 +9,12 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/features/shared/components/base/card";
-import {
-	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
-} from "@/features/shared/components/base/tabs";
+import { Tabs, TabsContent } from "@/features/shared/components/base/tabs";
 import { Zap } from "lucide-react";
 import { LOG_TABS } from "@/features/logs/types/transformed-log";
 import LogTab from "@/features/logs/components/log-tab";
 import { LOG_GROUPS } from "@/features/shared/lib/logger";
+import { cn } from "@/features/shared/lib/utils";
 
 export default function LogsPage() {
 	const [activeTab, setActiveTab] = useState<string>(LOG_GROUPS.REGISTRATION);
@@ -44,14 +40,17 @@ export default function LogsPage() {
 						return (
 							<Card
 								key={tab.id}
-								className={`cursor-pointer border-border bg-accent transition-shadow hover:shadow-md dark:bg-card ${
-									activeTab === tab.id ? "ring-2 ring-primary" : ""
-								}`}
+								className={cn(
+									"cursor-pointer border-border bg-gradient-to-br from-card to-primary/10 transition-shadow hover:shadow-md",
+									{
+										"ring-2 ring-primary": activeTab === tab.id,
+									},
+								)}
 								onClick={() => setActiveTab(tab.id)}
 							>
 								<CardHeader>
 									<div className="flex items-center justify-between">
-										<tab.icon className="h-8 w-8 text-muted-foreground" />
+										<tab.icon className={`h-8 w-8 text-muted-foreground`} />
 										<div className={`h-3 w-3 rounded-full ${tab.color}`} />
 									</div>
 								</CardHeader>
@@ -73,22 +72,6 @@ export default function LogsPage() {
 					onValueChange={setActiveTab}
 					className="space-y-4"
 				>
-					<TabsList className="grid w-full grid-cols-4 ">
-						{LOG_TABS.map((tab) => {
-							const Icon = tab.icon;
-							return (
-								<TabsTrigger
-									key={tab.id}
-									value={tab.id}
-									className="flex items-center gap-2"
-								>
-									<Icon className="h-4 w-4" />
-									<span className="hidden sm:inline">{tab.label}</span>
-								</TabsTrigger>
-							);
-						})}
-					</TabsList>
-
 					{LOG_TABS.map((tab) => (
 						<TabsContent key={tab.id} value={tab.id}>
 							<LogTab group={tab.id} />
