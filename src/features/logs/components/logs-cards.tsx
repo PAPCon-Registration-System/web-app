@@ -1,18 +1,11 @@
 import { Card, CardContent } from "@/features/shared/components/base/card";
 import { Clock } from "lucide-react";
 import StatusBadge from "./status-badge";
-
-interface Log {
-	id: number;
-	status: string;
-	name: string;
-	email: string;
-	time: string;
-	updated: string;
-}
+import type { TransformedLog } from "../types/transformed-log";
+import { getSubtitleByLogGroup } from "../lib/getSubtitleByLogGroup";
 
 interface LogsCardsProps {
-	logs: Log[];
+	logs: TransformedLog[];
 }
 
 export default function LogsCards({ logs }: LogsCardsProps) {
@@ -25,10 +18,10 @@ export default function LogsCards({ logs }: LogsCardsProps) {
 							<div className="flex items-start justify-between">
 								<div className="min-w-0 flex-1">
 									<div className="truncate font-medium text-foreground">
-										{log.name}
+										{log.heading}
 									</div>
 									<div className="truncate text-muted-foreground text-sm">
-										{log.email}
+										{getSubtitleByLogGroup(log)}
 									</div>
 								</div>
 								<div className="ml-3 flex-shrink-0">
@@ -40,9 +33,7 @@ export default function LogsCards({ logs }: LogsCardsProps) {
 									<Clock className="h-3 w-3 text-muted-foreground" />
 									<span>{log.time}</span>
 								</div>
-								<div className="text-muted-foreground">
-									Updated {log.updated}
-								</div>
+								<div className="text-muted-foreground">Date {log.date}</div>
 							</div>
 						</div>
 					</CardContent>

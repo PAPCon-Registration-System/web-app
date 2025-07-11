@@ -9,18 +9,11 @@ import {
 } from "@/features/shared/components/base/table";
 import { Clock } from "lucide-react";
 import StatusBadge from "./status-badge";
-
-interface Log {
-	id: number;
-	status: string;
-	name: string;
-	email: string;
-	time: string;
-	updated: string;
-}
+import type { TransformedLog } from "../types/transformed-log";
+import { getSubtitleByLogGroup } from "../lib/getSubtitleByLogGroup";
 
 interface LogsTableProps {
-	logs: Log[];
+	logs: TransformedLog[];
 }
 
 export default function LogsTable({ logs }: LogsTableProps) {
@@ -54,9 +47,11 @@ export default function LogsTable({ logs }: LogsTableProps) {
 									<TableCell className="p-4">
 										<div>
 											<div className="font-medium text-foreground">
-												{log.name}
+												{log.heading}
 											</div>
-											<div className="text-foreground text-sm">{log.email}</div>
+											<div className="text-foreground text-sm">
+												{getSubtitleByLogGroup(log)}
+											</div>
 										</div>
 									</TableCell>
 									<TableCell className="p-4 text-foreground">
@@ -66,7 +61,7 @@ export default function LogsTable({ logs }: LogsTableProps) {
 										</div>
 									</TableCell>
 									<TableCell className="p-4 text-foreground">
-										{log.updated}
+										{log.date}
 									</TableCell>
 								</TableRow>
 							))}

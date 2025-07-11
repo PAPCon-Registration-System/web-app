@@ -5,10 +5,11 @@ import { LOG_GROUPS, Logger } from "../../shared/lib/logger";
 export interface TransformedLog {
 	id: number;
 	status: string;
-	name: string;
-	email: string;
+	heading: string;
+	group: string;
 	time: string;
-	updated: string;
+	date: string;
+	content: any;
 }
 
 export const LOG_TABS = [
@@ -46,9 +47,10 @@ export function transformLogsForComponents(logs: Log[]): TransformedLog[] {
 	return logs.map((log) => ({
 		id: log.id,
 		status: Logger.getLevelName(log.content.level),
-		name: log.content.msg || "No message",
-		email: log.content.group || "unknown",
+		heading: log.content.msg || "No message",
+		group: log.content.group || "unknown",
 		time: new Date(log.content.time).toLocaleTimeString(),
-		updated: new Date(log.content.time).toLocaleDateString(),
+		date: new Date(log.content.time).toLocaleDateString(),
+		content: log.content.context,
 	}));
 }
