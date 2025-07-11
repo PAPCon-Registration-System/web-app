@@ -8,14 +8,17 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/features/shared/components/base/select";
+import type { Dispatch, SetStateAction } from "react";
 
 interface Props {
 	terminalIds: ConfirmationData["terminalId"][];
+	terminal: ConfirmationData["terminalId"];
+	setTerminal: Dispatch<SetStateAction<ConfirmationData["terminalId"]>>;
 }
 
-export function TerminalSelect({ terminalIds }: Props) {
+export function TerminalSelect({ terminalIds, terminal, setTerminal }: Props) {
 	return (
-		<Select>
+		<Select value={terminal} onValueChange={setTerminal}>
 			<SelectTrigger className="w-fit border-transparent bg-card pl-1 text-3xl shadow-none dark:bg-card">
 				<SelectValue placeholder="??" />
 			</SelectTrigger>

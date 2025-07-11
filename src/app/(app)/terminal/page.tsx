@@ -23,7 +23,7 @@ type FullQrLog = { content: { context: QrCodeLog } };
 
 export default function Page() {
 	const query = useMemo(() => ({ group: LOG_GROUPS.QR }), []);
-	const [terminal, _setTerminal] = useState<ConfirmationData["terminalId"]>(
+	const [terminal, setTerminal] = useState<ConfirmationData["terminalId"]>(
 		VALID_TERMINAL_IDS[0],
 	);
 
@@ -56,7 +56,11 @@ export default function Page() {
 			<div className="mb-4 rounded-md border bg-card p-6 py-4">
 				<h1 className="col-span-full flex gap-1 font-bold text-3xl text-foreground">
 					<span>Terminal</span>
-					<TerminalSelect terminalIds={VALID_TERMINAL_IDS} />
+					<TerminalSelect
+						terminal={terminal}
+						setTerminal={setTerminal}
+						terminalIds={VALID_TERMINAL_IDS}
+					/>
 				</h1>
 			</div>
 
