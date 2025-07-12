@@ -13,8 +13,8 @@ export function TerminalBadgeNewest({ log }: { log: FullQrLog }) {
 	const user = log.content.context.user;
 	const { event } = log.content.context.confirmationData;
 	const rows = {
-		event,
 		...user,
+		event,
 		time: `${new Date(log.content.time).toLocaleDateString()} ${new Date(log.content.time).toLocaleTimeString()}`,
 	};
 

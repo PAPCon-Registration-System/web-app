@@ -11,6 +11,7 @@ import { useState } from "react";
 import type { ConfirmationData } from "@/features/qr-code/components/scanner/types/confirmation-data";
 import { TerminalHistory } from "./components/terminal-history";
 
+// TODO: Make this match a predefined list of terminals or get it dynamically if they don't define a set amount of terminals.
 const VALID_TERMINAL_IDS: ConfirmationData["terminalId"][] = [
 	"1",
 	"2",
