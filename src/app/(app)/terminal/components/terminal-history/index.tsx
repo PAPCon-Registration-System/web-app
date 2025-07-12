@@ -12,7 +12,10 @@ export function TerminalHistory({
 	logs: FullQrLog[];
 	action: QRScanActionEnum;
 }) {
-	const pastLogs = logs.slice(1, 7);
+	const NUM_LOGS_TO_SHOW = 6;
+
+	// Exclude the first log (the recent scan)
+	const pastLogs = logs.slice(1, NUM_LOGS_TO_SHOW + 1);
 
 	return (
 		<div>
