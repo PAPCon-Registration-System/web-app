@@ -1,6 +1,7 @@
 "use client";
 
 import { TerminalSelect } from "./components/terminal-select";
+import { TerminalBadgeNewest } from "./components/terminal-badge-newest";
 import { useLogStream } from "@/features/logs/hooks/use-log-stream";
 import { LOG_GROUPS } from "@/features/shared/lib/logger";
 import { useMemo } from "react";
@@ -11,7 +12,6 @@ import { useState } from "react";
 import type { ConfirmationData } from "@/features/qr-code/components/scanner/types/confirmation-data";
 
 const VALID_TERMINAL_IDS: ConfirmationData["terminalId"][] = [
-	"cock",
 	"1",
 	"2",
 	"3",
@@ -19,7 +19,7 @@ const VALID_TERMINAL_IDS: ConfirmationData["terminalId"][] = [
 	"5",
 ];
 
-type FullQrLog = { content: { context: QrCodeLog } };
+export type FullQrLog = { content: { context: QrCodeLog } };
 
 export default function Page() {
 	const query = useMemo(() => ({ group: LOG_GROUPS.QR }), []);
@@ -41,12 +41,14 @@ export default function Page() {
 		);
 	}
 
+	console.log(logs);
+
 	const checkInLogs = filterLogsByAction(
 		logs,
 		terminal,
 		QRScanActionEnum.CHECK_IN,
 	);
-	const checkOutLogs = filterLogsByAction(
+	const _checkOutLogs = filterLogsByAction(
 		logs,
 		terminal,
 		QRScanActionEnum.CHECK_OUT,
@@ -72,7 +74,7 @@ export default function Page() {
 						</div>
 						Check-ins
 					</h2>
-					{JSON.stringify(checkInLogs)}
+					{checkInLogs.length && <TerminalBadgeNewest log={checkInLogs[0]} />}
 				</section>
 				<section className="rounded-md border bg-card p-6">
 					<h2 className="mb-4 flex items-center font-bold text-2xl">
@@ -81,7 +83,7 @@ export default function Page() {
 						</div>
 						Check-outs
 					</h2>
-					{JSON.stringify(checkOutLogs)}
+					{JSON.stringify(checkInLogs)}
 				</section>
 			</div>
 		</div>
