@@ -7,11 +7,18 @@ import { QrCode } from "lucide-react";
 import { QRCodeDisplay } from "./qr-code-display";
 
 // TODO: use actual user data in backend
-const MOCK_USER_DATA = {
-	userId: "user_123456789",
-	name: "John Doe",
-	email: "john.doe@example.com",
-};
+function generateMockUserData() {
+	const randomId = Math.floor(Math.random() * 1000000000);
+	const gender = Math.random() < 0.5 ? "men" : "women";
+	const photoIndex = Math.floor(Math.random() * 50) + 1; // 1–50
+
+	return {
+		userId: `user_${randomId}`,
+		name: "John Doe",
+		email: "john.doe@example.com",
+		photoUrl: `https://randomuser.me/api/portraits/${gender}/${photoIndex}.jpg`,
+	};
+}
 
 export function QRCodeGenerator() {
 	const [qrGenerated, setQrGenerated] = useState(false);
@@ -36,7 +43,10 @@ export function QRCodeGenerator() {
 
 			<Card className="mx-auto w-full flex-grow">
 				<CardContent className="space-y-6">
-					<QRCodeDisplay isGenerated={qrGenerated} userData={MOCK_USER_DATA} />
+					<QRCodeDisplay
+						isGenerated={qrGenerated}
+						userData={generateMockUserData()}
+					/>
 
 					<div className="flex justify-center">
 						<Button

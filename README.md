@@ -12,7 +12,8 @@ The following environment variables are needed:
 4. `NEXT_PUBLIC_BASE_URL` - base URL of the client (Next.js)
 5. `NEXT_PUBLIC_API_BASE_URL` - base URL of the server (Node.js)
 6. `NEXT_PUBLIC_QR_ENCRYPTION_SECRET` - secret key used for AES encryption of user data into QR code
-
+7. `REMOTE_PATTERNS` - valid URL wildcard matchers, delimited by commas, for external images via `<Image />` outside of our domain
+    - ex. `https://external-domain/images/*,https://s3.aws.services/bucket/papcon/images/*`
 ### Getting the app to run
 
 First, clone the repository

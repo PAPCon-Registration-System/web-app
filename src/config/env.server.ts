@@ -5,6 +5,9 @@
 import { z } from "zod";
 
 const isNotTrailingSlash = (val: string) => !val.endsWith("/");
+const isValidRemoteUrl = (val: string) =>
+	(val.startsWith("https://") || val.startsWith("http://")) &&
+	val.endsWith("*");
 
 const envParseResult = z
 	.object({
@@ -17,8 +20,19 @@ const envParseResult = z
 				message: "BETTER_AUTH_URL must not end with a slash",
 			})
 			.default("http://localhost:3000"),
+		REMOTE_PATTERNS: z
+			.array(
+				z.string().refine(isValidRemoteUrl, {
+					message:
+						"Remote patterns need to be parseable with the URL constructor. See the Next.js docs for more info: https://nextjs.org/docs/pages/api-reference/components/image#remotepatterns",
+				}),
+			)
+			.default([]),
 	})
-	.safeParse(process.env);
+	.safeParse({
+		...process.env,
+		REMOTE_PATTERNS: process.env.REMOTE_PATTERNS?.split(",") ?? [],
+	});
 
 if (!envParseResult.success) {
 	console.error(
