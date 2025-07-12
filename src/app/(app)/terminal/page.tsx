@@ -35,11 +35,17 @@ export default function Page() {
 		terminal: string,
 		action: QRScanActionEnum,
 	) {
-		return logs.filter(
-			(l) =>
-				l.content.context?.confirmationData?.actionType === action &&
-				l.content.context?.confirmationData?.terminalId === terminal,
-		);
+		return logs
+			.filter(
+				(l) =>
+					l.content.context?.confirmationData?.actionType === action &&
+					l.content.context?.confirmationData?.terminalId === terminal,
+			)
+			.sort(
+				(a, b) =>
+					new Date(b.content.time).getTime() -
+					new Date(a.content.time).getTime(),
+			);
 	}
 
 	const checkInLogs = filterLogsByAction(
@@ -73,12 +79,14 @@ export default function Page() {
 						</div>
 						Check-ins
 					</h2>
-					{(checkInLogs.length && (
+					{checkInLogs.length ? (
 						<TerminalHistory
 							logs={checkInLogs}
 							action={QRScanActionEnum.CHECK_IN}
 						/>
-					)) || <p className="text-muted-foreground text-sm">None so far.</p>}
+					) : (
+						<p className="text-muted-foreground text-sm">None so far.</p>
+					)}
 				</section>
 				<section className="rounded-md border bg-card p-6">
 					<h2 className="mb-4 flex items-center font-bold text-2xl">
@@ -87,12 +95,14 @@ export default function Page() {
 						</div>
 						Check-outs
 					</h2>
-					{(checkOutLogs.length && (
+					{checkOutLogs.length ? (
 						<TerminalHistory
 							logs={checkOutLogs}
 							action={QRScanActionEnum.CHECK_OUT}
 						/>
-					)) || <p className="text-muted-foreground text-sm">None so far.</p>}
+					) : (
+						<p className="text-muted-foreground text-sm">None so far.</p>
+					)}
 				</section>
 			</div>
 		</div>

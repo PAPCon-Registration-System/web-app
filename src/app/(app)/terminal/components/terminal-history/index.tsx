@@ -12,6 +12,8 @@ export function TerminalHistory({
 	logs: FullQrLog[];
 	action: QRScanActionEnum;
 }) {
+	const pastLogs = logs.slice(1, 7);
+
 	return (
 		<div>
 			<TerminalBadgeNewest log={logs[0]} />
@@ -32,12 +34,16 @@ export function TerminalHistory({
 				Past Scans
 			</h3>
 			<div className="flex flex-wrap gap-4">
-				{logs.slice(1, 7).map((l, i) => (
-					<TerminalBadgeSmall
-						key={`${i}-${l.content.context.user.userId}-${l.content.context.confirmationData.actionType}`}
-						log={l}
-					/>
-				))}
+				{pastLogs.length ? (
+					pastLogs.map((l, i) => (
+						<TerminalBadgeSmall
+							key={`${i}-${l.content.context.user.userId}-${l.content.context.confirmationData.actionType}`}
+							log={l}
+						/>
+					))
+				) : (
+					<p className="text-muted-foreground text-sm">None so far.</p>
+				)}
 			</div>
 		</div>
 	);
