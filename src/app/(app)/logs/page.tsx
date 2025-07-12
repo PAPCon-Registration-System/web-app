@@ -50,7 +50,7 @@ export default function LogsPage() {
 							>
 								<CardHeader>
 									<div className="flex items-center justify-between">
-										<tab.icon className={`h-8 w-8 text-muted-foreground`} />
+										<tab.icon className="h-8 w-8 text-muted-foreground" />
 										<div className={`h-3 w-3 rounded-full ${tab.color}`} />
 									</div>
 								</CardHeader>
