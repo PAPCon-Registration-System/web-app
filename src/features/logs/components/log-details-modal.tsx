@@ -37,7 +37,7 @@ export default function LogDetailsModal({ log }: LogDetailsModalProps) {
 					</div>
 				</div>
 				<div className="space-y-2">
-					<div className="font-medium text-foreground text-sm">Heading</div>
+					<div className="font-medium text-foreground text-sm">Event</div>
 					<div className="rounded bg-muted p-3 text-foreground text-sm">
 						{log.heading}
 					</div>
