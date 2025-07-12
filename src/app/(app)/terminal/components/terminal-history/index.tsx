@@ -1,0 +1,44 @@
+import { TerminalBadgeNewest } from "./terminal-badge-newest";
+import { TerminalBadgeSmall } from "./terminal-badge-small";
+import type { FullQrLog } from "../../page";
+import { Clock } from "lucide-react";
+import { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
+import { cn } from "@/features/shared/lib/utils";
+
+export function TerminalHistory({
+	logs,
+	action,
+}: {
+	logs: FullQrLog[];
+	action: QRScanActionEnum;
+}) {
+	return (
+		<div>
+			<TerminalBadgeNewest log={logs[0]} />
+			<h3 className="mt-6 mb-4 mb-4 flex items-center font-bold text-2xl">
+				<div
+					className={cn("mr-3 rounded-sm bg-success/10 p-2", {
+						"bg-success/10": action === QRScanActionEnum.CHECK_IN,
+						"bg-destructive/10": action === QRScanActionEnum.CHECK_OUT,
+					})}
+				>
+					<Clock
+						className={cn("text-success", {
+							"text-success": action === QRScanActionEnum.CHECK_IN,
+							"text-destructive": action === QRScanActionEnum.CHECK_OUT,
+						})}
+					/>
+				</div>
+				Past Scans
+			</h3>
+			<div className="flex flex-wrap gap-4">
+				{logs.slice(1, 7).map((l, i) => (
+					<TerminalBadgeSmall
+						key={`${i}-${l.content.context.user.userId}-${l.content.context.confirmationData.actionType}`}
+						log={l}
+					/>
+				))}
+			</div>
+		</div>
+	);
+}

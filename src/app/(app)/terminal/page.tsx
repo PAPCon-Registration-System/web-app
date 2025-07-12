@@ -1,7 +1,6 @@
 "use client";
 
 import { TerminalSelect } from "./components/terminal-select";
-import { TerminalBadgeNewest } from "./components/terminal-badge-newest";
 import { useLogStream } from "@/features/logs/hooks/use-log-stream";
 import { LOG_GROUPS } from "@/features/shared/lib/logger";
 import { useMemo } from "react";
@@ -10,6 +9,7 @@ import { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
 import { LogIn, DoorOpen } from "lucide-react";
 import { useState } from "react";
 import type { ConfirmationData } from "@/features/qr-code/components/scanner/types/confirmation-data";
+import { TerminalHistory } from "./components/terminal-history";
 
 const VALID_TERMINAL_IDS: ConfirmationData["terminalId"][] = [
 	"1",
@@ -19,7 +19,7 @@ const VALID_TERMINAL_IDS: ConfirmationData["terminalId"][] = [
 	"5",
 ];
 
-export type FullQrLog = { content: { context: QrCodeLog } };
+export type FullQrLog = { content: { context: QrCodeLog; time: string } };
 
 export default function Page() {
 	const query = useMemo(() => ({ group: LOG_GROUPS.QR }), []);
@@ -41,14 +41,12 @@ export default function Page() {
 		);
 	}
 
-	console.log(logs);
-
 	const checkInLogs = filterLogsByAction(
 		logs,
 		terminal,
 		QRScanActionEnum.CHECK_IN,
 	);
-	const _checkOutLogs = filterLogsByAction(
+	const checkOutLogs = filterLogsByAction(
 		logs,
 		terminal,
 		QRScanActionEnum.CHECK_OUT,
@@ -66,7 +64,7 @@ export default function Page() {
 				</h1>
 			</div>
 
-			<div className="grid grid-cols-2 gap-4">
+			<div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
 				<section className="rounded-md border bg-card p-6">
 					<h2 className="mb-4 flex items-center font-bold text-2xl">
 						<div className="mr-3 rounded-sm bg-success/10 p-2">
@@ -74,7 +72,12 @@ export default function Page() {
 						</div>
 						Check-ins
 					</h2>
-					{checkInLogs.length && <TerminalBadgeNewest log={checkInLogs[0]} />}
+					{(checkInLogs.length && (
+						<TerminalHistory
+							logs={checkInLogs}
+							action={QRScanActionEnum.CHECK_IN}
+						/>
+					)) || <p className="text-muted-foreground text-sm">None so far.</p>}
 				</section>
 				<section className="rounded-md border bg-card p-6">
 					<h2 className="mb-4 flex items-center font-bold text-2xl">
@@ -83,7 +86,12 @@ export default function Page() {
 						</div>
 						Check-outs
 					</h2>
-					{JSON.stringify(checkInLogs)}
+					{(checkOutLogs.length && (
+						<TerminalHistory
+							logs={checkOutLogs}
+							action={QRScanActionEnum.CHECK_OUT}
+						/>
+					)) || <p className="text-muted-foreground text-sm">None so far.</p>}
 				</section>
 			</div>
 		</div>
