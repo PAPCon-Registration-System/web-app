@@ -8,8 +8,6 @@ import {
 } from "@/features/shared/components/base/table";
 
 export function TerminalBadgeNewest({ log }: { log: FullQrLog }) {
-	console.log(log);
-
 	const user = log.content.context.user;
 	const { event } = log.content.context.confirmationData;
 	const rows = {
