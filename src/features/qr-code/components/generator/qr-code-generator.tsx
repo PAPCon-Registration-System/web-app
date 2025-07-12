@@ -10,7 +10,7 @@ import { QRCodeDisplay } from "./qr-code-display";
 function generateMockUserData() {
 	const randomId = Math.floor(Math.random() * 1000000000);
 	const gender = Math.random() < 0.5 ? "men" : "women";
-	const photoIndex = Math.floor(Math.random() * 100); // 0–99
+	const photoIndex = Math.floor(Math.random() * 50) + 1; // 1–50
 
 	return {
 		userId: `user_${randomId}`,
