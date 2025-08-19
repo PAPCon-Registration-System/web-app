@@ -9,11 +9,13 @@ The following environment variables are needed:
 1. `DB_URL` - specifies the URL of the database to connect to
 2. `REDIS_URL` - specifies the URL of the Redis instance to connect to
 3. `BETTER_AUTH_SECRET` - used to encrypt and generate hashes
-4. `BETTER_AUTH_URL` - base URL of the app
-5. `NEXT_PUBLIC_BASE_URL` - base URL of the client (Next.js)
-6. `NEXT_PUBLIC_API_BASE_URL` - base URL of the server (Node.js)
-7. `NEXT_PUBLIC_QR_ENCRYPTION_SECRET` - secret key used for AES encryption of user data into QR code
-8. `REMOTE_PATTERNS` - valid URL wildcard matchers, delimited by commas, for external images via `<Image />` outside of our domain
+4. `BETTER_AUTH_URL` - base URL of the API with `/auth` as the path (ie. `api.pap.com/auth`)
+5. `RESEND_API_KEY` - API key for the Resend service to send emails
+6. `RESEND_FROM_EMAIL` - email address used to send emails via Resend
+7. `NEXT_PUBLIC_BASE_URL` - base URL of the client (Next.js)
+8. `NEXT_PUBLIC_API_BASE_URL` - base URL of the server (Node.js)
+9. `NEXT_PUBLIC_QR_ENCRYPTION_SECRET` - secret key used for AES encryption of user data into QR code
+10. `REMOTE_PATTERNS` - valid URL wildcard matchers, delimited by commas, for external images via `<Image />` outside of our domain
     - ex. `https://external-domain/images/*,https://s3.aws.services/bucket/papcon/images/*`
 ### Getting the app to run
 
@@ -85,7 +87,9 @@ pnpm run db:down
 
 ```bash
 BETTER_AUTH_SECRET=secret # change this to a strong secret generated via `openssl rand -base64 32`
-BETTER_AUTH_URL=https://pap.com # the domain of the website
+BETTER_AUTH_URL=https://api.pap.com/auth # the path to the Better Auth endpoint
+RESEND_API_KEY= # your Resend API key that is verified with your domain 
+RESEND_FROM_EMAIL= # the email address you want to use for sending emails, e.g. authenticate@pap.com
 DB_URL= # your publicly accessible PostgreSQL database URL
 NEXT_PUBLIC_API_BASE_URL=https://api.pap.com # the API subdomain of the website
 NEXT_PUBLIC_BASE_URL=https://pap.com # the domain of the website
