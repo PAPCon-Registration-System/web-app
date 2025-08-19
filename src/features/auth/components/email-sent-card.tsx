@@ -8,7 +8,7 @@ import {
 import { CheckCircle } from "lucide-react";
 import { Button } from "@/features/shared/components/base/button";
 
-export default function EmailSentCard() {
+export default function EmailSentCard({ email }: { email: string }) {
 	return (
 		<div className="flex min-h-screen items-center justify-center p-4">
 			<Card className="w-full max-w-md ">
@@ -19,7 +19,7 @@ export default function EmailSentCard() {
 					<CardTitle className="text-white">Check your email</CardTitle>
 					<CardDescription className="text-muted-foreground">
 						We've sent a magic link to{" "}
-						<span className="font-medium text-white">example@gmail.com</span>
+						<span className="font-medium text-white">{email}</span>
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
