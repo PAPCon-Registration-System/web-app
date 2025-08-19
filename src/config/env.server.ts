@@ -6,40 +6,41 @@ import { z } from "zod";
 
 const isNotTrailingSlash = (val: string) => !val.endsWith("/");
 const isValidRemoteUrl = (val: string) =>
-	(val.startsWith("https://") || val.startsWith("http://")) &&
-	val.endsWith("*");
+  (val.startsWith("https://") || val.startsWith("http://")) &&
+  val.endsWith("*");
 
 const envParseResult = z
-	.object({
-		DB_URL: z.string().url().startsWith("postgres://"),
-		BETTER_AUTH_SECRET: z.string().min(1, "BETTER_AUTH_SECRET is required"),
-		BETTER_AUTH_URL: z
-			.string()
-			.url()
-			.refine(isNotTrailingSlash, {
-				message: "BETTER_AUTH_URL must not end with a slash",
-			})
-			.default("http://localhost:3000"),
-		REMOTE_PATTERNS: z
-			.array(
-				z.string().refine(isValidRemoteUrl, {
-					message:
-						"Remote patterns need to be parseable with the URL constructor. See the Next.js docs for more info: https://nextjs.org/docs/pages/api-reference/components/image#remotepatterns",
-				}),
-			)
-			.default([]),
-	})
-	.safeParse({
-		...process.env,
-		REMOTE_PATTERNS: process.env.REMOTE_PATTERNS?.split(",") ?? [],
-	});
+  .object({
+    DB_URL: z.string().url().startsWith("postgres://"),
+    REDIS_URL: z.string().url().startsWith("redis://"),
+    BETTER_AUTH_SECRET: z.string().min(1, "BETTER_AUTH_SECRET is required"),
+    BETTER_AUTH_URL: z
+      .string()
+      .url()
+      .refine(isNotTrailingSlash, {
+        message: "BETTER_AUTH_URL must not end with a slash",
+      })
+      .default("http://localhost:3000"),
+    REMOTE_PATTERNS: z
+      .array(
+        z.string().refine(isValidRemoteUrl, {
+          message:
+            "Remote patterns need to be parseable with the URL constructor. See the Next.js docs for more info: https://nextjs.org/docs/pages/api-reference/components/image#remotepatterns",
+        })
+      )
+      .default([]),
+  })
+  .safeParse({
+    ...process.env,
+    REMOTE_PATTERNS: process.env.REMOTE_PATTERNS?.split(",") ?? [],
+  });
 
 if (!envParseResult.success) {
-	console.error(
-		"❌ Invalid environment variables:",
-		envParseResult.error.format(),
-	);
-	throw new Error("Invalid environment variables");
+  console.error(
+    "❌ Invalid environment variables:",
+    envParseResult.error.format()
+  );
+  throw new Error("Invalid environment variables");
 }
 
 export const env = envParseResult.data;
