@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "postinstall": "pnpm lefthook install",
-    "dev:client": "next dev",
-    "dev:server": "tsx watch src/infrastructure/server/index.ts",
-    "dev": "dotenvx run -- concurrently --kill-others-on-fail -n client,server -c magenta,cyan \"pnpm run dev:client\" \"pnpm run dev:server\"",
+    "local:client": "next dev",
+    "local:server": "tsx watch src/infrastructure/server/index.ts",
+    "local:all": "pnpm run db:up && dotenvx run -- concurrently --kill-others-on-fail -n client,server -c magenta,cyan \"pnpm run local:client\" \"pnpm run local:server\"",
+    "dev": "tsx run.ts",
     "build:client": "next build",
     "build:server": "tsup",
     "build": "dotenvx run -- concurrently --kill-others-on-fail -n client,server -c magenta,cyan \"pnpm run build:client\" \"pnpm run build:server\"",
