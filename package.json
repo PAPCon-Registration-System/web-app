@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "postinstall": "pnpm lefthook install",
+    "postinstall": "command -v git >/dev/null 2>&1 && lefthook install || echo 'Skipping lefthook install: git not found'",
     "dev:client": "next dev",
     "dev:server": "tsx watch src/infrastructure/server/index.ts",
     "dev": "dotenvx run -- concurrently --kill-others-on-fail -n client,server -c magenta,cyan \"pnpm run dev:client\" \"pnpm run dev:server\"",
@@ -11,7 +11,7 @@
     "build:server": "tsup",
     "build": "dotenvx run -- concurrently --kill-others-on-fail -n client,server -c magenta,cyan \"pnpm run build:client\" \"pnpm run build:server\"",
     "start:client": "next start",
-    "start:server": "node dist/index.mjs | pino-postgres --connection postgres://postgres:example@localhost:5432/postgres --pass-through",
+    "start:server": "node dist/index.mjs | pino-postgres --connection \"$DB_URL\" --pass-through",
     "start": "dotenvx run -- concurrently --kill-others-on-fail -n client,server -c magenta,cyan \"pnpm run start:client\" \"pnpm run start:server\"",
     "lint": "biome lint --write --unsafe --no-errors-on-unmatched",
     "format": "biome format --write --no-errors-on-unmatched",
