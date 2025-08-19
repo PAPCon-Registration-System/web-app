@@ -8,7 +8,13 @@ import {
 import { CheckCircle } from "lucide-react";
 import { Button } from "@/features/shared/components/base/button";
 
-export default function EmailSentCard({ email }: { email: string }) {
+export default function EmailSentCard({
+	email,
+	handleUseDifferentEmail,
+}: {
+	email: string;
+	handleUseDifferentEmail: () => void;
+}) {
 	return (
 		<div className="flex min-h-screen items-center justify-center p-4">
 			<Card className="w-full max-w-md ">
@@ -28,6 +34,7 @@ export default function EmailSentCard({ email }: { email: string }) {
 						<p className="mt-2">The link will expire in 15 minutes.</p>
 					</div>
 					<Button
+						onClick={handleUseDifferentEmail}
 						variant="outline"
 						className="w-full border bg-background text-foreground hover:bg-accent"
 					>

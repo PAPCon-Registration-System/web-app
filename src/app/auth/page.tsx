@@ -18,6 +18,7 @@ import { Button } from "@/features/shared/components/base/button";
 import EmailSentCard from "@/features/auth/components/email-sent-card";
 import { authClient } from "@/infrastructure/auth/auth-client";
 import { toast } from "@/features/shared/lib/toast";
+import { env } from "@/config/env.client";
 
 export default function LoginPage() {
 	const [email, setEmail] = useState("");
@@ -33,7 +34,7 @@ export default function LoginPage() {
 		const { error } = await authClient.signIn.magicLink({
 			email,
 			name: email.split("@")[0], // Use email prefix as name
-			callbackURL: "/qr-code",
+			callbackURL: `${env.NEXT_PUBLIC_BASE_URL}/qr-code`,
 		});
 
 		if (error) {
@@ -45,8 +46,18 @@ export default function LoginPage() {
 		setIsEmailSent(true);
 	};
 
+	const handleUseDifferentEmail = () => {
+		setEmail("");
+		setIsEmailSent(false);
+	};
+
 	if (isEmailSent) {
-		return <EmailSentCard email={email} />;
+		return (
+			<EmailSentCard
+				handleUseDifferentEmail={handleUseDifferentEmail}
+				email={email}
+			/>
+		);
 	}
 
 	return (
