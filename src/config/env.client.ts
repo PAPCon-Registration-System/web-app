@@ -21,7 +21,7 @@ const envParseResult = z
 		NEXT_PUBLIC_QR_ENCRYPTION_SECRET: z
 			.string()
 			.min(1)
-			.default("ilovegaymmans"),
+			.default("qrencryptionsecret"),
 	})
 	.safeParse({
 		// Add the client environment variables here!
