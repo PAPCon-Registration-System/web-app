@@ -6,13 +6,14 @@ The registration system for the PAP Conference.
 
 ### Environment variables
 The following environment variables are needed:
-1. `DB_URL` - specifies the URL of the database to connect to (see `docker-compose.db.yml` for local database credentials)
-2. `BETTER_AUTH_SECRET` - used to encrypt and generate hashes
-3. `BETTER_AUTH_URL` - base URL of the app
-4. `NEXT_PUBLIC_BASE_URL` - base URL of the client (Next.js)
-5. `NEXT_PUBLIC_API_BASE_URL` - base URL of the server (Node.js)
-6. `NEXT_PUBLIC_QR_ENCRYPTION_SECRET` - secret key used for AES encryption of user data into QR code
-7. `REMOTE_PATTERNS` - valid URL wildcard matchers, delimited by commas, for external images via `<Image />` outside of our domain
+1. `DB_URL` - specifies the URL of the database to connect to
+2. `REDIS_URL` - specifies the URL of the Redis instance to connect to
+3. `BETTER_AUTH_SECRET` - used to encrypt and generate hashes
+4. `BETTER_AUTH_URL` - base URL of the app
+5. `NEXT_PUBLIC_BASE_URL` - base URL of the client (Next.js)
+6. `NEXT_PUBLIC_API_BASE_URL` - base URL of the server (Node.js)
+7. `NEXT_PUBLIC_QR_ENCRYPTION_SECRET` - secret key used for AES encryption of user data into QR code
+8. `REMOTE_PATTERNS` - valid URL wildcard matchers, delimited by commas, for external images via `<Image />` outside of our domain
     - ex. `https://external-domain/images/*,https://s3.aws.services/bucket/papcon/images/*`
 ### Getting the app to run
 
@@ -66,3 +67,36 @@ pnpm run db:down
 > [!important]
 > When experimenting with schema changes, **do not generate migrations**. Just push the changes directly to the local database. The migration generation. To sync your local database schema with the schema of prod, just pull from main and push the schema changes to your db.
 
+## Deployment
+
+### Prerequisites
+
+> [!Caution]
+> Ensure you have the following resources set up before deploying the app.
+
+1. A Redis database with a publicly-accessible URL.
+2. A PostgreSQL database with a publicly-accessible URL.
+
+### App Deployment Steps
+
+1. Create a Coolify Docker Compose app and use `docker-compose.yaml` to build the app.
+2. Set `Custom Start Command` to `docker compose up -d`.
+3. Set these environment variables:
+
+```bash
+BETTER_AUTH_SECRET=secret # change this to a strong secret generated via `openssl rand -base64 32`
+BETTER_AUTH_URL=https://pap.com # the domain of the website
+DB_URL= # your publicly accessible PostgreSQL database URL
+NEXT_PUBLIC_API_BASE_URL=https://api.pap.com # the API subdomain of the website
+NEXT_PUBLIC_BASE_URL=https://pap.com # the domain of the website
+NEXT_PUBLIC_QR_ENCRYPTION_SECRET= # any secret key you want to use for QR code generation
+REDIS_URL= # your publicly accessible Redis database URL
+REMOTE_PATTERNS= # if you're using images outside of NEXT_PUBLIC_BASE_URL, add a comma-delimited pattern list like: https://randomuser.me/api/portraits/men/*,https://randomuser.me/api/portraits/women/*
+```
+
+- mark `NEXT_PUBLIC_API_BASE_URL`, `NEXT_PUBLIC_BASE_URL`, and `NEXT_PUBLIC_QR_ENCRYPTION_SECRET` as `Is Build Variable?` in the Coolify configuration page.
+
+
+4. Set the `Domains for App` in Coolify to `https://pap.com:3000,https://api.pap.com:6969`
+   - replace the domains according to your environment variables
+5. Deploy the app.
