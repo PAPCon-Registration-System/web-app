@@ -26,6 +26,7 @@ const auth = betterAuth({
 	},
 	plugins: [
 		magicLink({
+			disableSignUp: true,
 			sendMagicLink: async ({ email, url }, _request) => {
 				try {
 					const magicLinkHtml = `
