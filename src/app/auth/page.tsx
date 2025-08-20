@@ -16,6 +16,9 @@ import {
 import { Mail, ArrowRight } from "lucide-react";
 import { Button } from "@/features/shared/components/base/button";
 import EmailSentCard from "@/features/auth/components/email-sent-card";
+import { authClient } from "@/infrastructure/auth/auth-client";
+import { toast } from "@/features/shared/lib/toast";
+import { env } from "@/config/env.client";
 
 export default function LoginPage() {
 	const [email, setEmail] = useState("");
@@ -28,15 +31,33 @@ export default function LoginPage() {
 
 		setIsLoading(true);
 
-		// mock API call
-		await new Promise((resolve) => setTimeout(resolve, 2000));
+		const { error } = await authClient.signIn.magicLink({
+			email,
+			name: email.split("@")[0], // Use email prefix as name
+			callbackURL: `${env.NEXT_PUBLIC_BASE_URL}/qr-code`,
+		});
+
+		if (error) {
+			toast.error("Failed to send magic link.", { description: error.message });
+			return setIsLoading(false);
+		}
 
 		setIsLoading(false);
 		setIsEmailSent(true);
 	};
 
+	const handleUseDifferentEmail = () => {
+		setEmail("");
+		setIsEmailSent(false);
+	};
+
 	if (isEmailSent) {
-		return <EmailSentCard />;
+		return (
+			<EmailSentCard
+				handleUseDifferentEmail={handleUseDifferentEmail}
+				email={email}
+			/>
+		);
 	}
 
 	return (
