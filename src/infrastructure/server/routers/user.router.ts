@@ -5,11 +5,12 @@ import xlsx from "node-xlsx";
 import generateRandomPassword from "./utils/generate-random-password";
 import { factory } from "../utils/factory";
 import type { UserRoleEnum } from "@/types/enums/UserRoleEnum";
-
-// TODO: Protect routes (only admin can seed)
+import { withRole } from "../middleware/with-role.middleware";
+import type { ServerErrorStatusCode } from "hono/utils/http-status";
 
 const routes = factory
 	.createApp()
+	.use(withRole("ADMIN"))
 	.post(
 		"seed/manual",
 		zValidator(
@@ -27,19 +28,29 @@ const routes = factory
 		async (c) => {
 			const data = c.req.valid("json");
 
-			// TODO: Add logger for errors
-			await auth.auth.api.signUpEmail({
-				body: {
-					email: data.email,
-					name: `${data.firstName} ${data.middleName} ${data.lastName}`,
-					role: data.role as UserRoleEnum,
-					password: generateRandomPassword(),
-				},
-			});
+			try {
+				await auth.auth.api.signUpEmail({
+					body: {
+						email: data.email,
+						name: `${data.firstName} ${data.middleName} ${data.lastName}`,
+						role: data.role as UserRoleEnum,
+						password: generateRandomPassword(),
+					},
+				});
 
-			return c.json({
-				message: `Successfully registered user ${data.email}`,
-			});
+				return c.json({
+					message: `Successfully registered user ${data.email}`,
+				});
+			} catch (error) {
+				c.var.logger.error("An error occurred while registering a user.", {
+					error,
+				});
+
+				return c.text(
+					"An error occurred while registering the user. Please try again later.",
+					500 as ServerErrorStatusCode,
+				);
+			}
 		},
 	)
 	.post(

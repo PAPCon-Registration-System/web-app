@@ -4,7 +4,7 @@ import {
 	socketIoMiddleware,
 	initWebsocket,
 } from "./middleware/socket-io.middleware";
-import { cors } from "hono/cors";
+import { authMiddleware } from "./middleware/auth.middleware";
 import user from "./routers/user.router";
 import logs from "./routers/logs.router";
 import auth from "../auth";
@@ -12,11 +12,11 @@ import { factory } from "./utils/factory";
 import { serve } from "@hono/node-server";
 
 import { env } from "@/config/env.client";
+import { cors } from "hono/cors";
 
 export const app = factory
 	.createApp()
 	.use(
-		"*",
 		cors({
 			origin: env.NEXT_PUBLIC_BASE_URL,
 			allowHeaders: ["Content-Type", "Authorization"],
@@ -26,6 +26,7 @@ export const app = factory
 			credentials: true,
 		}),
 	)
+	.use(authMiddleware({ auth: auth.auth }))
 	.use(requestId())
 	.use(loggerMiddleware)
 	.use(socketIoMiddleware)
