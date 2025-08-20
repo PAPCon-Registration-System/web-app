@@ -19,5 +19,5 @@ export default async function AppLayout({
 		return;
 	}
 
-	return { children };
+	return <>{children}</>;
 }
