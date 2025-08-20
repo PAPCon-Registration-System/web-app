@@ -1,4 +1,3 @@
-import { cors } from "hono/cors";
 import { createMiddleware } from "hono/factory";
 
 import type {
@@ -11,13 +10,7 @@ export type AuthMiddlewareVariables = AuthSessionData & {
 	auth: AuthInstance;
 };
 
-export const authMiddleware = ({
-	origin,
-	auth,
-}: {
-	origin?: string;
-	auth: AuthInstance;
-}) =>
+export const authMiddleware = ({ auth }: { auth: AuthInstance }) =>
 	createMiddleware<{
 		Variables: AuthSessionData & { auth: AuthInstance };
 	}>(async (c, next) => {
@@ -37,15 +30,5 @@ export const authMiddleware = ({
 		c.set("user", session.user);
 		c.set("session", session.session);
 
-		// We apply the better-auth recommended CORS middleware
-		const corsAuthMiddleware = cors({
-			origin: origin ?? "*",
-			allowHeaders: ["Content-Type", "Authorization"],
-			allowMethods: ["POST", "GET", "OPTIONS"],
-			exposeHeaders: ["Content-Length"],
-			maxAge: 600,
-			credentials: true,
-		});
-
-		return corsAuthMiddleware(c, next);
+		return next();
 	});

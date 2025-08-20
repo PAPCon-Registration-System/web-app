@@ -14,6 +14,8 @@ export const withRole = (role: UserRoleEnum) =>
 		}
 
 		if (user.role !== role) {
+			console.log({ user: user.role, requiredRole: role });
+
 			return c.json(
 				"You do not have the proper permissions to access this resource",
 				403 as ClientErrorStatusCode,
