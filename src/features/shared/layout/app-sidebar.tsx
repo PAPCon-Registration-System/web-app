@@ -8,6 +8,7 @@ import {
 	Settings,
 	UserPlus,
 	MonitorStop,
+	User,
 } from "lucide-react";
 
 import {
@@ -24,6 +25,9 @@ import {
 	SidebarRail,
 } from "@/features/shared/components/base/sidebar";
 import Link from "next/link";
+import { authClient } from "@/infrastructure/auth/auth-client";
+import { headers } from "next/headers";
+import { Avatar, AvatarFallback, AvatarImage } from "../components/base/avatar";
 
 // Menu items.
 const items = [
@@ -74,7 +78,16 @@ const items = [
 	},
 ];
 
-export function AppSidebar() {
+export async function AppSidebar() {
+	const headerInfo = await headers();
+	const session = await authClient.getSession({
+		fetchOptions: {
+			headers: headerInfo,
+		},
+	});
+
+	const userName = session.data?.user.name;
+
 	return (
 		<Sidebar collapsible="icon">
 			<SidebarHeader className="border-border border-r py-4">
@@ -120,9 +133,14 @@ export function AppSidebar() {
 					<SidebarMenuItem>
 						<SidebarMenuButton tooltip="User Account">
 							<div className="flex aspect-square size-4 items-center justify-center rounded-full bg-sidebar-accent">
-								<span className="font-medium text-xs">U</span>
+								<Avatar>
+									<AvatarImage src="/placeholder.svg?height=32&width=32" />
+									<AvatarFallback>
+										<User className="h-4 w-4" />
+									</AvatarFallback>
+								</Avatar>
 							</div>
-							<span>User Account</span>
+							<span>{userName}</span>
 						</SidebarMenuButton>
 					</SidebarMenuItem>
 				</SidebarMenu>
