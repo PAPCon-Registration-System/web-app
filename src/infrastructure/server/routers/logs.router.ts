@@ -12,6 +12,7 @@ import {
 } from "@/types/entities/logs.entity";
 import { LogsService } from "../services/logs.service";
 import { LOG_GROUPS } from "@/features/shared/lib/logger";
+import { withRole } from "../middleware/with-role.middleware";
 
 const ROUTER_GROUP = LOG_GROUPS.DATABASE;
 
@@ -43,6 +44,7 @@ const app = factory
 		return c.body(null, 201 as SuccessStatusCode);
 	})
 	// TODO: add auth role-based middleware for admin access to view & stream logs
+	.use(withRole("ADMIN"))
 	.get("/", zValidator("query", GetLogsQueryParamsSchema), async (c) => {
 		const query = c.req.valid("query");
 		const logsService = new LogsService(c.var.logger);
