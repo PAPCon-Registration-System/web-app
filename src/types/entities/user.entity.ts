@@ -9,7 +9,7 @@ export const UserEntitySchema = z.object({
 	lastName: z.string(),
 	// TODO: Clarify if this is a URL
 	photoUrl: z.string().optional(),
-	// TODO: Add other fields relevant to business logic
+	role: z.string(),
 });
 export type UserEntity = z.infer<typeof UserEntitySchema>;
 
@@ -20,5 +20,6 @@ export const UserCreateEntitySchema = UserEntitySchema.pick({
 	middleName: true,
 	lastName: true,
 	photoUrl: true,
+	role: true,
 });
 export type UserCreateEntity = z.infer<typeof UserCreateEntitySchema>;

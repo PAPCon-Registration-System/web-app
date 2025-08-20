@@ -68,7 +68,7 @@ const auth = betterAuth({
 			role: {
 				type: "string",
 				required: true,
-				defaultValue: UserRoleEnumSchema.Values.USER,
+				defaultValue: UserRoleEnumSchema.Enum.USER,
 				input: true,
 			},
 		},

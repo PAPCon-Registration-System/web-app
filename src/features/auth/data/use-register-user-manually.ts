@@ -12,7 +12,7 @@ export function useRegisterUserManually() {
 
 			if (!res.ok) {
 				// TODO: More informative error message
-				throw new Error("Failed to register user");
+				throw new Error("Failed to manually register user");
 			}
 
 			const data = await res.json();
