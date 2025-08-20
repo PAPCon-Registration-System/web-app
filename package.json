@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "postinstall": "pnpm lefthook install",
+    "postinstall": "command -v git >/dev/null 2>&1 && lefthook install || echo 'Skipping lefthook install: git not found'",
     "local:client": "next dev",
     "local:server": "tsx watch src/infrastructure/server/index.ts",
     "local:all": "pnpm run db:up && dotenvx run -- concurrently --kill-others-on-fail -n client,server -c magenta,cyan \"pnpm run local:client\" \"pnpm run local:server\"",
