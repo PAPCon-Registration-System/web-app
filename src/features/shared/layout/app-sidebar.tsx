@@ -79,10 +79,9 @@ const items = [
 ];
 
 export async function AppSidebar() {
-	const headerInfo = await headers();
 	const session = await authClient.getSession({
 		fetchOptions: {
-			headers: headerInfo,
+			headers: await headers(),
 		},
 	});
 
