@@ -27,51 +27,63 @@ import { authClient } from "@/infrastructure/auth/auth-client";
 import { headers } from "next/headers";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/base/avatar";
 import type { ExtendedSession } from "@/types/entities/session.entity";
+import {
+	type UserRoleEnum,
+	UserRoleEnumSchema,
+} from "@/types/enums/UserRoleEnum";
 
 // Menu items with role restrictions
-const getMenuItems = (userRole: string) => {
+const getMenuItems = (userRole: UserRoleEnum) => {
 	const allItems = [
 		{
 			title: "Home",
 			url: "/",
 			icon: Home,
-			roles: ["USER", "STAFF", "ADMIN"],
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
 		},
 		{
 			title: "Logs",
 			url: "/logs",
 			icon: Inbox,
-			roles: ["STAFF", "ADMIN"],
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
 		},
 		{
 			title: "Registration",
 			url: "/registration",
 			icon: UserPlus,
-			roles: ["STAFF", "ADMIN"],
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
 		},
 		{
 			title: "Terminal",
 			url: "/terminal",
 			icon: MonitorStop,
-			roles: ["STAFF", "ADMIN"],
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
 		},
 		{
 			title: "QR Code",
 			url: "/qr-code",
 			icon: QrCode,
-			roles: ["USER", "STAFF", "ADMIN"],
+			roles: [
+				UserRoleEnumSchema.Enum.USER,
+				UserRoleEnumSchema.Enum.STAFF,
+				UserRoleEnumSchema.Enum.ADMIN,
+			],
 		},
 		{
 			title: "QR Scanner",
 			url: "/qr-scan",
 			icon: QrCode,
-			roles: ["STAFF", "ADMIN"],
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
 		},
 		{
 			title: "Event Schedule",
 			url: "#",
 			icon: Calendar,
-			roles: ["USER", "STAFF", "ADMIN"],
+			roles: [
+				UserRoleEnumSchema.Enum.USER,
+				UserRoleEnumSchema.Enum.STAFF,
+				UserRoleEnumSchema.Enum.ADMIN,
+			],
 		},
 	];
 
@@ -86,7 +98,7 @@ export async function AppSidebar() {
 	})) as { data: ExtendedSession | null };
 
 	const userName = session.data?.user.name;
-	const userRole = session.data?.user.role || "USER";
+	const userRole = session.data?.user.role as UserRoleEnum;
 
 	const menuItems = getMenuItems(userRole);
 
