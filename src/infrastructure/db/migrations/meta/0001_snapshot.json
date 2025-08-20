@@ -1,6 +1,6 @@
 {
-	"id": "47ee36dc-6403-4e7f-8742-74c0d379db14",
-	"prevId": "00000000-0000-0000-0000-000000000000",
+	"id": "5c8b39aa-0351-42d7-8dc2-41e5dc85de75",
+	"prevId": "47ee36dc-6403-4e7f-8742-74c0d379db14",
 	"version": "7",
 	"dialect": "postgresql",
 	"tables": {
@@ -227,6 +227,13 @@
 					"type": "timestamp",
 					"primaryKey": false,
 					"notNull": true
+				},
+				"role": {
+					"name": "role",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "'USER'"
 				}
 			},
 			"indexes": {},
