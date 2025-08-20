@@ -4,8 +4,6 @@ import {
 	Home,
 	Inbox,
 	QrCode,
-	Search,
-	Settings,
 	UserPlus,
 	MonitorStop,
 	User,
@@ -28,64 +26,69 @@ import Link from "next/link";
 import { authClient } from "@/infrastructure/auth/auth-client";
 import { headers } from "next/headers";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/base/avatar";
+import type { ExtendedSession } from "@/types/entities/session.entity";
 
-// Menu items.
-const items = [
-	{
-		title: "Home",
-		url: "/",
-		icon: Home,
-	},
-	{
-		title: "Logs",
-		url: "/logs",
-		icon: Inbox,
-	},
-	{
-		title: "Registration",
-		url: "/registration",
-		icon: UserPlus,
-	},
-	{
-		title: "Terminal",
-		url: "/terminal",
-		icon: MonitorStop,
-	},
-	{
-		title: "QR Code",
-		url: "/qr-code",
-		icon: QrCode,
-	},
-	{
-		title: "QR Scanner",
-		url: "/qr-scan",
-		icon: QrCode,
-	},
-	{
-		title: "Event Schedule",
-		url: "#",
-		icon: Calendar,
-	},
-	{
-		title: "Search",
-		url: "#",
-		icon: Search,
-	},
-	{
-		title: "Settings",
-		url: "#",
-		icon: Settings,
-	},
-];
+// Menu items with role restrictions
+const getMenuItems = (userRole: string) => {
+	const allItems = [
+		{
+			title: "Home",
+			url: "/",
+			icon: Home,
+			roles: ["USER", "STAFF", "ADMIN"],
+		},
+		{
+			title: "Logs",
+			url: "/logs",
+			icon: Inbox,
+			roles: ["STAFF", "ADMIN"],
+		},
+		{
+			title: "Registration",
+			url: "/registration",
+			icon: UserPlus,
+			roles: ["STAFF", "ADMIN"],
+		},
+		{
+			title: "Terminal",
+			url: "/terminal",
+			icon: MonitorStop,
+			roles: ["STAFF", "ADMIN"],
+		},
+		{
+			title: "QR Code",
+			url: "/qr-code",
+			icon: QrCode,
+			roles: ["USER", "STAFF", "ADMIN"],
+		},
+		{
+			title: "QR Scanner",
+			url: "/qr-scan",
+			icon: QrCode,
+			roles: ["STAFF", "ADMIN"],
+		},
+		{
+			title: "Event Schedule",
+			url: "#",
+			icon: Calendar,
+			roles: ["USER", "STAFF", "ADMIN"],
+		},
+	];
+
+	return allItems.filter((item) => item.roles.includes(userRole));
+};
 
 export async function AppSidebar() {
-	const session = await authClient.getSession({
+	const session = (await authClient.getSession({
 		fetchOptions: {
 			headers: await headers(),
 		},
-	});
+	})) as { data: ExtendedSession | null };
 
 	const userName = session.data?.user.name;
+	const userRole = session.data?.user.role || "USER";
+
+	const menuItems = getMenuItems(userRole);
 
 	return (
 		<Sidebar collapsible="icon">
@@ -113,7 +116,7 @@ export async function AppSidebar() {
 					<SidebarGroupLabel>Navigation</SidebarGroupLabel>
 					<SidebarGroupContent>
 						<SidebarMenu>
-							{items.map((item) => (
+							{menuItems.map((item) => (
 								<SidebarMenuItem key={item.title}>
 									<SidebarMenuButton asChild tooltip={item.title}>
 										<Link href={item.url}>
