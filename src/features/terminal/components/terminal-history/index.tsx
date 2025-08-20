@@ -1,9 +1,9 @@
 import { TerminalBadgeNewest } from "./terminal-badge-newest";
 import { TerminalBadgeSmall } from "./terminal-badge-small";
-import type { FullQrLog } from "../../page";
 import { Clock } from "lucide-react";
 import { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
 import { cn } from "@/features/shared/lib/utils";
+import type { FullQrLog } from "../terminal-page";
 
 export function TerminalHistory({
 	logs,
@@ -20,7 +20,7 @@ export function TerminalHistory({
 	return (
 		<div>
 			<TerminalBadgeNewest log={logs[0]} />
-			<h3 className="mt-6 mb-4 mb-4 flex items-center font-bold text-2xl">
+			<h3 className="mt-6 mb-4 flex items-center font-bold text-2xl">
 				<div
 					className={cn("mr-3 rounded-sm bg-success/10 p-2", {
 						"bg-success/10": action === QRScanActionEnum.CHECK_IN,
