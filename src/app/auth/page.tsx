@@ -19,6 +19,7 @@ import EmailSentCard from "@/features/auth/components/email-sent-card";
 import { authClient } from "@/infrastructure/auth/auth-client";
 import { toast } from "@/features/shared/lib/toast";
 import { env } from "@/config/env.client";
+import { LOG_GROUPS, Logger } from "@/features/shared/lib/logger";
 
 export default function LoginPage() {
 	const [email, setEmail] = useState("");
@@ -33,12 +34,16 @@ export default function LoginPage() {
 
 		const { error } = await authClient.signIn.magicLink({
 			email,
-			name: email.split("@")[0], // Use email prefix as name
 			callbackURL: `${env.NEXT_PUBLIC_BASE_URL}/qr-code`,
 		});
 
 		if (error) {
 			toast.error("Failed to send magic link.", { description: error.message });
+			Logger.error(`Registration Error: ${email} not found`, {
+				group: LOG_GROUPS.REGISTRATION,
+				email,
+				message: error.message,
+			});
 			return setIsLoading(false);
 		}
 
