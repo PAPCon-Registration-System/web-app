@@ -6,6 +6,7 @@ import { magicLink } from "better-auth/plugins/magic-link";
 import { Resend } from "resend";
 import { env } from "@/config/env.server";
 import { env as ENV_CLIENT } from "@/config/env.client";
+import { UserRoleEnumSchema } from "@/types/enums/UserRoleEnum";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
@@ -62,6 +63,16 @@ const auth = betterAuth({
 			},
 		}),
 	],
+	user: {
+		additionalFields: {
+			role: {
+				type: "string",
+				required: true,
+				defaultValue: UserRoleEnumSchema.Values.USER,
+				input: true,
+			},
+		},
+	},
 });
 
 export type Session = typeof auth.$Infer.Session;
