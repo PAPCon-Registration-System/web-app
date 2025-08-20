@@ -8,6 +8,11 @@ import { Label } from "@/features/shared/components/base/label";
 import type { UserCreateEntity } from "@/types/entities/user.entity";
 import { useRegisterUserManually } from "../data/use-register-user-manually";
 import { toast } from "@/features/shared/lib/toast";
+import { UserRoleEnumSchema } from "@/types/enums/UserRoleEnum";
+import {
+	RadioGroup,
+	RadioGroupItem,
+} from "@/features/shared/components/base/radio-group";
 
 type FormData = Omit<UserCreateEntity, "password">;
 
@@ -16,6 +21,7 @@ const initialFormData: FormData = {
 	firstName: "",
 	middleName: "",
 	lastName: "",
+	role: UserRoleEnumSchema.Enum.USER,
 };
 
 const UserInputForm = () => {
@@ -109,6 +115,24 @@ const UserInputForm = () => {
 					className="border-input bg-input text-foreground placeholder:text-muted-foreground focus:border-ring focus:ring-ring/20"
 					required
 				/>
+			</div>
+
+			<div className="space-y-2">
+				<Label htmlFor="role" className="font-medium text-foreground">
+					Role
+				</Label>
+				<RadioGroup value={formData.role as string}>
+					{Object.keys(UserRoleEnumSchema.Enum).map((role) => (
+						<div key={`role-${role}`} className="flex items-center space-x-2">
+							<RadioGroupItem
+								value={role}
+								id={`option-${role}`}
+								onClick={() => handleInputChange({ ...formData, role })}
+							/>
+							<Label htmlFor={`option-${role}`}>{role}</Label>
+						</div>
+					))}
+				</RadioGroup>
 			</div>
 			<Button
 				type="submit"
