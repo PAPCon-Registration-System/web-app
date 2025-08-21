@@ -15,7 +15,7 @@ import type { ScanResult } from "@/features/qr-code/components/scanner/types/sca
 import type { ConfirmationData } from "@/features/qr-code/components/scanner/types/confirmation-data";
 import { QrCodeLogSchema } from "@/features/logs/types/qr-code-log";
 
-export default function QRScannerPage() {
+export function QRScannerPage() {
 	// TODO: If this gets any larger, let's move this to a zustand store
 	const [scanResult, setScanResult] = useState<ScanResult | null>(null);
 	const [error, setError] = useState<string | null>(null);

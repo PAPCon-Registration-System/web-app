@@ -16,7 +16,7 @@ import LogTab from "@/features/logs/components/log-tab";
 import { LOG_GROUPS } from "@/features/shared/lib/logger";
 import { cn } from "@/features/shared/lib/utils";
 
-export default function LogsPage() {
+export function LogsPage() {
 	const [activeTab, setActiveTab] = useState<string>(LOG_GROUPS.REGISTRATION);
 
 	return (

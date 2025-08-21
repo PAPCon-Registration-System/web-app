@@ -4,8 +4,6 @@ import {
 	Home,
 	Inbox,
 	QrCode,
-	Search,
-	Settings,
 	UserPlus,
 	MonitorStop,
 	User,
@@ -28,64 +26,81 @@ import Link from "next/link";
 import { authClient } from "@/infrastructure/auth/auth-client";
 import { headers } from "next/headers";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/base/avatar";
+import type { ExtendedSession } from "@/types/entities/session.entity";
+import {
+	type UserRoleEnum,
+	UserRoleEnumSchema,
+} from "@/types/enums/UserRoleEnum";
 
-// Menu items.
-const items = [
-	{
-		title: "Home",
-		url: "/",
-		icon: Home,
-	},
-	{
-		title: "Logs",
-		url: "/logs",
-		icon: Inbox,
-	},
-	{
-		title: "Registration",
-		url: "/registration",
-		icon: UserPlus,
-	},
-	{
-		title: "Terminal",
-		url: "/terminal",
-		icon: MonitorStop,
-	},
-	{
-		title: "QR Code",
-		url: "/qr-code",
-		icon: QrCode,
-	},
-	{
-		title: "QR Scanner",
-		url: "/qr-scan",
-		icon: QrCode,
-	},
-	{
-		title: "Event Schedule",
-		url: "#",
-		icon: Calendar,
-	},
-	{
-		title: "Search",
-		url: "#",
-		icon: Search,
-	},
-	{
-		title: "Settings",
-		url: "#",
-		icon: Settings,
-	},
-];
+// Menu items with role restrictions
+const getMenuItems = (userRole: UserRoleEnum) => {
+	const allItems = [
+		{
+			title: "Home",
+			url: "/",
+			icon: Home,
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
+		},
+		{
+			title: "Logs",
+			url: "/logs",
+			icon: Inbox,
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
+		},
+		{
+			title: "Registration",
+			url: "/registration",
+			icon: UserPlus,
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
+		},
+		{
+			title: "Terminal",
+			url: "/terminal",
+			icon: MonitorStop,
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
+		},
+		{
+			title: "QR Code",
+			url: "/qr-code",
+			icon: QrCode,
+			roles: [
+				UserRoleEnumSchema.Enum.USER,
+				UserRoleEnumSchema.Enum.STAFF,
+				UserRoleEnumSchema.Enum.ADMIN,
+			],
+		},
+		{
+			title: "QR Scanner",
+			url: "/qr-scan",
+			icon: QrCode,
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
+		},
+		{
+			title: "Event Schedule",
+			url: "#",
+			icon: Calendar,
+			roles: [
+				UserRoleEnumSchema.Enum.USER,
+				UserRoleEnumSchema.Enum.STAFF,
+				UserRoleEnumSchema.Enum.ADMIN,
+			],
+		},
+	];
+
+	return allItems.filter((item) => item.roles.includes(userRole));
+};
 
 export async function AppSidebar() {
-	const session = await authClient.getSession({
+	const session = (await authClient.getSession({
 		fetchOptions: {
 			headers: await headers(),
 		},
-	});
+	})) as { data: ExtendedSession | null };
 
 	const userName = session.data?.user.name;
+	const userRole = session.data?.user.role as UserRoleEnum;
+
+	const menuItems = getMenuItems(userRole);
 
 	return (
 		<Sidebar collapsible="icon">
@@ -113,7 +128,7 @@ export async function AppSidebar() {
 					<SidebarGroupLabel>Navigation</SidebarGroupLabel>
 					<SidebarGroupContent>
 						<SidebarMenu>
-							{items.map((item) => (
+							{menuItems.map((item) => (
 								<SidebarMenuItem key={item.title}>
 									<SidebarMenuButton asChild tooltip={item.title}>
 										<Link href={item.url}>
