@@ -12,8 +12,13 @@ import { LOG_GROUPS, Logger } from "@/features/shared/lib/logger";
 import { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
 import SuccessCard from "@/features/qr-code/components/scanner/success-card";
 import type { ScanResult } from "@/features/qr-code/components/scanner/types/scan-result";
-import type { ConfirmationData } from "@/features/qr-code/components/scanner/types/confirmation-data";
+import {
+	VALID_TERMINAL_IDS,
+	type ConfirmationData,
+} from "@/features/qr-code/components/scanner/types/confirmation-data";
 import { QrCodeLogSchema } from "@/features/logs/types/qr-code-log";
+import { useClaimUserKit } from "./data/use-claim-user-kit";
+import { toast } from "sonner";
 
 export function QRScannerPage() {
 	// TODO: If this gets any larger, let's move this to a zustand store
@@ -28,11 +33,13 @@ export function QRScannerPage() {
 	const [confirmationData, setConfirmationData] = useState<ConfirmationData>({
 		actionType: QRScanActionEnum.CHECK_IN,
 		event: "",
-		terminalId: "",
+		terminalId: VALID_TERMINAL_IDS[0],
 		kitClaiming: false,
 	});
 
 	const [isProcessing, setIsProcessing] = useState(false);
+
+	const mutation = useClaimUserKit();
 
 	// Check camera permissions on component mount
 	useEffect(() => {
@@ -107,6 +114,18 @@ export function QRScannerPage() {
 				group: LOG_GROUPS.QR,
 				context,
 			});
+
+			mutation.mutate(
+				{
+					userId: scanResult.decryptedData.userId,
+					hasClaimedKit: confirmationData.kitClaiming,
+				},
+				{
+					onSuccess: (data) => {
+						toast.success(data.message);
+					},
+				},
+			);
 
 			setShowConfirmation(false);
 			setShowSuccess(true);

@@ -8,17 +8,13 @@ import type { QrCodeLog } from "@/features/logs/types/qr-code-log";
 import { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
 import { LogIn, DoorOpen } from "lucide-react";
 import { useState } from "react";
-import type { ConfirmationData } from "@/features/qr-code/components/scanner/types/confirmation-data";
+import {
+	VALID_TERMINAL_IDS,
+	type ConfirmationData,
+} from "@/features/qr-code/components/scanner/types/confirmation-data";
 import { TerminalHistory } from "./terminal-history";
 
 // TODO: Make this match a predefined list of terminals or get it dynamically if they don't define a set amount of terminals.
-const VALID_TERMINAL_IDS: ConfirmationData["terminalId"][] = [
-	"1",
-	"2",
-	"3",
-	"4",
-	"5",
-];
 
 export type FullQrLog = { content: { context: QrCodeLog; time: string } };
 
