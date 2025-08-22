@@ -139,7 +139,7 @@
 
   --background: var(--color-white);
   --foreground: oklch(0.269 0 0);
-  --card: var(--color-white);
+  --card: oklch(0.9851 0 0);
   --card-foreground: oklch(0.269 0 0);
   --popover: var(--color-white);
   --popover-foreground: oklch(0.269 0 0);

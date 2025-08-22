@@ -19,7 +19,7 @@ interface Props {
 export function TerminalSelect({ terminalIds, terminal, setTerminal }: Props) {
 	return (
 		<Select value={terminal} onValueChange={setTerminal}>
-			<SelectTrigger className="w-fit border-transparent bg-card pl-1 text-3xl shadow-none dark:bg-card">
+			<SelectTrigger className="ml-2 w-fit border border-input bg-background pl-2 text-2xl shadow-none">
 				<SelectValue placeholder="??" />
 			</SelectTrigger>
 			<SelectContent>

@@ -8,7 +8,7 @@ interface LogsFiltersEnhancedProps {
 
 export default function LogsFilters({ onSearch }: LogsFiltersEnhancedProps) {
 	return (
-		<Card className="border-border bg-accent dark:bg-card">
+		<Card className="border-border">
 			<CardContent className="p-3 sm:p-4">
 				<div className="space-y-3 sm:space-y-4">
 					<div className="relative">

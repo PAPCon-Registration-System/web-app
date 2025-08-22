@@ -18,7 +18,7 @@ import UserInputForm from "./user-input-form";
 
 const RegistrationForm = () => {
 	return (
-		<Card className="mx-auto overflow-y-auto border-border bg-accent shadow-sm md:w-4/5">
+		<Card className="mx-auto overflow-y-auto border-border shadow-sm md:w-4/5">
 			<CardHeader className="space-y-1 ">
 				<CardTitle className="font-bold text-foreground text-xl">
 					Registration
