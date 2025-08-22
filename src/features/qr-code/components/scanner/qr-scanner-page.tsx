@@ -21,7 +21,6 @@ import { useClaimUserKit } from "./data/use-claim-user-kit";
 import { toast } from "sonner";
 
 export function QRScannerPage() {
-	// TODO: If this gets any larger, let's move this to a zustand store
 	const [scanResult, setScanResult] = useState<ScanResult | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [cameraReady, setCameraReady] = useState(false);

@@ -14,8 +14,6 @@ import {
 } from "@/features/qr-code/components/scanner/types/confirmation-data";
 import { TerminalHistory } from "./terminal-history";
 
-// TODO: Make this match a predefined list of terminals or get it dynamically if they don't define a set amount of terminals.
-
 export type FullQrLog = { content: { context: QrCodeLog; time: string } };
 
 export function TerminalPage() {
