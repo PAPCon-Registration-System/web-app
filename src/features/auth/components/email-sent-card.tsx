@@ -17,15 +17,15 @@ export default function EmailSentCard({
 }) {
 	return (
 		<div className="flex min-h-screen items-center justify-center p-4">
-			<Card className="w-full max-w-md ">
+			<Card className="w-full max-w-md text-card-foreground">
 				<CardHeader className="text-center">
 					<div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-success">
-						<CheckCircle className="h-6 w-6 text-white" />
+						<CheckCircle className="h-6 w-6 " />
 					</div>
-					<CardTitle className="text-white">Check your email</CardTitle>
+					<CardTitle>Check your email</CardTitle>
 					<CardDescription className="text-muted-foreground">
 						We've sent a magic link to{" "}
-						<span className="font-medium text-white">{email}</span>
+						<span className="font-medium ">{email}</span>
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-4">
