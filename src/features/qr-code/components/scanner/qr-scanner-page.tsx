@@ -140,8 +140,8 @@ export function QRScannerPage() {
 
 	const handleCancelScan = () => {
 		setShowConfirmation(false);
-		setScanResult(null);
 		setScannerActive(true);
+		setScanResult(null);
 		setConfirmationData((prev) => ({
 			actionType: QRScanActionEnum.CHECK_IN,
 			event: prev.event,
@@ -164,6 +164,14 @@ export function QRScannerPage() {
 
 	const handleUpdateConfirmationData = (data: Partial<ConfirmationData>) => {
 		setConfirmationData((prev) => ({ ...prev, ...data }));
+	};
+
+	const handleUpdateShowConfirmation = (isOpen: boolean) => {
+		if (!isOpen) {
+			handleCancelScan();
+		}
+
+		setShowConfirmation(isOpen);
 	};
 
 	return (
@@ -192,7 +200,7 @@ export function QRScannerPage() {
 
 				<ConfirmationSheet
 					open={showConfirmation}
-					onOpenChange={setShowConfirmation}
+					onOpenChange={handleUpdateShowConfirmation}
 					scanResult={scanResult}
 					confirmationData={confirmationData}
 					onUpdateData={handleUpdateConfirmationData}
