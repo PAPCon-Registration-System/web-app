@@ -53,7 +53,7 @@ const FileUpload = () => {
 				id="file"
 				type="file"
 				accept=".csv,.xlsx,.xls"
-				className="cursor-pointer bg-zinc-50"
+				className="cursor-pointer bg-background"
 				onChange={handleFileSelect}
 				ref={fileInputRef}
 				required

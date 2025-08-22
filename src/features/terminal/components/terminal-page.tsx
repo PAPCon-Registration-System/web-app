@@ -56,7 +56,7 @@ export function TerminalPage() {
 	);
 	return (
 		<div className="grid">
-			<div className="mb-4 rounded-md border bg-card p-6 py-4">
+			<div className="mb-4 rounded-md border bg-accent p-6 py-4">
 				<h1 className="col-span-full flex gap-1 font-bold text-3xl text-foreground">
 					<span>Terminal</span>
 					<TerminalSelect
@@ -68,7 +68,7 @@ export function TerminalPage() {
 			</div>
 
 			<div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-				<section className="rounded-md border bg-card p-6">
+				<section className="rounded-md border bg-accent p-6">
 					<h2 className="mb-4 flex items-center font-bold text-2xl">
 						<div className="mr-3 rounded-sm bg-success/10 p-2">
 							<LogIn className="text-success" />
@@ -84,7 +84,7 @@ export function TerminalPage() {
 						<p className="text-muted-foreground text-sm">None so far.</p>
 					)}
 				</section>
-				<section className="rounded-md border bg-card p-6">
+				<section className="rounded-md border bg-accent p-6">
 					<h2 className="mb-4 flex items-center font-bold text-2xl">
 						<div className="mr-3 rounded-sm bg-destructive/10 p-2">
 							<DoorOpen className="text-destructive" />

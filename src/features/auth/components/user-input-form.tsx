@@ -55,12 +55,11 @@ const UserInputForm = () => {
 				<Input
 					id="email"
 					type="email"
-					placeholder="Email address"
 					value={formData.email}
 					onChange={(e) =>
 						handleInputChange({ ...formData, email: e.target.value })
 					}
-					className="border-input bg-input text-foreground placeholder:text-muted-foreground focus:border-ring focus:ring-ring/20"
+					className="bg-background text-foreground"
 					required
 				/>
 			</div>
@@ -73,12 +72,11 @@ const UserInputForm = () => {
 					<Input
 						id="firstName"
 						type="text"
-						placeholder="First name"
 						value={formData.firstName}
 						onChange={(e) =>
 							handleInputChange({ ...formData, firstName: e.target.value })
 						}
-						className="border-input bg-input text-foreground placeholder:text-muted-foreground focus:border-ring focus:ring-ring/20"
+						className="bg-background text-foreground"
 						required
 					/>
 				</div>
@@ -90,12 +88,11 @@ const UserInputForm = () => {
 					<Input
 						id="middleName"
 						type="text"
-						placeholder="Middle name"
 						value={formData.middleName}
 						onChange={(e) =>
 							handleInputChange({ ...formData, middleName: e.target.value })
 						}
-						className="border-input bg-input text-foreground placeholder:text-muted-foreground focus:border-ring focus:ring-ring/20"
+						className="bg-background text-foreground"
 					/>
 				</div>
 			</div>
@@ -107,12 +104,11 @@ const UserInputForm = () => {
 				<Input
 					id="lastName"
 					type="text"
-					placeholder="Enter last name"
 					value={formData.lastName}
 					onChange={(e) =>
 						handleInputChange({ ...formData, lastName: e.target.value })
 					}
-					className="border-input bg-input text-foreground placeholder:text-muted-foreground focus:border-ring focus:ring-ring/20"
+					className="bg-background text-foreground"
 					required
 				/>
 			</div>
@@ -127,6 +123,7 @@ const UserInputForm = () => {
 							<RadioGroupItem
 								value={role}
 								id={`option-${role}`}
+								className="border-input bg-background text-foreground"
 								onClick={() => handleInputChange({ ...formData, role })}
 							/>
 							<Label htmlFor={`option-${role}`}>{role}</Label>

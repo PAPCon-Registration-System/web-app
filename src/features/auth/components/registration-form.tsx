@@ -18,7 +18,7 @@ import UserInputForm from "./user-input-form";
 
 const RegistrationForm = () => {
 	return (
-		<Card className="w-full overflow-y-auto border-border bg-card shadow-2xl">
+		<Card className="w-full overflow-y-auto border-border shadow-sm">
 			<CardHeader className="space-y-1 ">
 				<CardTitle className="font-bold text-foreground text-xl">
 					Registration
@@ -27,14 +27,19 @@ const RegistrationForm = () => {
 					Upload a file or enter information manually
 				</CardDescription>
 			</CardHeader>
-
 			<CardContent>
 				<Tabs defaultValue="upload" className="w-full">
-					<TabsList className="grid w-full grid-cols-2 border bg-muted">
-						<TabsTrigger value="upload" className="text-foreground">
+					<TabsList className="grid h-fit w-full grid-cols-2 gap-2 rounded-full border border-input bg-background p-2">
+						<TabsTrigger
+							value="upload"
+							className="text-foreground data-[state=active]:border-input data-[state=active]:bg-accent data-[state=active]:shadow-none"
+						>
 							File Upload
 						</TabsTrigger>
-						<TabsTrigger value="manual" className="text-foreground">
+						<TabsTrigger
+							value="manual"
+							className="text-foreground data-[state=active]:border-input data-[state=active]:bg-accent data-[state=active]:shadow-none"
+						>
 							Manual Entry
 						</TabsTrigger>
 					</TabsList>

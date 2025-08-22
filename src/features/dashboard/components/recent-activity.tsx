@@ -9,7 +9,7 @@ export function RecentActivity() {
 	];
 
 	return (
-		<Card className="h-full border-border bg-card">
+		<Card className="h-full border-border">
 			<CardContent className="p-6">
 				<div className="space-y-4">
 					<h3 className="font-semibold text-lg">Recent Activity</h3>

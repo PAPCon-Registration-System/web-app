@@ -43,7 +43,7 @@ export default function TestButtons({ group }: TestButtonsProps) {
 	];
 
 	return (
-		<Card className="border-border bg-accent dark:bg-card">
+		<Card className="border-border dark:bg-card">
 			<CardContent className="p-3 sm:p-4">
 				<div className="flex gap-2">
 					<Cog className="mt-0.5 h-8 w-8 text-muted-foreground" />
