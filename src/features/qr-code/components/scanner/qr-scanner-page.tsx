@@ -115,18 +115,12 @@ export function QRScannerPage() {
 				context,
 			});
 
-			mutation.mutate(
-				{
-					userId: scanResult.decryptedData.userId,
-					hasClaimedKit: confirmationData.kitClaiming,
-				},
-				{
-					onSuccess: (data) => {
-						toast.success(data.message);
-					},
-				},
-			);
+			mutation.mutate({
+				userId: scanResult.decryptedData.userId,
+				hasClaimedKit: confirmationData.kitClaiming,
+			});
 
+			toast.success("Action processed successfully!");
 			setShowConfirmation(false);
 			setShowSuccess(true);
 			setScanResult(null);
