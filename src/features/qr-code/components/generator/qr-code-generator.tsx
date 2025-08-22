@@ -7,16 +7,8 @@ import { QrCode } from "lucide-react";
 import { QRCodeDisplay } from "./qr-code-display";
 import { authClient } from "@/infrastructure/auth/auth-client";
 
-// TODO: use actual user photo (IF PROVIDED) or just remove displaying the photo
-function generateMockUserPhoto() {
-	const gender = Math.random() < 0.5 ? "men" : "women";
-	const photoIndex = Math.floor(Math.random() * 50) + 1; // 1–50
-
-	return `https://randomuser.me/api/portraits/${gender}/${photoIndex}.jpg`;
-}
-
 export function QRCodeGenerator() {
-	const { data: session } = authClient.useSession.get();
+	const { data: session } = authClient.useSession();
 	const [qrGenerated, setQrGenerated] = useState(false);
 
 	const handleGenerateQR = async () => {
@@ -52,7 +44,6 @@ export function QRCodeGenerator() {
 						userData={{
 							email: session.user.email,
 							name: session.user.name,
-							photoUrl: generateMockUserPhoto(),
 							userId: session.user.id,
 						}}
 					/>
