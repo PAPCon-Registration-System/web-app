@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
 	Table,
 	TableBody,
@@ -19,13 +18,6 @@ export function TerminalBadgeNewest({ log }: { log: FullQrLog }) {
 	return (
 		<div className="flex">
 			<div className="flex w-full flex-wrap justify-center gap-4 rounded-md border bg-background p-4">
-				<Image
-					className="size-48 rounded-sm border"
-					width={500}
-					height={500}
-					src={user.photoUrl}
-					alt={user.name}
-				/>
 				<div className="flex-grow overflow-auto">
 					<div className="overflow-hidden rounded-md border bg-background">
 						<Table>

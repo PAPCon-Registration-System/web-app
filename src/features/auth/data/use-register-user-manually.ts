@@ -11,7 +11,6 @@ export function useRegisterUserManually() {
 			const res = await $registerUser({ json: payload });
 
 			if (!res.ok) {
-				// TODO: More informative error message
 				throw new Error("Failed to manually register user");
 			}
 

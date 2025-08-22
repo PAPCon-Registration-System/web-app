@@ -20,7 +20,7 @@ export const app = factory
 		cors({
 			origin: env.NEXT_PUBLIC_BASE_URL,
 			allowHeaders: ["Content-Type", "Authorization"],
-			allowMethods: ["POST", "GET", "OPTIONS"],
+			allowMethods: ["POST", "GET", "OPTIONS", "PATCH"],
 			exposeHeaders: ["Content-Length"],
 			maxAge: 600,
 			credentials: true,

@@ -43,7 +43,6 @@ const app = factory
 
 		return c.body(null, 201 as SuccessStatusCode);
 	})
-	// TODO: add auth role-based middleware for admin access to view & stream logs
 	.use(withRole("ADMIN"))
 	.get("/", zValidator("query", GetLogsQueryParamsSchema), async (c) => {
 		const query = c.req.valid("query");

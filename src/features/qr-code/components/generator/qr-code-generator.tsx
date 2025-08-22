@@ -5,27 +5,23 @@ import { Button } from "@/features/shared/components/base/button";
 import { Card, CardContent } from "@/features/shared/components/base/card";
 import { QrCode } from "lucide-react";
 import { QRCodeDisplay } from "./qr-code-display";
-
-// TODO: use actual user data in backend
-function generateMockUserData() {
-	const randomId = Math.floor(Math.random() * 1000000000);
-	const gender = Math.random() < 0.5 ? "men" : "women";
-	const photoIndex = Math.floor(Math.random() * 50) + 1; // 1–50
-
-	return {
-		userId: `user_${randomId}`,
-		name: "John Doe",
-		email: "john.doe@example.com",
-		photoUrl: `https://randomuser.me/api/portraits/${gender}/${photoIndex}.jpg`,
-	};
-}
+import { authClient } from "@/infrastructure/auth/auth-client";
 
 export function QRCodeGenerator() {
+	const { data: session } = authClient.useSession();
 	const [qrGenerated, setQrGenerated] = useState(false);
 
 	const handleGenerateQR = async () => {
 		setQrGenerated(true);
 	};
+
+	if (!session) {
+		return (
+			<div className="flex h-full items-center justify-center">
+				<p className="text-muted-foreground">No session detected yet...</p>
+			</div>
+		);
+	}
 
 	return (
 		<div className="flex flex-col space-y-6">
@@ -45,7 +41,11 @@ export function QRCodeGenerator() {
 				<CardContent className="space-y-6">
 					<QRCodeDisplay
 						isGenerated={qrGenerated}
-						userData={generateMockUserData()}
+						userData={{
+							email: session.user.email,
+							name: session.user.name,
+							userId: session.user.id,
+						}}
 					/>
 
 					<div className="flex justify-center">

@@ -12,11 +12,15 @@ import { LOG_GROUPS, Logger } from "@/features/shared/lib/logger";
 import { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
 import SuccessCard from "@/features/qr-code/components/scanner/success-card";
 import type { ScanResult } from "@/features/qr-code/components/scanner/types/scan-result";
-import type { ConfirmationData } from "@/features/qr-code/components/scanner/types/confirmation-data";
+import {
+	VALID_TERMINAL_IDS,
+	type ConfirmationData,
+} from "@/features/qr-code/components/scanner/types/confirmation-data";
 import { QrCodeLogSchema } from "@/features/logs/types/qr-code-log";
+import { useClaimUserKit } from "./data/use-claim-user-kit";
+import { toast } from "sonner";
 
 export function QRScannerPage() {
-	// TODO: If this gets any larger, let's move this to a zustand store
 	const [scanResult, setScanResult] = useState<ScanResult | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [cameraReady, setCameraReady] = useState(false);
@@ -28,11 +32,13 @@ export function QRScannerPage() {
 	const [confirmationData, setConfirmationData] = useState<ConfirmationData>({
 		actionType: QRScanActionEnum.CHECK_IN,
 		event: "",
-		terminalId: "",
+		terminalId: VALID_TERMINAL_IDS[0],
 		kitClaiming: false,
 	});
 
 	const [isProcessing, setIsProcessing] = useState(false);
+
+	const mutation = useClaimUserKit();
 
 	// Check camera permissions on component mount
 	useEffect(() => {
@@ -108,6 +114,12 @@ export function QRScannerPage() {
 				context,
 			});
 
+			mutation.mutate({
+				userId: scanResult.decryptedData.userId,
+				hasClaimedKit: confirmationData.kitClaiming,
+			});
+
+			toast.success("Action processed successfully!");
 			setShowConfirmation(false);
 			setShowSuccess(true);
 			setScanResult(null);
@@ -121,8 +133,8 @@ export function QRScannerPage() {
 
 	const handleCancelScan = () => {
 		setShowConfirmation(false);
-		setScanResult(null);
 		setScannerActive(true);
+		setScanResult(null);
 		setConfirmationData((prev) => ({
 			actionType: QRScanActionEnum.CHECK_IN,
 			event: prev.event,
@@ -145,6 +157,14 @@ export function QRScannerPage() {
 
 	const handleUpdateConfirmationData = (data: Partial<ConfirmationData>) => {
 		setConfirmationData((prev) => ({ ...prev, ...data }));
+	};
+
+	const handleUpdateShowConfirmation = (isOpen: boolean) => {
+		if (!isOpen) {
+			handleCancelScan();
+		}
+
+		setShowConfirmation(isOpen);
 	};
 
 	return (
@@ -173,7 +193,7 @@ export function QRScannerPage() {
 
 				<ConfirmationSheet
 					open={showConfirmation}
-					onOpenChange={setShowConfirmation}
+					onOpenChange={handleUpdateShowConfirmation}
 					scanResult={scanResult}
 					confirmationData={confirmationData}
 					onUpdateData={handleUpdateConfirmationData}

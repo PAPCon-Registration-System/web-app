@@ -7,6 +7,9 @@ import { factory } from "../utils/factory";
 import type { UserRoleEnum } from "@/types/enums/UserRoleEnum";
 import { withRole } from "../middleware/with-role.middleware";
 import type { ServerErrorStatusCode } from "hono/utils/http-status";
+import db from "@/infrastructure/db";
+import { user } from "@/infrastructure/db/schema/auth.schema";
+import { eq } from "drizzle-orm";
 
 const routes = factory
 	.createApp()
@@ -112,6 +115,26 @@ const routes = factory
 
 			return c.json({
 				message: `Successfully seeded ${userInformation.length} users`,
+			});
+		},
+	)
+	.patch(
+		"kit-claim/:userId",
+		zValidator("param", z.object({ userId: z.string() })),
+		zValidator("json", z.object({ hasClaimedKit: z.boolean() })),
+		async (c) => {
+			const { userId } = c.req.valid("param");
+			const { hasClaimedKit } = c.req.valid("json");
+
+			await db
+				.update(user)
+				.set({
+					hasClaimedKit,
+				})
+				.where(eq(user.id, userId));
+
+			return c.json({
+				message: `Successfully updated user kit claim`,
 			});
 		},
 	);

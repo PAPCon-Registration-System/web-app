@@ -27,7 +27,7 @@ const auth = betterAuth({
 	},
 	plugins: [
 		magicLink({
-			disableSignUp: true,
+			// disableSignUp: true,
 			sendMagicLink: async ({ email, url }, _request) => {
 				try {
 					const magicLinkHtml = `
@@ -71,6 +71,14 @@ const auth = betterAuth({
 				required: true,
 				defaultValue: UserRoleEnumSchema.Enum.USER,
 				input: true,
+			},
+			hasClaimedKit: {
+				type: "boolean",
+				required: true,
+				// * Potential Better Auth bug: setting false here doesn't set
+				// a default value, so I made it a callback fn
+				defaultValue: () => false,
+				input: false,
 			},
 		},
 	},

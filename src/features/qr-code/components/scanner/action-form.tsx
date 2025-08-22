@@ -3,12 +3,17 @@ import { Label } from "@/features/shared/components/base/label";
 import {
 	Select,
 	SelectContent,
+	SelectGroup,
 	SelectItem,
+	SelectLabel,
 	SelectTrigger,
 	SelectValue,
 } from "@/features/shared/components/base/select";
 import { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
-import type { ConfirmationData } from "./types/confirmation-data";
+import {
+	VALID_TERMINAL_IDS,
+	type ConfirmationData,
+} from "./types/confirmation-data";
 
 interface ActionFormProps {
 	confirmationData: ConfirmationData;
@@ -72,12 +77,24 @@ export function ActionForm({
 
 			<div className="space-y-2">
 				<Label htmlFor="terminalId">Terminal ID</Label>
-				<Input
-					id="terminalId"
-					placeholder="Enter terminal ID"
+				<Select
 					value={confirmationData.terminalId}
-					onChange={(e) => onUpdateData({ terminalId: e.target.value })}
-				/>
+					onValueChange={(value) => onUpdateData({ terminalId: value })}
+				>
+					<SelectTrigger className="w-fit bg-card shadow-none">
+						<SelectValue placeholder="??" />
+					</SelectTrigger>
+					<SelectContent>
+						<SelectGroup>
+							<SelectLabel>Select a Terminal</SelectLabel>
+							{VALID_TERMINAL_IDS.map((tid) => (
+								<SelectItem key={`terminal-select__${tid}`} value={tid}>
+									{tid}
+								</SelectItem>
+							))}
+						</SelectGroup>
+					</SelectContent>
+				</Select>
 			</div>
 		</div>
 	);

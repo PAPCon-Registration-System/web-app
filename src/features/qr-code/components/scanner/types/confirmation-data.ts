@@ -9,3 +9,11 @@ export const ConfirmationDataSchema = z.object({
 });
 
 export type ConfirmationData = z.infer<typeof ConfirmationDataSchema>;
+
+export const VALID_TERMINAL_IDS: ConfirmationData["terminalId"][] = [
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+];

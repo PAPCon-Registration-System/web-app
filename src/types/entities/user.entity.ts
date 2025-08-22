@@ -7,7 +7,7 @@ export const UserEntitySchema = z.object({
 	firstName: z.string(),
 	middleName: z.string().optional(),
 	lastName: z.string(),
-	// TODO: Clarify if this is a URL
+	// * In case photoUrl is provided in pre-reg form
 	photoUrl: z.string().optional(),
 	role: z.string(),
 });
