@@ -3,6 +3,7 @@ import type { RequestIdVariables } from "hono/request-id";
 import type { Logger } from "@/features/shared/lib/logger";
 import type { Context as HonoContext } from "hono";
 import type { Server } from "socket.io";
+import type { AuthMiddlewareVariables } from "../middleware/auth.middleware";
 
 /**
  * If you're creating a new middleware that needs to attach a type to `c.var` or `c.env`, do it here.
@@ -11,7 +12,8 @@ type AppEnv = {
 	Variables: {
 		logger: Logger;
 		io: Server;
-	} & RequestIdVariables;
+	} & RequestIdVariables &
+		AuthMiddlewareVariables;
 };
 
 /**

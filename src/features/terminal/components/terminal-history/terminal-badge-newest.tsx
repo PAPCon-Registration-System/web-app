@@ -1,4 +1,3 @@
-import type { FullQrLog } from "../../page";
 import Image from "next/image";
 import {
 	Table,
@@ -6,6 +5,7 @@ import {
 	TableCell,
 	TableRow,
 } from "@/features/shared/components/base/table";
+import type { FullQrLog } from "../terminal-page";
 
 export function TerminalBadgeNewest({ log }: { log: FullQrLog }) {
 	const user = log.content.context.user;

@@ -4,10 +4,9 @@ import {
 	Home,
 	Inbox,
 	QrCode,
-	Search,
-	Settings,
 	UserPlus,
 	MonitorStop,
+	User,
 } from "lucide-react";
 
 import {
@@ -24,57 +23,85 @@ import {
 	SidebarRail,
 } from "@/features/shared/components/base/sidebar";
 import Link from "next/link";
+import { authClient } from "@/infrastructure/auth/auth-client";
+import { headers } from "next/headers";
+import { Avatar, AvatarFallback, AvatarImage } from "../components/base/avatar";
+import type { ExtendedSession } from "@/types/entities/session.entity";
+import {
+	type UserRoleEnum,
+	UserRoleEnumSchema,
+} from "@/types/enums/UserRoleEnum";
 
-// Menu items.
-const items = [
-	{
-		title: "Home",
-		url: "/",
-		icon: Home,
-	},
-	{
-		title: "Logs",
-		url: "/logs",
-		icon: Inbox,
-	},
-	{
-		title: "Registration",
-		url: "/registration",
-		icon: UserPlus,
-	},
-	{
-		title: "Terminal",
-		url: "/terminal",
-		icon: MonitorStop,
-	},
-	{
-		title: "QR Code",
-		url: "/qr-code",
-		icon: QrCode,
-	},
-	{
-		title: "QR Scanner",
-		url: "/qr-scan",
-		icon: QrCode,
-	},
-	{
-		title: "Event Schedule",
-		url: "#",
-		icon: Calendar,
-	},
-	{
-		title: "Search",
-		url: "#",
-		icon: Search,
-	},
-	{
-		title: "Settings",
-		url: "#",
-		icon: Settings,
-	},
-];
+// Menu items with role restrictions
+const getMenuItems = (userRole: UserRoleEnum) => {
+	const allItems = [
+		{
+			title: "Home",
+			url: "/",
+			icon: Home,
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
+		},
+		{
+			title: "Logs",
+			url: "/logs",
+			icon: Inbox,
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
+		},
+		{
+			title: "Registration",
+			url: "/registration",
+			icon: UserPlus,
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
+		},
+		{
+			title: "Terminal",
+			url: "/terminal",
+			icon: MonitorStop,
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
+		},
+		{
+			title: "QR Code",
+			url: "/qr-code",
+			icon: QrCode,
+			roles: [
+				UserRoleEnumSchema.Enum.USER,
+				UserRoleEnumSchema.Enum.STAFF,
+				UserRoleEnumSchema.Enum.ADMIN,
+			],
+		},
+		{
+			title: "QR Scanner",
+			url: "/qr-scan",
+			icon: QrCode,
+			roles: [UserRoleEnumSchema.Enum.STAFF, UserRoleEnumSchema.Enum.ADMIN],
+		},
+		{
+			title: "Event Schedule",
+			url: "#",
+			icon: Calendar,
+			roles: [
+				UserRoleEnumSchema.Enum.USER,
+				UserRoleEnumSchema.Enum.STAFF,
+				UserRoleEnumSchema.Enum.ADMIN,
+			],
+		},
+	];
 
-export function AppSidebar() {
+	return allItems.filter((item) => item.roles.includes(userRole));
+};
+
+export async function AppSidebar() {
+	const session = (await authClient.getSession({
+		fetchOptions: {
+			headers: await headers(),
+		},
+	})) as { data: ExtendedSession | null };
+
+	const userName = session.data?.user.name;
+	const userRole = session.data?.user.role as UserRoleEnum;
+
+	const menuItems = getMenuItems(userRole);
+
 	return (
 		<Sidebar collapsible="icon">
 			<SidebarHeader className="border-border border-r py-4">
@@ -101,7 +128,7 @@ export function AppSidebar() {
 					<SidebarGroupLabel>Navigation</SidebarGroupLabel>
 					<SidebarGroupContent>
 						<SidebarMenu>
-							{items.map((item) => (
+							{menuItems.map((item) => (
 								<SidebarMenuItem key={item.title}>
 									<SidebarMenuButton asChild tooltip={item.title}>
 										<Link href={item.url}>
@@ -120,9 +147,14 @@ export function AppSidebar() {
 					<SidebarMenuItem>
 						<SidebarMenuButton tooltip="User Account">
 							<div className="flex aspect-square size-4 items-center justify-center rounded-full bg-sidebar-accent">
-								<span className="font-medium text-xs">U</span>
+								<Avatar>
+									<AvatarImage src="/placeholder.svg?height=32&width=32" />
+									<AvatarFallback>
+										<User className="h-4 w-4" />
+									</AvatarFallback>
+								</Avatar>
 							</div>
-							<span>User Account</span>
+							<span>{userName}</span>
 						</SidebarMenuButton>
 					</SidebarMenuItem>
 				</SidebarMenu>

@@ -6,6 +6,7 @@ import { magicLink } from "better-auth/plugins/magic-link";
 import { Resend } from "resend";
 import { env } from "@/config/env.server";
 import { env as ENV_CLIENT } from "@/config/env.client";
+import { UserRoleEnumSchema } from "@/types/enums/UserRoleEnum";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
@@ -26,6 +27,7 @@ const auth = betterAuth({
 	},
 	plugins: [
 		magicLink({
+			disableSignUp: true,
 			sendMagicLink: async ({ email, url }, _request) => {
 				try {
 					const magicLinkHtml = `
@@ -62,7 +64,23 @@ const auth = betterAuth({
 			},
 		}),
 	],
+	user: {
+		additionalFields: {
+			role: {
+				type: "string",
+				required: true,
+				defaultValue: UserRoleEnumSchema.Enum.USER,
+				input: true,
+			},
+		},
+	},
 });
 
 export type Session = typeof auth.$Infer.Session;
+export type AuthInstance = ReturnType<typeof betterAuth>;
+export interface AuthSessionData {
+	user: Session["user"] | null;
+	session: Session["session"] | null;
+}
+
 export default { auth };

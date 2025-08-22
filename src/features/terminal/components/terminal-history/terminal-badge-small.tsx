@@ -1,5 +1,5 @@
-import type { FullQrLog } from "../../page";
 import Image from "next/image";
+import type { FullQrLog } from "../terminal-page";
 
 export function TerminalBadgeSmall({ log }: { log: FullQrLog }) {
 	const user = log.content.context.user;

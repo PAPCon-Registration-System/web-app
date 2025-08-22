@@ -1,6 +1,6 @@
-import { Bell, User } from "lucide-react";
+"use client";
+import { Bell, LogOut } from "lucide-react";
 import { Button } from "../components/base/button";
-import { Avatar, AvatarFallback, AvatarImage } from "../components/base/avatar";
 import { ModeToggle } from "../components/base/theme-toggle";
 import { SidebarTrigger } from "../components/base/sidebar";
 import { Separator } from "../components/base/separator";
@@ -10,8 +10,26 @@ import {
 	BreadcrumbList,
 	BreadcrumbPage,
 } from "../components/base/breadcrumb";
+import { authClient } from "@/infrastructure/auth/auth-client";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function Header() {
+	const router = useRouter();
+
+	const handleSignout = async () => {
+		await authClient.signOut({
+			fetchOptions: {
+				onError: ({ error }) => {
+					toast.error("Failed to log out", { description: error.message });
+				},
+				onSuccess: () => {
+					router.push("/auth");
+				},
+			},
+		});
+	};
+
 	return (
 		<header className="border-border border-b bg-card">
 			<div className="w-full px-4 py-4">
@@ -37,12 +55,9 @@ export function Header() {
 						<Button variant="ghost" size="icon">
 							<Bell className="h-5 w-5" />
 						</Button>
-						<Avatar>
-							<AvatarImage src="/placeholder.svg?height=32&width=32" />
-							<AvatarFallback>
-								<User className="h-4 w-4" />
-							</AvatarFallback>
-						</Avatar>
+						<Button variant="ghost" size="icon" onClick={handleSignout}>
+							<LogOut />
+						</Button>
 					</div>
 				</div>
 			</div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { TerminalSelect } from "./components/terminal-select";
+import { TerminalSelect } from "./terminal-select";
 import { useLogStream } from "@/features/logs/hooks/use-log-stream";
 import { LOG_GROUPS } from "@/features/shared/lib/logger";
 import { useMemo } from "react";
@@ -9,7 +9,7 @@ import { QRScanActionEnum } from "@/types/enums/QRScanActionEnum";
 import { LogIn, DoorOpen } from "lucide-react";
 import { useState } from "react";
 import type { ConfirmationData } from "@/features/qr-code/components/scanner/types/confirmation-data";
-import { TerminalHistory } from "./components/terminal-history";
+import { TerminalHistory } from "./terminal-history";
 
 // TODO: Make this match a predefined list of terminals or get it dynamically if they don't define a set amount of terminals.
 const VALID_TERMINAL_IDS: ConfirmationData["terminalId"][] = [
@@ -22,7 +22,7 @@ const VALID_TERMINAL_IDS: ConfirmationData["terminalId"][] = [
 
 export type FullQrLog = { content: { context: QrCodeLog; time: string } };
 
-export default function Page() {
+export function TerminalPage() {
 	const query = useMemo(() => ({ group: LOG_GROUPS.QR }), []);
 	const [terminal, setTerminal] = useState<ConfirmationData["terminalId"]>(
 		VALID_TERMINAL_IDS[0],
