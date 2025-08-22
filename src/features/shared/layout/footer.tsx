@@ -8,11 +8,6 @@ export function Footer() {
 						reserved.
 					</p>
 				</div>
-				<div className="flex items-center space-x-4 text-muted-foreground text-sm">
-					<p className="transition-colors hover:text-foreground">Privacy</p>
-					<p className="transition-colors hover:text-foreground">Terms</p>
-					<p className="transition-colors hover:text-foreground">Support</p>
-				</div>
 			</div>
 		</footer>
 	);

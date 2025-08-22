@@ -40,11 +40,11 @@ export function CameraStatusCard({
 					</div>
 
 					<div className="flex flex-col items-start justify-start gap-2 sm:flex-row sm:gap-4">
-						<div className="w-full rounded bg-accent p-2 px-4">
+						<div className="w-full p-2 px-4">
 							<p className="text-base text-muted-foreground">Event</p>
 							<p className="font-bold font-mono">{event || "Not Set"}</p>
 						</div>
-						<div className="w-full rounded bg-accent p-2 px-4">
+						<div className="w-full p-2 px-4">
 							<p className="text-base text-muted-foreground">
 								Terminal&nbsp;ID
 							</p>

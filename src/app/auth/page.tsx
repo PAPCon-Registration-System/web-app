@@ -67,12 +67,12 @@ export default function LoginPage() {
 
 	return (
 		<div className="flex min-h-screen items-center justify-center p-4">
-			<Card className="w-full max-w-md ">
+			<Card className="w-full max-w-md">
 				<CardHeader className="text-center">
 					<div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary">
 						<Mail className="h-6 w-6 text-white" />
 					</div>
-					<CardTitle className="text-white">Welcome back</CardTitle>
+					<CardTitle>Welcome back</CardTitle>
 					<CardDescription className="text-muted-foreground">
 						Enter your email to receive a magic link
 					</CardDescription>
@@ -90,7 +90,7 @@ export default function LoginPage() {
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 								required
-								className="border-input bg-input text-foreground placeholder-muted-foreground focus:border-ring focus:ring-ring"
+								className="bg-background text-foreground"
 							/>
 						</div>
 						<Button

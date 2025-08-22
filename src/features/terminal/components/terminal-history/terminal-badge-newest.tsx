@@ -18,7 +18,7 @@ export function TerminalBadgeNewest({ log }: { log: FullQrLog }) {
 
 	return (
 		<div className="flex">
-			<div className="flex w-full flex-wrap justify-center gap-4 rounded-md border bg-muted p-4">
+			<div className="flex w-full flex-wrap justify-center gap-4 rounded-md border bg-background p-4">
 				<Image
 					className="size-48 rounded-sm border"
 					width={500}
