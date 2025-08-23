@@ -34,7 +34,7 @@ export default function LoginPage() {
 
 		const { error } = await authClient.signIn.magicLink({
 			email,
-			callbackURL: `${env.NEXT_PUBLIC_BASE_URL}/qr-code`,
+			callbackURL: `${env.NEXT_PUBLIC_BASE_URL}/auth`,
 		});
 
 		if (error) {
