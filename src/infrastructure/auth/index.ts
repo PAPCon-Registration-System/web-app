@@ -14,6 +14,14 @@ const auth = betterAuth({
 	advanced: {
 		// FIXME: Insecure, but I can't get it to work otherwise without, see https://www.better-auth.com/docs/integrations/hono#cross-domain-cookies
 		useSecureCookies: false,
+		crossSubDomainCookies: {
+			enabled: true,
+			// Allow the cookie to be used on the main app domain
+			domain: ENV_CLIENT.NEXT_PUBLIC_BASE_URL.replace("http://", "").replace(
+				"https://",
+				"",
+			),
+		},
 		defaultCookieAttributes: {
 			sameSite: "none",
 			secure: false,
