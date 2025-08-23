@@ -99,10 +99,8 @@ const auth = betterAuth({
 			hasClaimedKit: {
 				type: "boolean",
 				required: true,
-				// * Potential Better Auth bug: setting false here doesn't set
-				// a default value, so I made it a callback fn
-				defaultValue: () => false,
-				input: false,
+				defaultValue: false,
+				input: true,
 			},
 		},
 	},

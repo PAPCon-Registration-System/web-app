@@ -26,6 +26,7 @@ const routes = factory
 				// Using string since zod enums get inferred as `unknown`,
 				// causing this parsing to break
 				role: z.string(),
+				hasClaimedKit: z.boolean().default(false),
 			}),
 		),
 		async (c) => {
@@ -37,6 +38,7 @@ const routes = factory
 						email: data.email,
 						name: `${data.firstName} ${data.middleName} ${data.lastName}`,
 						role: data.role as UserRoleEnum,
+						hasClaimedKit: data.hasClaimedKit,
 						password: generateRandomPassword(),
 					},
 				});
@@ -108,6 +110,7 @@ const routes = factory
 							name: user.name,
 							role: user.role,
 							password: generateRandomPassword(),
+							hasClaimedKit: false,
 						},
 					});
 				}),
