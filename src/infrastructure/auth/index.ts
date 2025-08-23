@@ -11,6 +11,15 @@ import { UserRoleEnumSchema } from "@/types/enums/UserRoleEnum";
 const resend = new Resend(env.RESEND_API_KEY);
 
 const auth = betterAuth({
+	advanced: {
+		// FIXME: Insecure, but I can't get it to work otherwise without, see https://www.better-auth.com/docs/integrations/hono#cross-domain-cookies
+		useSecureCookies: false,
+		defaultCookieAttributes: {
+			sameSite: "none",
+			secure: false,
+			partitioned: true,
+		},
+	},
 	trustedOrigins: [ENV_CLIENT.NEXT_PUBLIC_BASE_URL],
 	database: drizzleAdapter(db, {
 		provider: "pg",
