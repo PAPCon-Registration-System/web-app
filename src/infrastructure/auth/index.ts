@@ -32,6 +32,7 @@ const auth = betterAuth({
 			sameSite: isProd ? "none" : "lax",
 			secure: isProd,
 			partitioned: isProd,
+			domain: cookieDomain,
 		},
 	},
 	trustedOrigins: [ENV_CLIENT.NEXT_PUBLIC_BASE_URL],
