@@ -9,23 +9,28 @@ import { env as ENV_CLIENT } from "@/config/env.client";
 import { UserRoleEnumSchema } from "@/types/enums/UserRoleEnum";
 
 const resend = new Resend(env.RESEND_API_KEY);
+const isProd = ENV_CLIENT.NEXT_PUBLIC_BASE_URL.startsWith("https://");
+
+function getRootDomain(hostname: string) {
+	const parts = hostname.split(".");
+	return parts.length <= 2 ? `.${hostname}` : `.${parts.slice(-2).join(".")}`;
+}
+const hostname = ENV_CLIENT.NEXT_PUBLIC_BASE_URL.replace(
+	/^https?:\/\//,
+	"",
+).split("/")[0];
+const cookieDomain = isProd ? getRootDomain(hostname) : undefined;
 
 const auth = betterAuth({
 	advanced: {
-		// FIXME: Insecure, but I can't get it to work otherwise without, see https://www.better-auth.com/docs/integrations/hono#cross-domain-cookies
-		useSecureCookies: false,
+		useSecureCookies: isProd,
 		crossSubDomainCookies: {
-			enabled: true,
-			// Allow the cookie to be used on the main app domain
-			domain: ENV_CLIENT.NEXT_PUBLIC_BASE_URL.replace("http://", "").replace(
-				"https://",
-				"",
-			),
+			enabled: isProd,
+			domain: cookieDomain,
 		},
 		defaultCookieAttributes: {
-			sameSite: "none",
-			secure: false,
-			partitioned: true,
+			sameSite: isProd ? "none" : "lax",
+			secure: isProd,
 		},
 	},
 	trustedOrigins: [ENV_CLIENT.NEXT_PUBLIC_BASE_URL],
